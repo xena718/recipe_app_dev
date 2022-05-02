@@ -45,7 +45,7 @@ class Saved_Recipe(db.Model):
     user_id = = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
     def __repr__(self):
-        return f"recipe_in in saved recipe collection = {self.recipe_id}, user_id of the recipe collection = {self.user_id}"
+        return f"recipe id(s) in saved recipe collection = {self.recipe_id}, user id of the recipe collection = {self.user_id}"
 
 class Shopping_List(db.Model):
     """shopping list for added recipes"""
@@ -57,9 +57,19 @@ class Shopping_List(db.Model):
     user_id = = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
     def __repr__(self):
-        return f"recipe_in in a shopping list = {self.recipe_id}, user_id of the shoping list = {self.user_id}"
+        return f"recipe id(s) in a shopping list = {self.recipe_id}, user id of the shoping list = {self.user_id}"
 
+class Recipe_Direction(db.Model):
+    """recipe direction/step"""
+    
+    ___tablename___ = "recipe_directions"
 
+    direction_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+    step_number = db.Column(db.Integer, nullable=False)
+    step_guidance = db.Column(db.Text, nullable=False)
 
+    def __repr__(self):
+        return f"Cooking directions for recipe id = {self.recipe_id}, step number = {self.step_number}, step guidance = {self.step_guidance}"
 
 
