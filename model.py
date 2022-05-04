@@ -16,6 +16,11 @@ class User(db.Model):
     user_name = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
+    shopping_list = db.relationship("Shopping_List", backref="user")
+    save_recipe = db.relationship("Saved_Recipe", backref="user")
+    recipe = db.relationship("Recipe", backref="user")
+
+
     def __repr__(self):
         return f"user_id = {self.user_id}, email = {self.email}, user_name = {self.user_name}"
 
@@ -35,6 +40,8 @@ class Recipe(db.Modle):
     cook_time = db.Column(db.String, nullable=False)
     note = db.Column(db.Text, nullable=True)
 
+    # recipe = db.relationship("Recipe", backref="user")
+
     def __repr__(self):
         return f"recipe title = {self.title}, recipe author = {self.author}"
     
@@ -47,6 +54,8 @@ class Saved_Recipe(db.Model):
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     user_id = = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
+    # save_recipe = db.relationship("Saved_Recipe", backref="user")
+
     def __repr__(self):
         return f"recipe id(s) in saved recipe collection = {self.recipe_id}, user id of the recipe collection = {self.user_id}"
 
@@ -58,6 +67,8 @@ class Shopping_List(db.Model):
     shopping_list_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     user_id = = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+    # shopping_list = db.relationship("Shopping_List", backref="user")
 
     def __repr__(self):
         return f"recipe id(s) in a shopping list = {self.recipe_id}, user id of the shoping list = {self.user_id}"
