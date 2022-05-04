@@ -16,9 +16,11 @@ class User(db.Model):
     user_name = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    shopping_list = db.relationship("Shopping_List", backref="user")
-    save_recipe = db.relationship("Saved_Recipe", backref="user")
-    recipe = db.relationship("Recipe", backref="user")
+    shopping_list = db.relationship("Shopping_List", backref="user") #one to one relationship
+    saved_recipe = db.relationship("Saved_Recipe", backref="user")
+    # saved recipe is a collection of recipe. one to one relationship. one user has one collection
+    recipes = db.relationship("Recipe", backref="user")
+    #one user has multiple recipes (created by users). one to many relationships
 
 
     def __repr__(self):
@@ -40,7 +42,10 @@ class Recipe(db.Modle):
     cook_time = db.Column(db.String, nullable=False)
     note = db.Column(db.Text, nullable=True)
 
-    # recipe = db.relationship("Recipe", backref="user")
+    # recipes = db.relationship("Recipe", backref="user")
+    # recipe = db.relationship("Recipe", backref="recipe_direction")
+    # recipe = db.relationship("Recipe", backref="recipe_category")
+
 
     def __repr__(self):
         return f"recipe title = {self.title}, recipe author = {self.author}"
@@ -82,6 +87,9 @@ class Recipe_Direction(db.Model):
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     step_number = db.Column(db.Integer, nullable=False)
     step_guidance = db.Column(db.Text, nullable=False)
+
+    recipe = db.relationship("Recipe", backref="recipe_direction")
+    #one recipe has one recipe_direction (though each direction has many steps)
 
     def __repr__(self):
         return f"Cooking directions for recipe id = {self.recipe_id}, step number = {self.step_number}, step guidance = {self.step_guidance}"
@@ -150,6 +158,14 @@ class Recipe_Category (db.Model):
     cuisine_id = db.Column(db.Integer, db.ForeignKey("cuisines.cuisine_id"))
     specialdiet_id = db.Column(db.Integer, db.ForeignKey("specialdiets.specialdiet_id"))
 
+    recipe = db.relationship("Recipe", backref="recipe_category")
+    #one recipe has one recipe_category (though each recipe_category has course category, cuisine category, specialdiet category)
+    
+    # recipe_category = db.relationship("Recipe_Category", backref="courses")
+    # recipe_category = db.relationship("Recipe_Category", backref="cuisine")
+    # recipe_category = db.relationship("Recipe_Category", backref="specialdiets")
+
+
     def __repr__(self):
         return f"recipe id = {self.recipe_id}, course id = {self.course_id}"
 
@@ -160,6 +176,11 @@ class Course (db.Model):
 
     course_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
+
+    recipe_category = db.relationship("Recipe_Category", backref="courses")
+    #one recipe may have multiple courses (lunch, main dish).
+    #I felt my data modle for Course, Recipe_Category, Recipe may not be the best.
+
 
     def __repr__(self):
         return f"course id = {self.course_id}, course name = {self.name}"
@@ -172,6 +193,9 @@ class Cuisine (db.Model):
     cuisine_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
 
+    recipe_category = db.relationship("Recipe_Category", backref="cuisine")
+    #one to one relationship. For recipes that has multiple cuisine types, I will select food fusion (one of the cuisine type)
+
     def __repr__(self):
         return f"cuisine id = {self.cuisine_id}, cuisine name = {self.name}"
 
@@ -182,6 +206,9 @@ class SpecialDiet (db.Model):
 
     specialdiet_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
+
+    recipe_category = db.relationship("Recipe_Category", backref="specialdiets")
+    # one to many relationship.not sure this model is good. see comments for Courses.
 
     def __repr__(self):
         return f"specialdiet id = {self.specialdiet_id}, specialdiet name = {self.name}"
