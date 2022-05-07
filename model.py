@@ -28,10 +28,9 @@ class User(db.Model):
 
     user_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     email = db.Column(db.String, unique=True, nullable=False)
-    user_name = db.Column(db.String, unique=True, nullable=False)
+    name = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    saved_recipe = db.relationship("Saved_Recipe", backref="user")
     recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
     #one user can have multiple saved recipes. One recipe can be saved by multiple users.
     #saved_recipes: it is an association table between users and saved recipes.
@@ -41,7 +40,7 @@ class User(db.Model):
 
 
     def __repr__(self):
-        return f"user_id = {self.user_id}, email = {self.email}, user_name = {self.user_name}"
+        return f"user_id = {self.user_id}, email = {self.email}, user name = {self.name}"
 
 class Recipe(db.Model):
     """A recipe"""
@@ -52,7 +51,7 @@ class Recipe(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     title = db.Column(db.String(50), nullable=False)
     author = db.Column(db.String, nullable=False)
-    description_about = db.Column(db.Text, nullable=True)
+    description = db.Column(db.Text, nullable=True)
     photo_url = db.Column(db.String, nullable=False)
     servings = db.Column(db.Integer, nullable=False)
     prep_time = db.Column(db.String, nullable=False)
@@ -108,19 +107,19 @@ class Recipe_Ingredient(db.Model):
     """
     ingredient for recipe.
     association table between recipe and ingredients.
-    association table between recipe and unit_of_measurement
+    establish relationship between recipe and unit_of_measurement
     """
 
     __tablename__ = "recipes_ingredients"
 
     recipe_ingredient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
-    ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.id"))
+    ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.ingredient_id"))
     quantity = db.Column(db.Integer, nullable=False)
-    unit_of_measurement_id = db.Column(db.Integer, db.ForeignKey("units_of_measurement.id"))
+    quantity_unit_id = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
     
     # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="ingredients")
-    # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="units_of_measurement")
+    # recipe_ingredient = db.relationship("Recipe_Ingredient", backref="quantity_units")
 
     def __repr__(self):
         return f"ingredients for recipe id = {self.recipe_id}, ingredient id = {self.ingredient_id}"
@@ -155,16 +154,16 @@ class Ingredient (db.Model):
     def __repr__(self):
         return f"ingredient id = {self.ingredient_id}, ingredient name = {self.name}, ingredient category = {self.category}"
 
-class Unit_of_Measurement(db.Model):
+class Quantity_Unit(db.Model):
     """ unit of measurement """
 
-    __tablename__ = 'units_of_measurement'
+    __tablename__ = 'quantity_units'
 
-    unit_of_measurement_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    unit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     unit_fullname = db.Column(db.String, nullable=False)
     unit_abbrev = db.Column(db.String, nullable=True)
 
-    recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="units_of_measurement")
+    recipe_ingredient = db.relationship("Recipe_Ingredient", backref="quantity_units")
 
     def __repr__(self):
         return f"unit full name = {self.unit_fullname}, unit abbreviation = {self.unit_abbrev}"
