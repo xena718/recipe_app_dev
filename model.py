@@ -6,6 +6,21 @@ from sqlalchemy import Enum
 
 db = SQLAlchemy()
 
+class Saved_Recipe(db.Model):
+    """An association between users and saved recipes"""
+    #one user can have multiple saved recipes. One recipe can be saved by multiple users.
+
+    __tablename__ = "saved_recipes"
+
+    saved_recipes_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+
+    # recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
+
+    def __repr__(self):
+        return f"recipe id(s) in saved recipe collection = {self.recipe_id}, user id of the recipe collection = {self.user_id}"
+
 class User(db.Model):
     """A user."""
 
@@ -16,17 +31,19 @@ class User(db.Model):
     user_name = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
 
-    shopping_list = db.relationship("Shopping_List", backref="user") #one to one relationship
     saved_recipe = db.relationship("Saved_Recipe", backref="user")
-    # saved recipe is a collection of recipe. one to one relationship. one user has one collection
-    recipes = db.relationship("Recipe", backref="user")
-    #one user has multiple recipes (created by users). one to many relationships
+    recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
+    #one user can have multiple saved recipes. One recipe can be saved by multiple users.
+    #saved_recipes: it is an association table between users and saved recipes.
+
+    recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="users")
+    #shopping_recipes: it is an association table between users and recipes for shopping.
 
 
     def __repr__(self):
         return f"user_id = {self.user_id}, email = {self.email}, user_name = {self.user_name}"
 
-class Recipe(db.Modle):
+class Recipe(db.Model):
     """A recipe"""
 
     __tablename__ = "recipes"
@@ -40,40 +57,33 @@ class Recipe(db.Modle):
     servings = db.Column(db.Integer, nullable=False)
     prep_time = db.Column(db.String, nullable=False)
     cook_time = db.Column(db.String, nullable=False)
+    cuisine_id = db.Column(db.Integer, db.ForeignKey("cuisines.cuisine_id"))
     note = db.Column(db.Text, nullable=True)
 
     # recipes = db.relationship("Recipe", backref="user")
-    # recipe = db.relationship("Recipe", backref="recipe_direction")
-    # recipe = db.relationship("Recipe", backref="recipe_category")
+    # recipe = db.relationship("Recipe", backref="recipe_directions")
+    # recipes = db.relationship("Recipe", secondary = "recipes_courses", backref="courses")
+    # recipes = db.relationship("Recipe", backref="cuisine")
+    # recipes = db.relationship("Recipe", secondary = "recipes_specialdiets", backref="specialdiets")
+
+    # recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
+    # recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="users")
 
 
     def __repr__(self):
         return f"recipe title = {self.title}, recipe author = {self.author}"
     
-class Saved_Recipe(db.Model):
-    """A collection of saved recipe"""
 
-    __tablename__ = "saved_recipes"
+class Shopping_Recipe (db.Model):
+    """An association table for users and recipes added to shopping list"""
 
-    saved_recipes_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    __tablename__ = "shopping_recipes"
+
+    shopping_recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
-    user_id = = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
-    # save_recipe = db.relationship("Saved_Recipe", backref="user")
-
-    def __repr__(self):
-        return f"recipe id(s) in saved recipe collection = {self.recipe_id}, user id of the recipe collection = {self.user_id}"
-
-class Shopping_List(db.Model):
-    """shopping list for added recipes"""
-
-    __tablename__ = "shopping_lists"
-
-    shopping_list_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
-    user_id = = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-
-    # shopping_list = db.relationship("Shopping_List", backref="user")
+    # recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="users")
 
     def __repr__(self):
         return f"recipe id(s) in a shopping list = {self.recipe_id}, user id of the shoping list = {self.user_id}"
@@ -88,22 +98,29 @@ class Recipe_Direction(db.Model):
     step_number = db.Column(db.Integer, nullable=False)
     step_guidance = db.Column(db.Text, nullable=False)
 
-    recipe = db.relationship("Recipe", backref="recipe_direction")
-    #one recipe has one recipe_direction (though each direction has many steps)
+    recipe = db.relationship("Recipe", backref="recipe_directions")
+    #each direction has many steps. one to many relationship
 
     def __repr__(self):
         return f"Cooking directions for recipe id = {self.recipe_id}, step number = {self.step_number}, step guidance = {self.step_guidance}"
 
 class Recipe_Ingredient(db.Model):
-    """ingredient for recipe"""
+    """
+    ingredient for recipe.
+    association table between recipe and ingredients.
+    association table between recipe and unit_of_measurement
+    """
 
-    __tablename__ = "recipe_ingredients"
+    __tablename__ = "recipes_ingredients"
 
     recipe_ingredient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.id"))
     quantity = db.Column(db.Integer, nullable=False)
     unit_of_measurement_id = db.Column(db.Integer, db.ForeignKey("units_of_measurement.id"))
+    
+    # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="ingredients")
+    # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="units_of_measurement")
 
     def __repr__(self):
         return f"ingredients for recipe id = {self.recipe_id}, ingredient id = {self.ingredient_id}"
@@ -132,6 +149,9 @@ class Ingredient (db.Model):
     name = db.Column(db.String, nullable=False)
     category = db.Column(Enum(Ingredient_Category), nullable=False)
 
+    recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="ingredients")
+
+
     def __repr__(self):
         return f"ingredient id = {self.ingredient_id}, ingredient name = {self.name}, ingredient category = {self.category}"
 
@@ -144,71 +164,104 @@ class Unit_of_Measurement(db.Model):
     unit_fullname = db.Column(db.String, nullable=False)
     unit_abbrev = db.Column(db.String, nullable=True)
 
+    recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="units_of_measurement")
+
     def __repr__(self):
         return f"unit full name = {self.unit_fullname}, unit abbreviation = {self.unit_abbrev}"
 
-class Recipe_Category (db.Model):
-    """ recipe category """
+class Recipe_Course (db.Model):
+    """ an association table between recipe and course """
 
-    __tablename__ = "recipe_categories"
+    __tablename__ = "recipes_courses"
 
-    recipe_category_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
-    course_id = db.Column(db.Integer, db.ForeignKey("courses.course_id"))
-    cuisine_id = db.Column(db.Integer, db.ForeignKey("cuisines.cuisine_id"))
-    specialdiet_id = db.Column(db.Integer, db.ForeignKey("specialdiets.specialdiet_id"))
+    recipe_course_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
+    recipe_id =db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+    course_id =db.Column(db.Integer, db.ForeignKey("courses.course_id"))
 
-    recipe = db.relationship("Recipe", backref="recipe_category")
-    #one recipe has one recipe_category (though each recipe_category has course category, cuisine category, specialdiet category)
-    
-    # recipe_category = db.relationship("Recipe_Category", backref="courses")
-    # recipe_category = db.relationship("Recipe_Category", backref="cuisine")
-    # recipe_category = db.relationship("Recipe_Category", backref="specialdiets")
+    # recipes = db.relationship("Recipe", secondary = "recipes_courses", backref="courses")
 
 
     def __repr__(self):
         return f"recipe id = {self.recipe_id}, course id = {self.course_id}"
 
 class Course (db.Model):
-    """ recipe category """
+    """course """
 
     __tablename__ = "courses"
 
-    course_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    course_id = db.Column(db.Integer, primary_key=True,autoincrement=True)
     name = db.Column(db.String, nullable=False)
 
-    recipe_category = db.relationship("Recipe_Category", backref="courses")
-    #one recipe may have multiple courses (lunch, main dish).
-    #I felt my data modle for Course, Recipe_Category, Recipe may not be the best.
+    recipes = db.relationship("Recipe", secondary = "recipes_courses", backref="courses")
+    #recipe and course has many-many relationship. An association table was created.
 
 
     def __repr__(self):
         return f"course id = {self.course_id}, course name = {self.name}"
 
 class Cuisine (db.Model):
-    """ recipe category """
+    """ 
+    cuisine type. 
+    One recipe has one type of cuisine. 
+    one cuisine may belong to many recipes. 
+    Because I said so. 
+    For recipes that has multiple cuisine types, I will select food fusion (one of the cuisine type)
+    """
 
     __tablename__ = "cuisines"
 
     cuisine_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
 
-    recipe_category = db.relationship("Recipe_Category", backref="cuisine")
-    #one to one relationship. For recipes that has multiple cuisine types, I will select food fusion (one of the cuisine type)
+    recipes = db.relationship("Recipe", backref="cuisine")
 
     def __repr__(self):
         return f"cuisine id = {self.cuisine_id}, cuisine name = {self.name}"
 
+class Recipe_Specialdiet (db.Model):
+    """ an association table between recipe and specialdiet """
+
+    __tablename__ = "recipes_specialdiets"
+
+    recipe_specialdiet_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    recipe_id =db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+    specialdiet_id = db.Column(db.Integer, db.ForeignKey("specialdiets.specialdiet_id"))
+
+    # recipes = db.relationship("Recipe", secondary = "recipes_specialdiets", backref="specialdiets")
+
+    def __repr__(self):
+        return f"recipe id = {self.recipe_id}, specialdiet id = {self.specialdiet_id}"
 class SpecialDiet (db.Model):
-    """ recipe category """
+    """ type of specialdiet """
 
     __tablename__ = "specialdiets"
 
+    
     specialdiet_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String, nullable=False)
 
-    recipe_category = db.relationship("Recipe_Category", backref="specialdiets")
-    # one to many relationship.not sure this model is good. see comments for Courses.
+    recipes = db.relationship("Recipe", secondary = "recipes_specialdiets", backref="specialdiets")
 
     def __repr__(self):
         return f"specialdiet id = {self.specialdiet_id}, specialdiet name = {self.name}"
+    
+
+def connect_to_db(flask_app, db_uri="postgresql:///joyrecipes", echo=True):
+    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
+    flask_app.config["SQLALCHEMY_ECHO"] = echo
+    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+    db.app = flask_app
+    db.init_app(flask_app)
+
+    print("Connected to the db!")
+
+
+if __name__ == "__main__":
+    from server import app
+
+    # Call connect_to_db(app, echo=False) if your program output gets
+    # too annoying; this will tell SQLAlchemy not to print out every
+    # query it executes.
+
+    connect_to_db(app)
