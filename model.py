@@ -18,8 +18,19 @@ class Saved_Recipe(db.Model):
 
     # recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
 
+class Created_Recipe(db.Model):
+    """An association between users and created recipes"""
+    #one user can have multiple created recipes. One recipe can be be created by one user.
+
+    __tablename__ = "created_recipes"
+
+    created_recipes_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+
     def __repr__(self):
-        return f"recipe id(s) in saved recipe collection = {self.recipe_id}, user id of the recipe collection = {self.user_id}"
+        return f"recipe id(s) in created recipe collection = {self.recipe_id}, user id of the recipe = {self.user_id}"
 
 class User(db.Model):
     """A user."""
@@ -37,6 +48,7 @@ class User(db.Model):
 
     recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="users")
     #shopping_recipes: it is an association table between users and recipes for shopping.
+    recipes = db.relationship("Recipe", secondary = "created_recipes", backref="user")
 
 
     def __repr__(self):
@@ -48,7 +60,7 @@ class Recipe(db.Model):
     __tablename__ = "recipes"
 
     recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    # user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     title = db.Column(db.String(50), nullable=False)
     author = db.Column(db.String, nullable=False)
     description = db.Column(db.Text, nullable=True)
@@ -67,6 +79,7 @@ class Recipe(db.Model):
 
     # recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
     # recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="users")
+    # recipes = db.relationship("Recipe", secondary = "created_recipes", backref="user")
 
 
     def __repr__(self):
@@ -120,7 +133,6 @@ class Recipe_Ingredient(db.Model):
     #quantity is an empty string to deal with situations where quantity is not needed. e.g. salt
     quantity_unit_id = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
     
-    # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="ingredients")
     # recipe_ingredient = db.relationship("Recipe_Ingredient", backref="quantity_units")
 
     def __repr__(self):

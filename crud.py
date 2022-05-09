@@ -1,6 +1,6 @@
 """CRUD operations"""
 
-from model import (db, connect_to_db, Saved_Recipe, User, Recipe, Shopping_Recipe, 
+from model import (db, connect_to_db, Saved_Recipe, Created_Recipe, User, Recipe, Shopping_Recipe, 
     Recipe_Direction, Recipe_Ingredient, Ingredient_Category, Ingredient, 
     Quantity_Unit,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, Specialdiet)
 
@@ -17,13 +17,13 @@ def get_user_by_name(name):
     return User.query.filter(User.name == name).first()
 
 def create_recipe(
-        user, title, description, photo_url, servings, 
+        title, author, description, photo_url, servings, 
         prep_time, cook_time, cuisine, note):
     """Create and return a new recipe."""
     #the argument lines need 4 spaces (an extra level of indentation) to distinguish arguments from the rest
-    #user and cuisine are instances.
+    #cuisine: instance.
 
-    recipe = Recipe(user=user, title=title, description=description, 
+    recipe = Recipe(title=title, author = author, description=description, 
             photo_url=photo_url, servings=servings, prep_time=prep_time,
             cook_time=cook_time, cuisine=cuisine, note=note)
     
@@ -36,6 +36,14 @@ def create_saved_recipe(user, recipe):
     saved_recipe = Saved_Recipe(user=user, recipe=recipe)
     
     return saved_recipe
+
+def create_created_recipe(user, recipe):
+    """create and return a created recipe record by a user"""
+    #user and recipe are instances.
+
+    created_recipe = Created_Recipe(user=user, recipe=recipe)
+    
+    return created_recipe
 
 def create_shopping_recipe(user, recipe):
     """create and return a recipe by a user for shopping"""
@@ -75,7 +83,7 @@ def get_quantity_unit_by_unit_fullname (unit_fullname):
     """return a quantity_unit instance by unit_fullname"""
     return Quantity_Unit.query.filter(Quantity_Unit.unit_fullname == unit_fullname)
 
-def recipe_ingredient(recipe, ingredient, quantity, quantity_unit):
+def create_recipe_ingredient(recipe, ingredient, quantity, quantity_unit):
     """create an ingredient entry for a recipe"""
     #recipe, ingredient, quantity_unit are instances.
 

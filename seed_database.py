@@ -75,8 +75,9 @@ with open("data/recipes.json") as f:
 # recipes_in_db =[] 
 
 for recipe in recipe_data:
-    title, description, photo_url, servings, prep_time, cook_time, recipe_directions, recipe_ingredients, recipe_cuisine, recipe_course, recipe_specialdiet, note = (
+    title, author, description, photo_url, servings, prep_time, cook_time, recipe_directions, recipe_ingredients, recipe_cuisine, recipe_course, recipe_specialdiet, note = (
         recipe["title"],
+        recipe["author"],
         recipe.get("description",""), 
         recipe["photo_url"],
         recipe["servings"],
@@ -89,11 +90,11 @@ for recipe in recipe_data:
         recipe["recipe_specialdiet"],
         recipe.get("note","")
     )
-    user = crud.get_user_by_name("cr")
+    # user = crud.get_user_by_name("cr")
     cuisine = crud.get_cuisine_by_name(recipe_cuisine)
 
     db_recipe = crud.create_recipe(
-        user, title, description, photo_url, servings, 
+        title, author, description, photo_url, servings, 
         prep_time, cook_time, cuisine, note)
 
     model.db.session.add(db_recipe)
@@ -105,7 +106,7 @@ for recipe in recipe_data:
     for key, step_guidance in recipe_directions.items():
         step_number = int(key)
         db_recipe_direction = crud.create_recipe_direction(db_recipe, step_number, step_guidance)
-        model.db.session.add(db_recipe_guidance)
+        model.db.session.add(db_recipe_direction)
         model.db.session.commit()
 
     # recipe_ingredients is a list of dict.
@@ -127,9 +128,10 @@ for recipe in recipe_data:
     for recipe_ingredient in recipe_ingredients:
         quantity = recipe_ingredient["quantity"] 
         name = recipe_ingredient["name"]
+        # recipe = db_recipe
         ingredient = crud.get_ingredient_by_name(name) 
         unit_fullname = recipe_ingredient["quantity_unit_fullname"]
-        get_quantity_unit_by_unit_fullname(unit_fullname)
+        quantity_unit = crud.get_quantity_unit_by_unit_fullname(unit_fullname)
         # recipe, ingredient, quantity_unit are instances.
         db_recipe_ingredient = crud.create_recipe_ingredient(db_recipe, ingredient, quantity, quantity_unit)
         recipe_ingredients_in_db.append(db_recipe_ingredient)
