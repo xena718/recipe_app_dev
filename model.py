@@ -115,7 +115,9 @@ class Recipe_Ingredient(db.Model):
     recipe_ingredient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.ingredient_id"))
-    quantity = db.Column(db.Integer, nullable=False)
+    quantity = db.Column(db.String, nullable=False) 
+    #quantity in string in order to deal with 2/3 in recipe json file
+    #quantity is an empty string to deal with situations where quantity is not needed. e.g. salt
     quantity_unit_id = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
     
     # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="ingredients")
@@ -161,6 +163,7 @@ class Quantity_Unit(db.Model):
 
     unit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     unit_fullname = db.Column(db.String, nullable=False)
+    #for no unit situation, it will be an empty string.
     unit_abbrev = db.Column(db.String, nullable=True)
 
     recipe_ingredient = db.relationship("Recipe_Ingredient", backref="quantity_units")

@@ -1,7 +1,8 @@
 """CRUD operations"""
-from model import db, connect_to_db, Saved_Recipe, User, Recipe, Shopping_Recipe 
-from model import Recipe_Direction, Recipe_Ingredient, Ingredient_Category, Ingredient 
-from model import Quantity_Unit,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, SpecialDiet
+
+from model import (db, connect_to_db, Saved_Recipe, User, Recipe, Shopping_Recipe, 
+    Recipe_Direction, Recipe_Ingredient, Ingredient_Category, Ingredient, 
+    Quantity_Unit,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, SpecialDiet)
 
 def create_user(email, name, password):
     """Create and return a new user."""
@@ -9,6 +10,11 @@ def create_user(email, name, password):
     user = User(email=email, name=name, password=password)
 
     return user
+
+def get_user_by_name(name):
+    """return user (instance) by name."""
+
+    return User.query.filter(User.name == name).first()
 
 def create_recipe(
         user, title, description, photo_url, servings, 
@@ -81,6 +87,10 @@ def create_cuisine(name):
     cuisine = Cuisine(name=name)
     return cuisine
 
+def get_cuisine_by_name(name):
+    """return a cuisine instance by cuisine name"""
+    return Cuisine.query.filter(Cuisine.name == name).first()
+
 def create_specialdiet(name):
     """create a specialdiet"""
     specialdiet = Specialdiet(name=name)
@@ -91,8 +101,6 @@ def create_recipe_course(recipe, course):
     #recipe and courses are instances
     recipe_course = Recipe_Course(recipe=recipe, course=course)
     return recipe_course
-
-
 
 
 
