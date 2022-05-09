@@ -2,7 +2,7 @@
 
 from model import (db, connect_to_db, Saved_Recipe, User, Recipe, Shopping_Recipe, 
     Recipe_Direction, Recipe_Ingredient, Ingredient_Category, Ingredient, 
-    Quantity_Unit,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, SpecialDiet)
+    Quantity_Unit,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, Specialdiet)
 
 def create_user(email, name, password):
     """Create and return a new user."""
@@ -60,14 +60,20 @@ def create_ingredient(name, category):
     ingredient = Ingredient(name=name, category=category)
 
     return ingredient
+def get_ingredient_by_name(name):
+    """return ingredient instance by name"""
+    return Ingredient.query.filter(Ingredient.name == name).first()
 
-def create_quantity_unit (unit_fullname, unit_abbrev):
-    """create and return ingredient"""
-    #category is from Enum list. how to use it?
+def create_quantity_unit (unit_fullname, unit_fullname_plural, unit_abbrev):
+    """create and return quantity_unit"""
 
-    quantity_unit = Quantity_Unit(unit_fullname=unit_fullname, unit_abbrev=unit_abbrev)
+    quantity_unit = Quantity_Unit(unit_fullname=unit_fullname, unit_fullname_plural = unit_fullname_plural, unit_abbrev=unit_abbrev)
 
     return quantity_unit
+
+def get_quantity_unit_by_unit_fullname (unit_fullname):
+    """return a quantity_unit instance by unit_fullname"""
+    return Quantity_Unit.query.filter(Quantity_Unit.unit_fullname == unit_fullname)
 
 def recipe_ingredient(recipe, ingredient, quantity, quantity_unit):
     """create an ingredient entry for a recipe"""

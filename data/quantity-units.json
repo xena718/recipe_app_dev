@@ -1,0 +1,11 @@
+[
+{"cup":{"unit_fullname_plural":"cups", "abbreviation":["C","c"]}},
+{"gram":{"unit_fullname_plural":"grams", "abbreviation":["cg"]}},
+{"kilogram":{"unit_fullname_plural":"kilograms", "abbreviation":["kg"]}},   
+{"pound":{"unit_fullname_plural":"pounds", "abbreviation":["LB","lb"]}},
+{"milliliter":{"unit_fullname_plural":"milliliters", "abbreviation":["ml","mL"]}},
+{"ounce":{"unit_fullname_plural":"ounces", "abbreviation":["oz","OZ"]}},
+{"pint":{"unit_fullname_plural":"pints", "abbreviation":["pt"]}},
+{"teaspoon":{"unit_fullname_plural":"teaspoons", "abbreviation":["t", "tsp"]}},
+{"tablespoon":{"unit_fullname_plural":"tablespoons", "abbreviation":["T", "TB", "Tbl", "Tbsp"]}}
+]

@@ -163,6 +163,8 @@ class Quantity_Unit(db.Model):
 
     unit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     unit_fullname = db.Column(db.String, nullable=False)
+    unit_fullname_plural = db.Column(db.String, nullable=True)
+
     #for no unit situation, it will be an empty string.
     unit_abbrev = db.Column(db.String, nullable=True)
 
@@ -233,7 +235,7 @@ class Recipe_Specialdiet (db.Model):
 
     def __repr__(self):
         return f"recipe id = {self.recipe_id}, specialdiet id = {self.specialdiet_id}"
-class SpecialDiet (db.Model):
+class Specialdiet (db.Model):
     """ type of specialdiet """
 
     __tablename__ = "specialdiets"
