@@ -126,12 +126,94 @@ class Recipe_Ingredient(db.Model):
 
     recipe_ingredient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
-    ingredient = db.Column(db.Text, nullable=False)
+    ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.ingredient_id"))
+    quantity = db.Column(db.String, nullable=False) 
+    #quantity in string in order to deal with 2/3 in recipe json file
+    #quantity is an empty string to deal with situations where quantity is not needed. e.g. salt
+    quantity_unit_id = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
     
     recipe = db.relationship("Recipe", backref="recipe_ingredients")
 
+    # recipes = db.relationship("Recipe", backref="recipes_ingredients")
+    # ingredients = db.relationship("Ingredient", backref="recipes_ingredients")
+    # recipe_ingredient = db.relationship("Recipe_Ingredient", backref="quantity_units")
+
     def __repr__(self):
-        return f"ingredients for recipe id = {self.recipe_id}"
+        return f"ingredients for recipe id = {self.recipe_id}, ingredient id = {self.ingredient_id}"
+
+# class Recipe_Ingredient(db.Model):
+#     """
+#     ingredient for recipe.
+#     Middle table between recipe and ingredients.
+#     establish relationship between recipe and unit_of_measurement
+#     """
+
+#     __tablename__ = "recipes_ingredients"
+
+#     recipe_ingredient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+#     ingredient_id = db.Column(db.Integer, db.ForeignKey("ingredients.ingredient_id"))
+#     quantity = db.Column(db.String, nullable=False) 
+#     #quantity in string in order to deal with 2/3 in recipe json file
+#     #quantity is an empty string to deal with situations where quantity is not needed. e.g. salt
+#     quantity_unit_id = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
+    
+#     recipes = db.relationship("Recipe", backref="recipes_ingredients")
+#     ingredients = db.relationship("Ingredient", backref="recipes_ingredients")
+#     # recipe_ingredient = db.relationship("Recipe_Ingredient", backref="quantity_units")
+
+#     def __repr__(self):
+#         return f"ingredients for recipe id = {self.recipe_id}, ingredient id = {self.ingredient_id}"
+
+
+######
+class Ingredient_Category(enum.Enum):
+    Baked_and_Bakery = "Baked and Bakery"
+    Beverages = "Beverages"
+    Canned_Goods_and_Soups = "Canned Goods and Soups"
+    Herbs_and_Spices = "Herbs and Spices"
+    Meat_and_Seafood = "Meat and Seafood"
+    Vegetables_and_Fruits = "Vegetables and Fruits"
+    Dairy_Eggs_and_Cheese = "Dairy Eggs and Cheese"
+    Grains_Pasta_and_Sides = "Grains Pasta and Sides"
+    Condiments_and_Seasonings = "Condiments and Seasonings"
+    Basic_Cooking_Ingredients = "Basic Cooking Ingredients"
+    Baking_Supplies = "Baking Supplies"
+    Uncategorized = "Uncategorized"
+
+
+class Ingredient (db.Model):
+    """ingredient name and category"""
+
+    __tablename__ = 'ingredients'
+
+    ingredient_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String, nullable=False)
+    category = db.Column(Enum(Ingredient_Category), nullable=False)
+
+    # recipes = db.relationship("Recipe", secondary = "recipes_ingredients", backref="ingredients")
+    recipe_ingredients = db.relationship("Recipe_Ingredient", backref="ingredients")
+
+
+    def __repr__(self):
+        return f"ingredient id = {self.ingredient_id}, ingredient name = {self.name}, ingredient category = {self.category}"
+
+class Quantity_Unit(db.Model):
+    """ unit of measurement """
+
+    __tablename__ = 'quantity_units'
+
+    unit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    unit_fullname = db.Column(db.String, nullable=False)
+    unit_fullname_plural = db.Column(db.String, nullable=True)
+
+    #for no unit situation, it will be an empty string.
+    unit_abbrev = db.Column(db.String, nullable=True)
+
+    recipe_ingredients = db.relationship("Recipe_Ingredient", backref="quantity_units")
+
+    def __repr__(self):
+        return f"unit full name = {self.unit_fullname}, unit abbreviation = {self.unit_abbrev}"
 
 class Recipe_Course (db.Model):
     """ an association table between recipe and course """

@@ -1,8 +1,7 @@
 """CRUD operations"""
 
 from model import (db, connect_to_db, Saved_Recipe, Created_Recipe, User, Recipe, Shopping_Recipe, 
-    Recipe_Direction, Recipe_Ingredient, Ingredient_Category, Ingredient, 
-    Quantity_Unit,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, Specialdiet)
+    Recipe_Direction, Recipe_Ingredient,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, Specialdiet)
 
 def create_user(email, name, password):
     """Create and return a new user."""
@@ -81,13 +80,13 @@ def create_quantity_unit (unit_fullname, unit_fullname_plural, unit_abbrev):
 
 def get_quantity_unit_by_unit_fullname (unit_fullname):
     """return a quantity_unit instance by unit_fullname"""
-    return Quantity_Unit.query.filter(Quantity_Unit.unit_fullname == unit_fullname)
+    return Quantity_Unit.query.filter(Quantity_Unit.unit_fullname == unit_fullname).first()
 
-def create_recipe_ingredient(recipe, ingredient, quantity, quantity_unit):
+def create_recipe_ingredient(recipe, ingredient):
     """create an ingredient entry for a recipe"""
-    #recipe, ingredient, quantity_unit are instances.
+    #recipe: instance.
 
-    recipe_ingredient = Recipe_Ingredient(recipe=recipe, ingredient=ingredient, quantity = quantity, quantity_unit=quantity_unit)
+    recipe_ingredient = Recipe_Ingredient(recipe=recipe, ingredient=ingredient)
 
     return recipe_ingredient
 
@@ -95,6 +94,10 @@ def create_course(name):
     """create a course entry"""
     course = Course(name=name)
     return course
+
+def get_course_by_name(name):
+    """create a course entry"""
+    return Course.query.filter(Course.name == name).first()
 
 def create_cuisine(name):
     """create a cuisine"""
@@ -110,13 +113,21 @@ def create_specialdiet(name):
     specialdiet = Specialdiet(name=name)
     return specialdiet
 
-def create_recipe_course(recipe, course):
-    """create course for a recipe"""
-    #recipe and courses are instances
-    recipe_course = Recipe_Course(recipe=recipe, course=course)
-    return recipe_course
+def get_specialdiet_by_name(name):
+    """create a specialdiet entry"""
+    return Specialdiet.query.filter(Specialdiet.name == name).first()
 
+# def create_recipe_course(recipe, course):
+#     """create course for a recipe"""
+#     #recipe and courses are instances
+#     recipe_course = Recipe_Course(recipe=recipe, course=course)
+#     return recipe_course
 
+# def create_recipe_course(recipe_id, course_id):
+#     """create course for a recipe"""
+#     #recipe and courses are instances
+#     recipe_course = Recipe_Course(recipe_id=recipe_id, course_id=course_id)
+#     return recipe_course
 
 if __name__ == '__main__':
     from server import app

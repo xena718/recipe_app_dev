@@ -1,7 +1,7 @@
 {
     "cuisines":["American", "British", "Carribean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediternean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"],
      "courses":["Appetizer & Snacks", "Breakfast & Brunch", "Lunch", "Main Dish", "Salad", "Dessert", "Side dishes", "Soups & Stews", "Drink"], 
-     "specialdiets":["Vegetarian", "Gluten-free", "Others"]
+     "specialdiets":["Vegetarian", "Gluten-free", "Non-Vegetarian", "Others"]
 }
 
 
