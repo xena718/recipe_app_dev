@@ -50,17 +50,22 @@ for specialdiet_name in specialdiet_names:
 model.db.session.add_all(recipe_categories_in_db)
 model.db.session.commit()
 
-# create quantity unit entries for quantity units table
-with open("data/quantity-units.json") as f_units:
-    units =json.loads(f_units.read())  #units is now a python list
+#create quantity unit entries for quantity units table
+# with open("data/quantity-units.json") as f_units:
+#     units =json.loads(f_units.read())  #units is now a python list
 
-quantity_units_in_db =[]
-for unit_name in units:
-    quantity_unit = crud.create_quantity_unit (unit_name)
-    quantity_units_in_db.append(quantity_unit)
+# quantity_units_in_db =[]
+# for unit in units:
+#     for key, values in unit.items(): #values is a dict
+#         unit_fullname = key
+#         unit_fullname_plural = values["unit_fullname_plural"]
+#         for abbrev in values["abbreviation"]:
+#             unit_abbrev = abbrev
+#             quantity_unit = crud.create_quantity_unit (unit_fullname, unit_fullname_plural, unit_abbrev)
+#             quantity_units_in_db.append(quantity_unit)
 
-model.db.session.add_all(quantity_units_in_db)
-model.db.session.commit()
+# model.db.session.add_all(quantity_units_in_db)
+# model.db.session.commit()
 
 
 #create a recipe entry/instance and establish various relationships with recipe
@@ -92,9 +97,6 @@ for each_recipe in recipe_data:
         user_cr, title, author, description, photo_url, servings, 
         prep_time, cook_time, cuisine, note) #cuisine is an instance
     
-    
-
-
     for each_course in recipe_courses:
         course_instance = crud.get_course_by_name(each_course)
         course_instance.recipes.append(db_recipe)    
@@ -121,30 +123,12 @@ for each_recipe in recipe_data:
         model.db.session.add(db_recipe_direction)
         model.db.session.commit()
 
-    # recipe_ingredients_in_db =[]
-    # for recipe_ingredient in recipe_ingredients:
-    #     name = recipe_ingredient["name"]
-    #     category = recipe_ingredient["category"]
-    #     quantity = recipe_ingredient["quantity"]
-    #     quantity_unit = recipe_ingredient["unit_name"]
-
-    #     # quantity_unit = crud.get_quantity_unit_by_name(recipe_ingredient["unit_name"])
-    #     db_recipe_ingredient = crud.create_recipe_ingredient(db_recipe, name, category,quantity, quantity_unit)
-    #     recipe_ingredients_in_db.append(db_recipe_ingredient)
-    
-    # model.db.session.add_all(recipe_ingredients_in_db)
-    # model.db.session.commit()
-
-
     recipe_ingredients_in_db =[]
     for recipe_ingredient in recipe_ingredients:
-        name = recipe_ingredient["name"]
-        category = recipe_ingredient["category"]
-        quantity = recipe_ingredient["quantity"]
-        quantity_unit = recipe_ingredient["unit_name"]
+        db_recipe_ingreident = crud.create_recipe_ingredient(db_recipe, recipe_ingredient)
+        recipe_ingredients_in_db.append(db_recipe_ingreident)
+    
+    model.db.session.add_all(recipe_ingredients_in_db)
+    model.db.session.commit()
 
-        # quantity_unit = crud.get_quantity_unit_by_name(recipe_ingredient["unit_name"])
-        db_recipe_ingredient = crud.create_recipe_ingredient(db_recipe, name, category,quantity, quantity_unit)
-        recipe_ingredients_in_db.append(db_recipe_ingredient)
-        model.db.session.add_all(recipe_ingredients_in_db)
-        model.db.session.commit()
+
