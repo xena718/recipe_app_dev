@@ -141,9 +141,9 @@ for each_recipe in recipe_data:
         name = recipe_ingredient["name"]
         category = recipe_ingredient["category"]
         quantity = recipe_ingredient["quantity"]
-        quantity_unit = recipe_ingredient["unit_name"]
+        # quantity_unit = recipe_ingredient["unit_name"]
 
-        # quantity_unit = crud.get_quantity_unit_by_name(recipe_ingredient["unit_name"])
+        quantity_unit = crud.get_quantity_unit_by_name(recipe_ingredient["unit_name"])
         db_recipe_ingredient = crud.create_recipe_ingredient(db_recipe, name, category,quantity, quantity_unit)
         recipe_ingredients_in_db.append(db_recipe_ingredient)
         model.db.session.add_all(recipe_ingredients_in_db)

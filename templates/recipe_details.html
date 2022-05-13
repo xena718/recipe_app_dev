@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ recipe.title }} - Details{% endblock %}
+
+{% block body %}
+<h1>{{ recipe.title }}</h1>
+<p>{{recipe.author}}</p>
+
+<img src="{{ recipe.photo_url }}">
+
+<div>
+  Cuisine: {{ recipe.cuisine.name }}
+</div>
+
+<p>
+  {{ recipe.description }}
+</p>
+
+<p>
+  {% for ingredient in recipe.recipe_ingredients %}
+    <div> {{ingredient.quantity}} {{ingredient.unit.name}} {{ingredient.name}}</div>
+  {% endfor %}
+</p>
+
+
+<p>
+  {% for direction in recipe.recipe_directions %}
+    <div> Step {{direction.step_number}}: {{direction.step_guidance}}</div>
+  {% endfor %}
+</p>
+
+{% endblock %}

@@ -56,12 +56,13 @@ def create_recipe_direction(recipe, step_number, step_guidance):
 
     return recipe_direction
 
-def create_recipe_ingredient(recipe, name, category,quantity, quantity_unit):
+def create_recipe_ingredient(recipe, name, category,quantity, unit):
     """create and return ingredient"""
     #category is from Enum list. how to use it.
 
-    recipe_ingredient = Recipe_Ingredient(recipe=recipe, name=name, category=category, quantity=quantity, quantity_unit=quantity_unit)
-    # recipe= refers to the relationship
+    recipe_ingredient = Recipe_Ingredient(recipe=recipe, name=name, category=category, quantity=quantity, unit=unit)
+    # recipe= : here the recipe refers to the relationship attribute
+    #unit=; here the unit refers to the relationship attribute
     return recipe_ingredient
 
 # def get_ingredient_by_name(name):

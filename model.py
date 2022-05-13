@@ -144,12 +144,10 @@ class Recipe_Ingredient(db.Model):
     # category = db.Column(Enum(Ingredient_Category), nullable=False)
     category = db.Column(db.String, nullable=False)
     quantity = db.Column(db.String, nullable =True)
-    quantity_unit = db.Column(db.String, nullable =True)
-
-    # quantity_unit = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
+    quantity_unit = db.Column(db.Integer, db.ForeignKey("quantity_units.unit_id"))
 
     recipe = db.relationship("Recipe", backref="recipe_ingredients")
-    # unit = db.relationship("Quantity_Unit", backref="recipe_ingredient")
+    unit = db.relationship("Quantity_Unit", backref="recipe_ingredient")
     #one unit one quantity. one to one relationship
 
     def __repr__(self):
