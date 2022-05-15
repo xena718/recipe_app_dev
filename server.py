@@ -29,6 +29,14 @@ def show_recipe(recipe_id):
 
     return render_template("recipe_details.html", recipe=recipe)
 
+@app.route("/<shoppinglist_id>")
+def show_shoppinglist(shoppinglist_id):
+    """Show shoppinglist of the currently logged in user"""
+
+    
+
+    return render_template("recipe_details.html", recipe=recipe)
+
 
 if __name__ == "__main__":
     connect_to_db(app) # connect to your database before app.run gets called, so that Flask can access your database.
