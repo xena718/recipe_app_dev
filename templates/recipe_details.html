@@ -3,8 +3,10 @@
 {% block title %}{{ recipe.title }} - Details{% endblock %}
 
 {% block body %}
+
+
 <h1>{{ recipe.title }}</h1>
-<p>{{recipe.author}}</p>
+<p>by {{recipe.author}}</p>
 
 <img src="{{ recipe.photo_url }}">
 
@@ -12,17 +14,21 @@
   Cuisine: {{ recipe.cuisine.name }}
 </div>
 
+<h2>Description</h2>
 <p>
   {{ recipe.description }}
 </p>
 
+<h2>Ingredients</h2>
+<h3>Serving Size: {{recipe.servings}}</h3>
 <p>
   {% for ingredient in recipe.recipe_ingredients %}
     <div> {{ingredient.quantity}} {{ingredient.unit.name}} {{ingredient.name}}</div>
   {% endfor %}
+  
 </p>
 
-
+<h2>Directions</h2>
 <p>
   {% for direction in recipe.recipe_directions %}
     <div> Step {{direction.step_number}}: {{direction.step_guidance}}</div>
