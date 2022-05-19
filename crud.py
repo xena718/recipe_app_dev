@@ -15,6 +15,11 @@ def get_user_by_name(name):
 
     return User.query.filter(User.name == name).first()
 
+def get_user_by_email(email):
+    """return user (instance) by email."""
+
+    return User.query.filter(User.email == email).first()
+
 def create_recipe(
         added_by_user, title, author, description, photo_url, servings, 
         prep_time, cook_time, cuisine, note):
@@ -31,6 +36,12 @@ def create_recipe(
 
 def get_recipe_by_recipe_id (recipe_id):
     return Recipe.query.get(recipe_id)
+
+def get_all_recipes():
+    return Recipe.query.all()
+
+def get_recipes_by_cuisine_id(cuisine_id):
+    return Recipe.query.filter(cuisine_id == cuisine_id).all()
 
 def create_saved_recipe(user, recipe):
     """create and return a saved recipe by a user"""

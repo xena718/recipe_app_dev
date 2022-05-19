@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Yummy Recipe Home{% endblock %}
+
+{% block body %}
+
+{% for recipe in saved_recipes %}
+<div>
+  <img src="{{ recipe.photo_url}}">
+  {{recipe.title}} # {{recipe.cuisine.name}} 
+  {% for course in recipe.courses %} 
+  #{{course.name}}
+  {% endfor %}
+  
+</div>
+
+{% endfor %}
+
+{% endblock %}
