@@ -32,7 +32,7 @@ def create_recipe(
             photo_url=photo_url, servings=servings, prep_time=prep_time,
             cook_time=cook_time, cuisine=cuisine, note=note)
     
-    return recipe
+    return recipe    
 
 def get_recipe_by_recipe_id (recipe_id):
     return Recipe.query.get(recipe_id)
@@ -47,9 +47,12 @@ def create_saved_recipe(user, recipe):
     """create and return a saved recipe by a user"""
     #user and recipe are instances.
 
-    saved_recipe = Saved_Recipe(user=user, recipe=recipe)
+    saved_recipe = Saved_Recipe(user_id=user, recipe_id=recipe)
     
     return saved_recipe
+def get_saved_recipe_by_recipe_id(recipe_id):
+
+    return Saved_Recipe.query.filter(Saved_Recipe.recipe_id == recipe_id).first()
 
 def create_shopping_recipe(user, recipe):
     """create and return a recipe by a user for shopping"""

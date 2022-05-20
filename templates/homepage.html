@@ -3,22 +3,46 @@
 
 {% block body %}
 
-{% for recipe in recipes_cuisines %}
+<!-- {% for recipe in recipes_cuisines %}
 <div>
   <img src="{{ recipe.photo_url}}">
   <div>
-    <form id="add-to-saved-form" action="/add-to-saved" method="post">
-      <!-- <input id="add-to-saved-input" name="add-to-saved" value="{{recipe}}"> -->
-      <button id="add-to-saved-btn" type="submit" value="{{recipe.recipe_id}}">Add to Saved</button>
-    </form> 
+    <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
+      <input type="submit" value="Favorite">
+    </form>
   </div>
   {{recipe.title}} # {{recipe.cuisine.name}} 
   {% for course in recipe.courses %} 
   #{{course.name}}
   {% endfor %}
-  
 </div>
+{% endfor %} -->
 
-{% endfor %}
+<div id="saved-recipe-list" class="row">
+  {% for recipe in recipes_cuisines %}
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 saved-recipe-summary mt-3">
+
+          <div class="card text-center bg-light">
+            <a href="/recipe/{{recipe.recipe_id}}">
+                <img class="card-img-top img-circle" src="{{ recipe.photo_url }}">
+            </a>
+            <div class="card-text">
+              <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
+                <input type="submit" value="Favorite">
+              </form>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
+                <div class="price card-text">
+                  #{{ recipe.cuisine.name }}
+                  {% for course in recipe.courses %} 
+                  #{{course.name}}
+                  {% endfor %}
+                </div>
+            </div>
+          </div>
+      </div>
+  {% endfor %}
+</div>
 
 {% endblock %}

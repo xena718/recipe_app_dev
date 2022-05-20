@@ -50,23 +50,6 @@ for specialdiet_name in specialdiet_names:
 model.db.session.add_all(recipe_categories_in_db)
 model.db.session.commit()
 
-#create quantity unit entries for quantity units table
-# with open("data/quantity-units.json") as f_units:
-#     units =json.loads(f_units.read())  #units is now a python list
-
-# quantity_units_in_db =[]
-# for unit in units:
-#     for key, values in unit.items(): #values is a dict
-#         unit_fullname = key
-#         unit_fullname_plural = values["unit_fullname_plural"]
-#         for abbrev in values["abbreviation"]:
-#             unit_abbrev = abbrev
-#             quantity_unit = crud.create_quantity_unit (unit_fullname, unit_fullname_plural, unit_abbrev)
-#             quantity_units_in_db.append(quantity_unit)
-
-# model.db.session.add_all(quantity_units_in_db)
-# model.db.session.commit()
-
 
 #create a recipe entry/instance and establish various relationships with recipe
 with open("data/recipes.json") as f:

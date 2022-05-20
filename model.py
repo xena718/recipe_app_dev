@@ -16,7 +16,10 @@ class Saved_Recipe(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
 
-    # recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="users")
+    # Important: user_instance.saved_recipes will return a list of recipe objects that were saved by user
+    # saved_recipes in user_instance.saved_recipes is the attribute (saved_recipes)
+
+    # saved_recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="saved_by_users")
 
     def __repr__(self):
         return f"<recipe id in a saved recipe collection = {self.recipe_id}, user id of the recipe = {self.user_id}>"
@@ -67,7 +70,6 @@ class Recipe(db.Model):
 
     # saved_recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="saved_by_users")
     # shopping_recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="shopping_by_users")
-    # created_recipes = db.relationship("Recipe", secondary = "created_recipes", backref="created_by_user")
 
     def __repr__(self):
         return f"<recipe title = {self.title}, recipe author = {self.author}>"
@@ -82,7 +84,7 @@ class Shopping_Recipe (db.Model):
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
 
-    # recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="users")
+    # shopping_recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="shopping_by_users")
 
     def __repr__(self):
         return f"<recipe id(s) in a shopping list = {self.recipe_id}, user id of the shoping list = {self.user_id}>"

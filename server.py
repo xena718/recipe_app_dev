@@ -84,27 +84,81 @@ def register_user():
 
     return redirect('/signup-login')
 
+@app.route('/account')
+def show_account():
 
-@app.route("/add-to-saved", methods=["POST"])
-def add_to_saved():
     user_email = session["logged_in_user_email"]
     if not user_email:
-        flash("please log in first to access saved recipe collections")
-        # return redirect('/signup-login')
-    user = crud.get_user_by_email(user_email)
-    recipe_to_be_saved = request.form.get('submit')
-    user.saved_recipes.append(db_recipe) #assication between user and saved recipes
-    db.session.commit() # can i just commit in this way?
-    return redirect('/signup-login')
+        flash("please log in first to access account")
+        return redirect('/signup-login') 
 
-@app.route("/<user_id>/saved")
-def show_saved_recipes_by_user(user_id):
+    user = crud.get_user_by_email(user_email)
+    user_added_recipes = user.added_recipes 
+    #use the added_recipes attribute to access user added recipes
+    #user_added_recipes and user_added_recipes are both list.
+    user_saved_recipes = user.saved_recipes
+
+    return render_template("user_account.html", logged_in_user=user, user_saved_recipes=user_saved_recipes, user_added_recipes=user_added_recipes)
+
+
+
+
+@app.route("/add-to-saved/<recipe_id>", methods=["POST"])
+def add_to_saved(recipe_id):
+    user_email = session["logged_in_user_email"]
+    if not user_email:
+        flash("please log in first to save a recipe")
+        return redirect('/signup-login')
+    
+    # print("*"*20+user_email)
+    user = crud.get_user_by_email(user_email)
+    recipe = crud.get_recipe_by_recipe_id(recipe_id)
+    
+    # check if recipe_id in saved_recipes table already. 
+    # user.saved_recipes: a list of Saved_Recipe object
+    # can do list comprehension
+    saved_recipe_ids = [saved_recipe.recipe_id for saved_recipe in user.saved_recipes]
+    
+    if recipe.recipe_id in saved_recipe_ids:
+        flash("Added already")
+        return redirect('/')
+
+    else:
+        #create a saved_recipe object 
+        saved_recipe = crud.create_saved_recipe(user.user_id, recipe.recipe_id)
+        # user.saved_recipes.append(recipe) #assication between user and saved recipes
+        db.session.add(saved_recipe)
+        db.session.commit() 
+
+        flash(f"aded recipe #{recipe.recipe_id} to your saved recipe collections")
+        return redirect('/')
+
+@app.route("/remove-from-saved/<recipe_id>", methods=["POST"])
+def remove_recipe_from_saved(recipe_id):
+    #user must have logged in before user is routed to this route.
+    user_email = session["logged_in_user_email"]
+    user = crud.get_user_by_email(user_email)
+    recipe = crud.get_recipe_by_recipe_id(recipe_id)
+    saved_recipe_entry = crud.get_saved_recipe_by_recipe_id(recipe_id)
+    
+    #delete the saved_recipe_entry 
+    db.session.delete(saved_recipe_entry)
+    db.session.commit()
+
+    return redirect('/saved')
+
+
+
+@app.route("/saved")
+def show_saved_recipes_by_user():
     user_email = session["logged_in_user_email"]
     if not user_email:
         flash("please log in first to access saved recipe collections")
         return redirect('/signup-login')
     
     user = crud.get_user_by_email(user_email)
+    
+    # user.saved_recipes: a list of recipe object that were saved by user.
     user_saved_recipes = user.saved_recipes
 
     return render_template("saved_recipes.html", saved_recipes=user_saved_recipes)   
@@ -112,7 +166,7 @@ def show_saved_recipes_by_user(user_id):
 
 
 
-@app.route("/recipes/<recipe_id>")
+@app.route("/recipe/<recipe_id>")
 def show_recipe(recipe_id):
     """Show details on a particular recipe."""
 
