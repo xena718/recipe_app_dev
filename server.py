@@ -84,6 +84,13 @@ def register_user():
 
     return redirect('/signup-login')
 
+@app.route('/logout')
+def logout():
+    #user has logged in already before user can access logout route
+    del session["logged_in_user_email"]
+    flash ("logged out")
+    return redirect('/')
+
 @app.route('/account')
 def show_account():
 
