@@ -21,7 +21,7 @@ def homepage():
     
     one_recipe_per_cuisine = []
 
-    cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+    # cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
 
     ####### this following chunck works ###########
     # for cuisine_name in cuisines:
@@ -277,7 +277,22 @@ def add_recipe():
         return redirect('/')
     else:
         # user = crud.get_user_by_email(user_email)
-        return render_template('add_recipe.html')
+        cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+        quantity_units = ["tablespoons", "tablespoon", "T", "TB", "Tbl", "Tbsp", 
+    "cups","cup","c","C",
+    "teaspoons", "teaspoon", "t", "tsp",
+    "pints","pint","pt",
+    "oz","OZ","ounces","ounce",
+    "milliliters","milliliter","ml","mL",
+    "liters","liter","L",
+    "pounds","pound","LB","lb",
+    "a pinch","a dash",
+    "gallons","gallon","gl","GL","Gal",
+    "kilograms","kilogram","kg",
+    "grams","gram","g",
+    "","no unit","other unit"]
+
+    return render_template('add_recipe.html', cuisines=cuisines, quantity_units=quantity_units)
         
 
 

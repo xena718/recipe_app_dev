@@ -49,15 +49,15 @@ class Recipe(db.Model):
 
     recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     added_by_user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    title = db.Column(db.String(50), nullable=False)
-    author = db.Column(db.String, nullable=False)
+    title = db.Column(db.String(200), nullable=False)
+    author = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    photo_url = db.Column(db.String, nullable=False)
+    photo_url = db.Column(db.String, nullable=True)
     servings = db.Column(db.Integer, nullable=False)
     prep_time = db.Column(db.String, nullable=False)
     cook_time = db.Column(db.String, nullable=False)
     cuisine_id = db.Column(db.Integer, db.ForeignKey("cuisines.cuisine_id"))
-    note = db.Column(db.Text, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
 
     added_by_user = db.relationship("User", backref="added_recipes")
 

@@ -6,8 +6,81 @@
 
 <form method="post" action="/handle-added-recipe-form">
     <label for="recipe title">Recipe Title</label>
-    <input id="recipe title"></input>
+    <input type="text" maxlength="200" id="recipe title" name="recipe title" placeholder="[Required] Give your recipe an title"><br>
+ 
+    <label for="author">Author</label>
+    <input type="text" maxlength="100" id="author" name="author" placeholder="[Required] Author name"><br>
+ 
+    <label for="description">Description</label>
+    <textarea id="author" name="author" maxlength="4000" placeholder="[Optional though encouraged] Tell us the story of your recipe and what makes it special"></textarea> <br>
+   
+    <label for="photo-url">Photo URL</label>
+    <input type="text" id="photo-url" name="photo-url" placeholder="[Optional but encouraged] photo url"><br>
 
+    <label for="servings">Servings</label>
+    <input type="nuber" id="servings" name="servings" placeholder="[Required] e.g. 4"><br>
+    
+    <label for="prep-time">Prep time</label>
+    <input type="nuber" id="prep-time" name="prep-time" placeholder="[Required] 0">
+
+    <select name="prep-time-unit-select" required>
+        <option value="mins" selected>mins</option>
+        <option value="hours">hours</option>
+        <option value="days">days</option>
+    </select><br>
+
+    <label for="cook-time">Cook time</label>
+    <input type="nuber" id="cook-time" name="cook-time" placeholder="[Required] 0">
+
+    <select name="cook-time-unit-select" required>
+        <option value="mins" selected>mins</option>
+        <option value="hours">hours</option>
+        <option value="days">days</option>
+    </select><br>
+
+    <label for="cuisine-type-select">Cuisine</label>
+    <select name="cuisine-type-select" id="cuisine-type-select" required>
+        {% for cuisine_type in cuisines %}
+        <option value="{{cuisine_type}}">{{cuisine_type}}</option>
+        {% endfor %}
+    </select><br>
+
+    <div>
+        <label for="ingredients-input">
+            Ingredients 
+            <p>For each ingredient, please input quantity, select quantity unit, and input ingredient name (including and any special preparation (i.e. sifted, softened, chopped) in the ingredient name field</p>
+        </label>
+        <input type="number" id="ingredients-input" name="ingredient-quantity" placeholder="ingredient quantity. e.g.1">
+        <select name="quantity-unit-select" id="ingredients-input" required>
+            {% for quantity_unit in quantity_units %}
+            <option value="{{quantity_unit}}">{{quantity_unit}}</option>
+            {% endfor %}
+        </select>      
+        <input type="text" id="ingredients-input" name="ingredient-name" placeholder="ingredient name. e.g. chopped onion"><br> 
+    </div>
+    <button type="submit" id="add-ingredient-button">+Add Ingredient</button> <br>
+
+    <div>
+        <div>
+            Directions
+            <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p><br>
+        </div>
+        <label for="step-1">Step 1</label>
+        <textarea id="step-1" name="step-1" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
+        <label for="step-2">Step 2</label>
+        <textarea id="step-2" name="step-2" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
+        <label for="step-3">Step 3</label>
+        <textarea id="step-3" name="step-3" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
+    
+    </div>
+    <button type="submit" id="add-cooking-step-button">+Add Step</button> <br>
+
+
+
+    <label for="notes">Notes</label>
+    <input type="notes" id="notes" name="notes" placeholder="[Optional]"><br>
+
+    <input type="submit">
 </form>
 
 
