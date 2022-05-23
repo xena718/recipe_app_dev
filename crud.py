@@ -40,27 +40,57 @@ def get_recipe_by_recipe_id (recipe_id):
 def get_all_recipes():
     return Recipe.query.all()
 
+def recipes_dbjoinedload_cuisines():
+    return Recipe.query.options(db.joinedload('cuisine')).all()
+    #cuisine is the attribute (relationship between Recipe and Cuisine)
+
 def get_recipes_by_cuisine_id(cuisine_id):
-    return Recipe.query.filter(cuisine_id == cuisine_id).all()
+    return Recipe.query.filter(Recipe.cuisine_id == cuisine_id).all()
+
+def get_recipe_by_cuisine_name(cuisine_name):
+    # Recipe.query.options(db.joinedload('cuisine')).all()
+    return Recipe.query.filter(Recipe.cuisine.name == cuisine_name).all()
+
+def recipes_dbjoinedload_recipe_ingredients():
+    return Recipe.query.options(db.joinedload('recipe_ingredients')).all()
+    #recipe_ingredients is the attribute (relationship between Recipe and Recipe_Ingredient)
 
 def create_saved_recipe(user, recipe):
     """create and return a saved recipe by a user"""
-    #user and recipe are instances.
+    #user and recipe are not instances, but id
 
     saved_recipe = Saved_Recipe(user_id=user, recipe_id=recipe)
+    return saved_recipe
+
+# def create_saved_recipe(user, recipe):
+#     """create and return a saved recipe by a user"""
+#     #user and recipe are instances.
+
+#     saved_recipe = Saved_Recipe(user=user, recipe=recipe)
     
     return saved_recipe
+    
 def get_saved_recipe_by_recipe_id(recipe_id):
 
     return Saved_Recipe.query.filter(Saved_Recipe.recipe_id == recipe_id).first()
 
-def create_shopping_recipe(user, recipe):
-    """create and return a recipe by a user for shopping"""
-    #user and recipe are instances.
 
-    shopping_recipe = Shopping_Recipe(user=user, recipe=recipe)
+# def create_shopping_recipe(user, recipe):
+#     """create and return a recipe by a user for shopping"""
+#     #user and recipe are instances. It doesn't work...
+
+#     shopping_recipe = Shopping_Recipe(user=user, recipe=recipe)
+    
+#     return shopping_recipe
+def create_shopping_recipe(user_id, recipe_id):
+    """create a entry of shopping recipe by the logged in user"""
+
+    shopping_recipe = Shopping_Recipe(user_id=user_id, recipe_id=recipe_id)
     
     return shopping_recipe
+
+def get_shopping_recipes_by_user(user_id):
+    return Shopping_Recipe.query.filter(Shopping_Recipe.user_id == user_id).all()
 
 def create_recipe_direction(recipe, step_number, step_guidance):
     """create and return a cooking step and guidance for a recipe"""

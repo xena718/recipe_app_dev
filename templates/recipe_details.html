@@ -14,25 +14,44 @@
   Cuisine: {{ recipe.cuisine.name }}
 </div>
 
-<h2>Description</h2>
-<p>
+<h4>Description</h4>
+<div>
   {{ recipe.description }}
-</p>
+</div>
 
-<h2>Ingredients</h2>
-<h3>Serving Size: {{recipe.servings}}</h3>
-<p>
+<div>
+  <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
+    <input type="submit" value="Favorite">
+  </form>
+</div>
+
+<div>
+  Prep: {{recipe.prep_time}}
+  Cook: {{recipe.cook_time}}
+  Total: TBD
+  Yield: {{recipe.servings}} servings
+</div>
+<h4>Ingredients</h4>
+
+<h5>Serving Size: {{recipe.servings}}</h5>
+<div>
   {% for ingredient in recipe.recipe_ingredients %}
     <div> {{ingredient.quantity}} {{ingredient.unit.name}} {{ingredient.name}}</div>
   {% endfor %}
-  
-</p>
+</div>
 
-<h2>Directions</h2>
-<p>
+<div>
+  <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST">
+    <input type="submit" value="Add all ingredients to shopping List">
+  </form>
+</div>
+
+
+<h4>Directions</h4>
+<div>
   {% for direction in recipe.recipe_directions %}
     <div> Step {{direction.step_number}}: {{direction.step_guidance}}</div>
   {% endfor %}
-</p>
+</div>
 
 {% endblock %}

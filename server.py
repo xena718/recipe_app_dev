@@ -6,6 +6,7 @@ from flask import (Flask, render_template, request, flash, session,
 from model import connect_to_db, db
 import crud
 import random
+from fractions import Fraction
 
 from jinja2 import StrictUndefined
 
@@ -16,17 +17,39 @@ app.jinja_env.undefined = StrictUndefined
 
 @app.route('/')
 def homepage():
-    """view homepage"""
-
-    # all_recipes = crud.get_all_recipes()
-    cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+    """view homepage. Return one random recipe per cuisine"""
     
     one_recipe_per_cuisine = []
-    for cuisine_name in cuisines:
-        cuisine_instance = crud.get_cuisine_by_name(cuisine_name)
-        recipes_by_cuisine_id = crud.get_recipes_by_cuisine_id(cuisine_instance.cuisine_id)
-        one_recipe_per_cuisine_id = random.choice(recipes_by_cuisine_id)
-        one_recipe_per_cuisine.append(one_recipe_per_cuisine_id)    
+
+    cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+
+    ####### this following chunck works ###########
+    # for cuisine_name in cuisines:
+    #     cuisine_instance = crud.get_cuisine_by_name(cuisine_name)
+    #     recipes_by_cuisine_id = crud.get_recipes_by_cuisine_id(cuisine_instance.cuisine_id)
+    #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_id}")
+    #     one_recipe_per_cuisine_id = random.choice(recipes_by_cuisine_id)
+    #     one_recipe_per_cuisine.append(one_recipe_per_cuisine_id)    
+    
+    ########this following chunck doesn't work################
+    # crud.recipes_dbjoinedload_cuisine() 
+    # for cuisine_name in cuisines:
+    #     recipes_by_cuisine_name = crud.get_recipe_by_cuisine_name(cuisine_name)
+    #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_name}")
+    #     one_recipe_each_cuisine = random.choice(recipes_by_cuisine_name)
+    #     one_recipe_per_cuisine.append(one_recipe_each_cuisine)    
+   
+    recipes = crud.recipes_dbjoinedload_cuisines() 
+    # print("********************"+f"{recipes[1]}, {recipes[1].cuisine.name}")
+    recipe_cuisine_names =[]
+
+    for recipe in recipes:
+        recipe_cuisine_name = recipe.cuisine.name
+        if recipe_cuisine_name in recipe_cuisine_names:
+            continue
+        else:
+            recipe_cuisine_names.append(recipe_cuisine_name)
+            one_recipe_per_cuisine.append(recipe)
 
     return render_template("homepage.html", recipes_cuisines=one_recipe_per_cuisine)
 
@@ -94,7 +117,7 @@ def logout():
 @app.route('/account')
 def show_account():
 
-    user_email = session["logged_in_user_email"]
+    user_email = session.get("logged_in_user_email")
     if not user_email:
         flash("please log in first to access account")
         return redirect('/signup-login') 
@@ -112,7 +135,7 @@ def show_account():
 
 @app.route("/add-to-saved/<recipe_id>", methods=["POST"])
 def add_to_saved(recipe_id):
-    user_email = session["logged_in_user_email"]
+    user_email = session.get("logged_in_user_email")
     if not user_email:
         flash("please log in first to save a recipe")
         return redirect('/signup-login')
@@ -133,6 +156,7 @@ def add_to_saved(recipe_id):
     else:
         #create a saved_recipe object 
         saved_recipe = crud.create_saved_recipe(user.user_id, recipe.recipe_id)
+        # saved_recipe = crud.create_saved_recipe(user, recipe)
         # user.saved_recipes.append(recipe) #assication between user and saved recipes
         db.session.add(saved_recipe)
         db.session.commit() 
@@ -158,7 +182,7 @@ def remove_recipe_from_saved(recipe_id):
 
 @app.route("/saved")
 def show_saved_recipes_by_user():
-    user_email = session["logged_in_user_email"]
+    user_email = session.get("logged_in_user_email")
     if not user_email:
         flash("please log in first to access saved recipe collections")
         return redirect('/signup-login')
@@ -182,13 +206,80 @@ def show_recipe(recipe_id):
 
     return render_template("recipe_details.html", recipe=recipe)
 
-@app.route("/<shoppinglist_id>")
-def show_shoppinglist(shoppinglist_id):
+@app.route("/add-to-shoppinglist/<recipe_id>", methods=["POST"])
+def add_ingredients_to_shoppinglist(recipe_id):
+    """
+    add static recipe ingredients from database to shopping list
+    if servings size change, this route cannot handle it, but javascript AJAX can?.
+    """
+    user_email = session.get("logged_in_user_email")
+    if not user_email:
+        flash("please log in first to access saved recipe collections")
+        return redirect('/signup-login')
+    else:
+        user = crud.get_user_by_email(user_email)
+        shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id)
+        db.session.add(shopping_recipe)
+        db.session.commit()
+
+        flash("All ingredients addeded to your shoppinglist") 
+        #noted that the actual action is to add recipe into shopping_recipe table.
+        
+        return redirect(f"/recipe/{recipe_id}")
+
+
+@app.route("/shoppinglist")
+def show_shoppinglist():
     """Show shoppinglist of the currently logged in user"""
+    #TO BE UPDATED
+    user_email = session.get("logged_in_user_email")
+    if not user_email:
+        flash("please log in first to access shopping list")
+        return redirect('/signup-login')
+    else:
+        user = crud.get_user_by_email(user_email)
+        # user.shopping_recipes: a list of recipe object that are added to shopping_list by user.
+        shopping_recipes = user.shopping_recipes
 
-    
+        ###deal with ingredients (quantity and category)###
+        ### update0522: will need to add unit###
+        recipes_ingredients = crud.recipes_dbjoinedload_recipe_ingredients()
+        ingredients_for_all_shopping_recipes ={}
+        #{"catogery name": {ingredient_name:ingredient_quantity}
+        
+        for recipe in shopping_recipes:
+            for ingredient in recipe.recipe_ingredients:
+                if ingredient.category in ingredients_for_all_shopping_recipes:
+                    if ingredient.quantity!="" and ingredient.quantity !=" ":
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
+                    else:
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
+                        
+                else:
+                    ingredients_for_all_shopping_recipes[ingredient.category]={}
+                    if ingredient.quantity!="" and ingredient.quantity !=" ":
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
+                    else:
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
+                        
+        print("*"*20)
+        print(ingredients_for_all_shopping_recipes)
 
-    return render_template("recipe_details.html", recipe=recipe)
+        return render_template("shopping_list.html", logged_in_user =user, shopping_recipes=shopping_recipes,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
+
+####### I think i may not need this route if I have the logic in Jinga???####
+@app.route("/add-recipe")
+def add_recipe():
+    """add a recipe to database"""
+    user_email = session.get('logged_in_user_email')
+    if not user_email:
+        flash("Please login first to add a recipe")
+        return redirect('/')
+    else:
+        # user = crud.get_user_by_email(user_email)
+        return render_template('add_recipe.html')
+        
+
 
 
 if __name__ == "__main__":

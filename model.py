@@ -61,7 +61,7 @@ class Recipe(db.Model):
 
     added_by_user = db.relationship("User", backref="added_recipes")
 
-    # all_ingredients = db.relationship("Recipe_Ingredient", backref="recipe")
+    # recipe = db.relationship("Recipe", backref="recipe_ingredients")
 
     # recipe = db.relationship("Recipe", backref="recipe_directions")
     # recipes = db.relationship("Recipe", secondary = "recipes_courses", backref="courses")
