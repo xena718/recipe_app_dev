@@ -70,7 +70,7 @@ with open("data/recipes.json") as f:
 # recipes_in_db =[]  
 
 for each_recipe in recipe_data:
-    title, author, description, photo_url, servings, prep_time, cook_time, recipe_directions, recipe_ingredients, recipe_cuisine, recipe_courses, recipe_specialdiets, note = (
+    title, author, description, photo_url, servings, prep_time, cook_time, recipe_directions, recipe_ingredients, recipe_cuisine, recipe_courses, recipe_specialdiets, notes = (
         each_recipe["title"],
         each_recipe["author"],
         each_recipe.get("description",""), 
@@ -83,14 +83,14 @@ for each_recipe in recipe_data:
         each_recipe["recipe_cuisine"],
         each_recipe["recipe_courses"],
         each_recipe["recipe_specialdiets"],
-        each_recipe.get("note","")
+        each_recipe.get("notes","")
     )
 
     cuisine = crud.get_cuisine_by_name(recipe_cuisine) #cuisine is an instance
 
     db_recipe = crud.create_recipe(
         user_cr, title, author, description, photo_url, servings, 
-        prep_time, cook_time, cuisine, note) #cuisine is an instance
+        prep_time, cook_time, cuisine, notes) #cuisine is an instance
     
     
 

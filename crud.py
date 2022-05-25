@@ -22,7 +22,7 @@ def get_user_by_email(email):
 
 def create_recipe(
         added_by_user, title, author, description, photo_url, servings, 
-        prep_time, cook_time, cuisine, note):
+        prep_time, cook_time, cuisine, notes):
     """Create and return a new recipe."""
     #the argument lines need 4 spaces (an extra level of indentation) to distinguish arguments from the rest
     #cuisine: instance.
@@ -30,7 +30,7 @@ def create_recipe(
 
     recipe = Recipe(added_by_user=added_by_user,title=title, author = author, description=description, 
             photo_url=photo_url, servings=servings, prep_time=prep_time,
-            cook_time=cook_time, cuisine=cuisine, note=note)
+            cook_time=cook_time, cuisine=cuisine, notes=notes)
     
     return recipe    
 
@@ -41,6 +41,10 @@ def get_all_recipes():
     return Recipe.query.all()
 
 def recipes_dbjoinedload_cuisines():
+    return Recipe.query.options(db.joinedload('cuisine')).all()
+    #cuisine is the attribute (relationship between Recipe and Cuisine)
+
+def recipes_dbjoinedload_cuisines_ingredients():
     return Recipe.query.options(db.joinedload('cuisine')).all()
     #cuisine is the attribute (relationship between Recipe and Cuisine)
 

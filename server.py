@@ -296,6 +296,32 @@ def add_recipe():
         
 
 
+@app.route("/handle-add-recipe-form", methods=["POST"])
+def handle_add_recipe_form():
+    """handle user submitted form of newly added recipe. Update database"""
+    pass
+
+@app.route("/browse")
+def browse_recipes():
+    pass
+
+
+@app.route("/search", methods=["POST"])
+def search():
+    """obtain user search input, parse input, and return results"""
+    input = request.form.get("search-input")
+    
+    emps = db.session.query(Recipe, Course, Cuisine).join(Recipe).all()
+    recipes_cuisines = crud.recipes_dbjoinedload_cuisines() 
+    # join multiple tables to one giant table and search the joined table.
+    # parse the input:
+    # search against everything about a recipe (author, title, ingredient, directions, etc)
+    # present the results in what order?order by title
+
+    return render_template("search_output.html")
+
+
+
 
 if __name__ == "__main__":
     connect_to_db(app) # connect to your database before app.run gets called, so that Flask can access your database.

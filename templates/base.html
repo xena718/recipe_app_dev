@@ -16,14 +16,31 @@
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav"> 
                     <div>
-                      <form class="d-flex" action="/search" method="GET">
-                        <input id="search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                      <form class="d-flex" action="/search" method="POST">
+                        <input id="search-input" name= "search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button id="search-button" class="btn btn-light my-2 my-sm-0" type="submit">
                           <i class="bi bi-search"></i>
                         </button>
                       </form>
                     </div>
-                    <a class="nav-link" href="/browse">Browse</a>
+                    <!-- <a class="nav-link dropdown-togggle" id="navbarDropdownMenuLink" href="/browse" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse</a> -->
+                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> -->
+                    <!-- <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/cuisines">Cuisines</a></li>
+                        <li><a class="dropdown-item" href="/courses">Courses</a></li>
+                        <li><a class="dropdown-item" href="/specialdiet">Special Diet</a></li>
+                    </ul>                    -->
+                    <div class="dropdown">
+                        <a class="nav-link dropdown-toggle" href="/browse" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                          Browse
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                          <li><a class="dropdown-item" href="/cuisines">Cuisines</a></li>
+                          <li><a class="dropdown-item" href="/course">Courses</a></li>
+                          <li><a class="dropdown-item" href="/specialdiet">Special Diet</a></li>
+                        </ul>
+                    </div>                    
                     <a class="nav-link" href="/saved">Saved</a>
                     <a class="nav-link" href="/add-recipe">Add Recipe</a>
                     <a class="nav-link" href="/shoppinglist">Shopping List</a>
