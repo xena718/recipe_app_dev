@@ -11,7 +11,11 @@
 <img src="{{ recipe.photo_url }}">
 
 <div>
-  Cuisine: {{ recipe.cuisine.name }}
+  Cuisine: {{ recipe.cuisine.name }} <br>
+  Diet: 
+  {% for specialdiet in recipe.specialdiets %}
+      {{specialdiet.name}}
+  {% endfor %}
 </div>
 
 <h4>Description</h4>

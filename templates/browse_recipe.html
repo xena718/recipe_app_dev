@@ -1,0 +1,37 @@
+<html>
+<head>
+    <title>Browse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/static/css/TBD.css"/> -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-lg" style="background-color: hwb(41 44% 3%);">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+            <img src="/static/img/yummy-logo.jpg" class="rounded-circle" alt="" width="44" height="38">
+            </a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav"> 
+                    <div>
+                      <form class="d-flex" action="/search" method="POST">
+                        <input id="search-input" name= "search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                        <button id="search-button" class="btn btn-light my-2 my-sm-0" type="submit">
+                          <i class="bi bi-search"></i>
+                        </button>
+                      </form>
+                    </div>
+                    
+                    </div>                    
+                    <a class="nav-link" href="/Ingredients">Ingredients</a>
+                    <a class="nav-link" href="/Cuisines">Cuisines</a>
+                    <a class="nav-link" href="/Diets">Diets</a>
+                    <a class="nav-link" href="/Courses">Courses</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+<div class="container">
+

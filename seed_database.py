@@ -91,8 +91,6 @@ for each_recipe in recipe_data:
     db_recipe = crud.create_recipe(
         user_cr, title, author, description, photo_url, servings, 
         prep_time, cook_time, cuisine, notes) #cuisine is an instance
-    
-    
 
 
     for each_course in recipe_courses:

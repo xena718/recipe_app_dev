@@ -51,10 +51,13 @@ def search_recipes(input):
     
     return (
         db.session.query(Recipe)
+        .join(Cuisine, Cuisine.cuisine_id == Recipe.cuisine_id)
         .join(Recipe_Ingredient, Recipe_Ingredient.recipe_id == Recipe.recipe_id)
         .join(Recipe_Course, Recipe_Course.recipe_id == Recipe.recipe_id)
         .join(Course, Course.course_id == Recipe_Course.course_id)
-        .filter(Recipe.title.like(f'%{input}%') | Recipe.author.like(f'%{input}%') | Recipe_Ingredient.name.like(f'%{input}%'))
+        .join(Recipe_Specialdiet, Recipe_Specialdiet.recipe_id == Recipe.recipe_id)
+        .join(Specialdiet, Specialdiet.specialdiet_id == Recipe_Specialdiet.specialdiet_id)
+        .filter(Recipe.title.ilike(f'%{input}%') | Cuisine.name.ilike(f'%{input}%')| Recipe.author.ilike(f'%{input}%') | Recipe_Ingredient.name.ilike(f'%{input}%') | Course.name.ilike(f'%{input}%') | Specialdiet.name.ilike(f'%{input}%'))
     ).all()
 
 def recipes_dbjoinedload_cuisines():
