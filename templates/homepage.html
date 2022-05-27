@@ -33,7 +33,7 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
-                <div class="price card-text">
+                <div class="recipe card-text">
                   #{{ recipe.cuisine.name }}
                   {% for course in recipe.courses %} 
                   #{{course.name}}

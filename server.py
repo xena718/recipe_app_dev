@@ -4,6 +4,8 @@ from flask import (Flask, render_template, request, flash, session,
                     redirect)
 
 from model import connect_to_db, db
+import model # for query purpose
+
 import crud
 import random
 from fractions import Fraction
@@ -303,7 +305,9 @@ def handle_add_recipe_form():
 
 @app.route("/browse")
 def browse_recipes():
-    pass
+    
+    return render_template('browse_recipe.html')
+
 
 
 @app.route("/search", methods=["POST"])
@@ -311,14 +315,18 @@ def search():
     """obtain user search input, parse input, and return results"""
     input = request.form.get("search-input")
     
-    emps = db.session.query(Recipe, Course, Cuisine).join(Recipe).all()
-    recipes_cuisines = crud.recipes_dbjoinedload_cuisines() 
-    # join multiple tables to one giant table and search the joined table.
-    # parse the input:
-    # search against everything about a recipe (author, title, ingredient, directions, etc)
+    matched_recipes =crud.search_recipes(input)
+
+    # # how to do partial search () e.g. title contains one or multipl words of the input
+
+
+    # split input (if phrase) to words and then search each word against title, author, ingredient
+    # input_list = input.split() # split at space
+
+
     # present the results in what order?order by title
 
-    return render_template("search_output.html")
+    return render_template("search_output.html", search_returned_recipes=matched_recipes)
 
 
 

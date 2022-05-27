@@ -1,8 +1,39 @@
 {% extends 'base.html' %}
-
-{% block title %}Add A Recipe {% endblock %}
+{% block title %}Search Outcome{% endblock %}
 
 {% block body %}
 
+<h5>
+  {{search_returned_recipes | length}} results
+</h5>
+
+{% if search_returned_recipes %}
+  <div id="search-returned-recipe-list" class="row">
+    {% for recipe in search_returned_recipes %}
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 search-returned-recipes-summary mt-3">
+
+            <div class="card text-center bg-light">
+              <a href="/recipe/{{recipe.recipe_id}}">
+                  <img class="card-img-top img-circle" src="{{ recipe.photo_url }}">
+              </a>
+              <div class="card-text">
+                <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
+                  <input type="submit" value="Favorite">
+                </form>
+              </div>
+              <div class="card-body">
+                  <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
+                  <div class="recipe card-text">
+                    #{{ recipe.cuisine.name }}
+                    {% for course in recipe.courses %} 
+                    #{{course.name}}
+                    {% endfor %}
+                  </div>
+              </div>
+            </div>
+        </div>
+    {% endfor %}
+  </div>
+{% endif %}
 
 {% endblock %}

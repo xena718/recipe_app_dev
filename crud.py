@@ -40,18 +40,41 @@ def get_recipe_by_recipe_id (recipe_id):
 def get_all_recipes():
     return Recipe.query.all()
 
+def query_all_recipes():
+    return Recipe.query
+
+def search_recipes(input):
+    """
+    select recipe from recipe join ingredient on recipe.id = ingredient.recipe_id
+    filter recipe.title like '' OR recipe.author like '' or ingredient.name like''
+    """
+    
+    return (
+        db.session.query(Recipe)
+        .join(Recipe_Ingredient, Recipe_Ingredient.recipe_id == Recipe.recipe_id)
+        .join(Recipe_Course, Recipe_Course.recipe_id == Recipe.recipe_id)
+        .join(Course, Course.course_id == Recipe_Course.course_id)
+        .filter(Recipe.title.like(f'%{input}%') | Recipe.author.like(f'%{input}%') | Recipe_Ingredient.name.like(f'%{input}%'))
+    ).all()
+
 def recipes_dbjoinedload_cuisines():
     return Recipe.query.options(db.joinedload('cuisine')).all()
     #cuisine is the attribute (relationship between Recipe and Cuisine)
-
-def recipes_dbjoinedload_cuisines_ingredients():
-    return Recipe.query.options(db.joinedload('cuisine')).all()
+def recipes_query_cuisines():
+    return db.session.query(Recipe,Cuisine).join(Recipe).all()
     #cuisine is the attribute (relationship between Recipe and Cuisine)
+
+
+def recipe_cuisine_course_class_outjoin():
+    
+    return db.session.query(Recipe).join(Course, Recipe.courses).all()
+
 
 def get_recipes_by_cuisine_id(cuisine_id):
     return Recipe.query.filter(Recipe.cuisine_id == cuisine_id).all()
 
 def get_recipe_by_cuisine_name(cuisine_name):
+    # this function doesn't work
     # Recipe.query.options(db.joinedload('cuisine')).all()
     return Recipe.query.filter(Recipe.cuisine.name == cuisine_name).all()
 
@@ -113,9 +136,9 @@ def create_recipe_ingredient(recipe, name, category,quantity, unit):
     #unit=; here the unit refers to the relationship attribute
     return recipe_ingredient
 
-# def get_ingredient_by_name(name):
-#     """return ingredient instance by name"""
-#     return Ingredient.query.filter(Ingredient.name == name).first()
+def query_all_ingredients():
+    return Recipe_Ingredient.query
+
 def create_quantity_unit (name):
     
     quantity_unit = Quantity_Unit(name=name)
