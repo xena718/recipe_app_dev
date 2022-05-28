@@ -305,8 +305,16 @@ def handle_add_recipe_form():
 
 @app.route("/browse")
 def browse_recipes():
-    
-    return render_template('browse_recipe.html')
+    # randomly select 3 cuisines. randomly select 3 recipes per cuisine.
+    # {cuisine_type1:[recipe1, recipe2, recipe3], cuisine_type2:[xx,xx,xx], cuisine_type3:[xx,xx,xx]}
+    # randomly select 3 courses. randomly select 3 recipes per course.
+    # randomly select 3 recipes for Vegetarian and Gluten-free diet.
+    # {Vegetarian:[recipe1, recipe2, recipe3], Gluten-free:[xx,xx,xx]}
+
+    some_recipes_3_cuisines = crud.get_some_recipes_3cuisines()
+
+
+    return render_template('browse_recipe.html', some_recipes_3_cuisines=some_recipes_3_cuisines)
 
 
 

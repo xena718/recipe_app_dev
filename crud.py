@@ -3,6 +3,9 @@
 from model import (db, connect_to_db, Saved_Recipe, User, Recipe, Shopping_Recipe, 
     Recipe_Direction, Quantity_Unit, Recipe_Ingredient,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, Specialdiet)
 
+import random
+
+
 def create_user(email, name, password):
     """Create and return a new user."""
 
@@ -59,6 +62,26 @@ def search_recipes(input):
         .join(Specialdiet, Specialdiet.specialdiet_id == Recipe_Specialdiet.specialdiet_id)
         .filter(Recipe.title.ilike(f'%{input}%') | Cuisine.name.ilike(f'%{input}%')| Recipe.author.ilike(f'%{input}%') | Recipe_Ingredient.name.ilike(f'%{input}%') | Course.name.ilike(f'%{input}%') | Specialdiet.name.ilike(f'%{input}%'))
     ).all()
+
+def get_some_recipes_3cuisines():
+    """
+    select recipe from recipe join ingredient on recipe.id = ingredient.recipe_id
+    filter recipe.title like '' OR recipe.author like '' or ingredient.name like''
+    """
+    some_recipes_3_cuisines ={}
+    cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+    selected_3_cuisines = random.sample(cuisines, 3)
+    
+    recipes_join_cuisines_query = db.session.query(Recipe).join(Cuisine, Cuisine.cuisine_id == Recipe.cuisine_id)
+    
+    for cuisine_type in selected_3_cuisines:
+        all_recipes_of_the_cuisine = recipes_join_cuisines_query.filter(Cuisine.name==cuisine_type).all()
+        
+        selected_recipes = random.sample(all_recipes_of_the_cuisine, min(len(all_recipes_of_the_cuisine),3))
+        some_recipes_3_cuisines[cuisine_type] = selected_recipes
+    
+    return some_recipes_3_cuisines
+
 
 def recipes_dbjoinedload_cuisines():
     return Recipe.query.options(db.joinedload('cuisine')).all()
