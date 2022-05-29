@@ -311,10 +311,11 @@ def browse_recipes():
     # randomly select 3 recipes for Vegetarian and Gluten-free diet.
     # {Vegetarian:[recipe1, recipe2, recipe3], Gluten-free:[xx,xx,xx]}
 
-    some_recipes_3_cuisines = crud.get_some_recipes_3cuisines()
+    some_recipes_3_cuisines = crud.get_some_recipes_3_cuisines()
+    some_recipes_3_courses = crud.get_some_recipes_3_courses()
 
 
-    return render_template('browse_recipe.html', some_recipes_3_cuisines=some_recipes_3_cuisines)
+    return render_template('browse_recipe.html', some_recipes_3_cuisines=some_recipes_3_cuisines, some_recipes_3_courses=some_recipes_3_courses)
 
 
 

@@ -63,11 +63,7 @@ def search_recipes(input):
         .filter(Recipe.title.ilike(f'%{input}%') | Cuisine.name.ilike(f'%{input}%')| Recipe.author.ilike(f'%{input}%') | Recipe_Ingredient.name.ilike(f'%{input}%') | Course.name.ilike(f'%{input}%') | Specialdiet.name.ilike(f'%{input}%'))
     ).all()
 
-def get_some_recipes_3cuisines():
-    """
-    select recipe from recipe join ingredient on recipe.id = ingredient.recipe_id
-    filter recipe.title like '' OR recipe.author like '' or ingredient.name like''
-    """
+def get_some_recipes_3_cuisines():
     some_recipes_3_cuisines ={}
     cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
     selected_3_cuisines = random.sample(cuisines, 3)
@@ -82,6 +78,19 @@ def get_some_recipes_3cuisines():
     
     return some_recipes_3_cuisines
 
+def get_some_recipes_3_courses():
+    some_recipes_3_courses = {}
+    courses = ["Appetizer & Snacks", "Breakfast & Brunch", "Lunch", "Main Dish", "Salad", "Dessert", "Side Dishes", "Soups & Stews", "Drink"]
+    selected_3_courses = random.sample(courses, 3)
+
+    recipes_join_courses_query = db.session.query(Recipe).join(Recipe_Course,Recipe_Course.recipe_id== Recipe.recipe_id).join(Course, Course.course_id==Recipe_Course.course_id)
+    
+    for course_type in selected_3_courses:
+        all_recipes_of_the_course = recipes_join_courses_query.filter(Course.name ==course_type).all()
+        selected_recipes =  random.sample(all_recipes_of_the_course, min(len(all_recipes_of_the_course),3))
+        some_recipes_3_courses[course_type] = selected_recipes
+
+    return some_recipes_3_courses
 
 def recipes_dbjoinedload_cuisines():
     return Recipe.query.options(db.joinedload('cuisine')).all()
