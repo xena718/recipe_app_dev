@@ -87,10 +87,24 @@ def get_some_recipes_3_courses():
     
     for course_type in selected_3_courses:
         all_recipes_of_the_course = recipes_join_courses_query.filter(Course.name ==course_type).all()
-        selected_recipes =  random.sample(all_recipes_of_the_course, min(len(all_recipes_of_the_course),3))
+        selected_recipes = random.sample(all_recipes_of_the_course, min(len(all_recipes_of_the_course),3))
         some_recipes_3_courses[course_type] = selected_recipes
 
     return some_recipes_3_courses
+
+def get_some_recipes_2_specialdiets():
+    some_recipes_2_specialdiets = {}
+    two_specialdiets = ["Vegetarian", "Gluten-free"]
+
+    recipes_join_specialdiet_query = db.session.query(Recipe).join(Recipe_Specialdiet,Recipe_Specialdiet.recipe_id== Recipe.recipe_id).join(Specialdiet, Specialdiet.specialdiet_id==Recipe_Specialdiet.specialdiet_id)
+    
+    for specialdiet_type in two_specialdiets:
+        all_recipes_of_the_specialdiet = recipes_join_specialdiet_query.filter(Specialdiet.name ==specialdiet_type).all()
+        selected_recipes = random.sample(all_recipes_of_the_specialdiet, min(len(all_recipes_of_the_specialdiet),3))
+        some_recipes_2_specialdiets[specialdiet_type] = selected_recipes
+
+    return some_recipes_2_specialdiets
+
 
 def recipes_dbjoinedload_cuisines():
     return Recipe.query.options(db.joinedload('cuisine')).all()

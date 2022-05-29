@@ -313,10 +313,9 @@ def browse_recipes():
 
     some_recipes_3_cuisines = crud.get_some_recipes_3_cuisines()
     some_recipes_3_courses = crud.get_some_recipes_3_courses()
+    some_recipes_2_specialdiets = crud.get_some_recipes_2_specialdiets()
 
-
-    return render_template('browse_recipe.html', some_recipes_3_cuisines=some_recipes_3_cuisines, some_recipes_3_courses=some_recipes_3_courses)
-
+    return render_template('browse_recipe.html', some_recipes_3_cuisines=some_recipes_3_cuisines, some_recipes_3_courses=some_recipes_3_courses, some_recipes_2_specialdiets=some_recipes_2_specialdiets)
 
 
 @app.route("/search", methods=["POST"])
