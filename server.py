@@ -336,6 +336,11 @@ def search():
 
     return render_template("search_output.html", search_returned_recipes=matched_recipes)
 
+@app.route("/cuisines")
+def show_cuisines():
+
+
+    return render_template("cuisines.html")
 
 
 
