@@ -342,6 +342,11 @@ def show_cuisines():
 
     return render_template("cuisines.html")
 
+@app.route("/diets")
+def show_cuisines():
+
+
+    return render_template("diets.html")
 
 
 if __name__ == "__main__":
