@@ -315,7 +315,7 @@ def browse_recipes():
     some_recipes_3_courses = crud.get_some_recipes_3_courses()
     some_recipes_2_specialdiets = crud.get_some_recipes_2_specialdiets()
 
-    return render_template('browse_recipe.html', some_recipes_3_cuisines=some_recipes_3_cuisines, some_recipes_3_courses=some_recipes_3_courses, some_recipes_2_specialdiets=some_recipes_2_specialdiets)
+    return render_template('browse_homepage.html', some_recipes_3_cuisines=some_recipes_3_cuisines, some_recipes_3_courses=some_recipes_3_courses, some_recipes_2_specialdiets=some_recipes_2_specialdiets)
 
 
 @app.route("/search", methods=["POST"])
@@ -327,10 +327,8 @@ def search():
 
     # # how to do partial search () e.g. title contains one or multipl words of the input
 
-
     # split input (if phrase) to words and then search each word against title, author, ingredient
     # input_list = input.split() # split at space
-
 
     # present the results in what order?order by title
 
@@ -342,11 +340,11 @@ def show_cuisines():
 
     return render_template("cuisines.html")
 
-@app.route("/diets")
-def show_cuisines():
+# @app.route("/diets")
+# def show_cuisines():
 
 
-    return render_template("diets.html")
+#     return render_template("diets.html")
 
 
 if __name__ == "__main__":

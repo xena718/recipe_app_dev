@@ -1,0 +1,18 @@
+.o-hidden {
+    overflow:hidden;
+}
+
+.nav {
+    transition: transform 0.4s;
+    transform: translateX(50%);
+    left: -50%;
+}
+
+.nav.justify-content-end {
+    transform: translateX(0);
+    left: 0;
+}
+
+.fa-arrow-left:before {
+    content: "\f060";
+}
