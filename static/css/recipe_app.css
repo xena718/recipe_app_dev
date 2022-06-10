@@ -1,0 +1,13 @@
+
+
+.recipe-img {
+    border-radius: 2%;
+    height: 220px;
+    width: 220px;
+    padding: 5px;
+}
+
+.recipe-card-div{
+    height:350px;
+    width:300px;
+}

@@ -14,7 +14,7 @@
 
             <div class="card text-center bg-light">
               <a href="/recipe/{{recipe.recipe_id}}">
-                  <img class="card-img-top img-circle" src="{{ recipe.photo_url }}">
+                  <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
               </a>
               <div class="card-text">
                 <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
