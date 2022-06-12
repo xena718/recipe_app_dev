@@ -338,6 +338,7 @@ def search():
 def show_cuisines():
 
 
+
     return render_template("cuisines.html")
 
 

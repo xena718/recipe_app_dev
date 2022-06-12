@@ -1,19 +1,23 @@
-body{
+/* body{
     padding:0;
     margin:0;
     box-sizing:border-box;
-} 
+}  */
 .container-for-scroll{
-display:flex;
+/* display:flex;
 justify-content:center;
 align-items: center;
 background-color: #f9f9f9;
-height:100vh;
-
+height:100vh; */
+padding: 5px;
+margin:15px;
+width:98vw;
+position:relative;
 } 
 .horizontal-scroll {
-    width:800px;
-    height: 80px;
+    /* width:900px; */
+    width:96vw;
+    height: 120px;
     background-color: #fff;
     border: 1px solid #ddd;
     border-radius:5px;
@@ -37,10 +41,10 @@ height:100vh;
 }
 
 .cuisine-circle {
-    background: linear-gradient(rgb(231, 195, 184), rgba(255,115,0));
+    /* background: linear-gradient(rgb(231, 195, 184), rgba(255,115,0));
     width: 60px;
-    height:60px;
-    margin:15px 10px;
+    height:60px; */
+    margin:10px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,8 +52,8 @@ height:100vh;
 } 
 
 .cuisine-circle img {
-    width: 52px;
-    height: 52px;
+    width: 77px;
+    height: 77px;
     border-radius: 50%;
     border: 2px solid #fff;
 }

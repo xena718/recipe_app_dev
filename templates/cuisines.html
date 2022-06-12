@@ -1,9 +1,9 @@
-<!-- {% extends 'browse_base.html' %}
+{% extends 'browse_base.html' %}
 {% block title %}Cuisines {% endblock %}
 
-{% block body %} -->
+{% block body %}
 
-<html>
+<!-- <html>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="/static/css/cuisines.css"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  </head>
+  </head> -->
 
-<body>
+<!-- <body> -->
 
 <div class="container-for-scroll">
     <div class="horizontal-scroll">
@@ -21,7 +21,12 @@
            <i class="fas fa-chevron-left"></i>
         </button>
         <div class="cuisines-container">
-            <div class="cuisine-circle"><img src="/static/img/cuisines-img/1.jfif" alt="1"></div>
+            <div class="cuisine-circle">
+                <a href="/{cuisine_recipes}">
+                    <img src="/static/img/cuisines-img/1.jfif" alt="1">
+                    American
+                </a>
+            </div>
             <div class="cuisine-circle"><img src="/static/img/cuisines-img/2.jfif" alt="1"></div>
             <div class="cuisine-circle"><img src="/static/img/cuisines-img/3.jfif" alt="1"></div>
             <div class="cuisine-circle"><img src="/static/img/cuisines-img/4.jfif" alt="1"></div>
@@ -45,9 +50,11 @@
     </div>
 </div>
 
-<script src="/static/js/browse.js"></script>
+<!-- <script src="/static/js/browse.js"></script>
 
 </body>
-</html>
+</html> -->
 
-<!-- {% endblock %} -->
+<script src="/static/js/browse.js"></script>
+
+{% endblock %}
