@@ -1,21 +1,26 @@
-.navbar{
-    width:100vw;
-}
 
 .container{
-    width:98vw;
-}
+    overflow:auto;
+    padding-right:5px;
+    padding-left:5px;
+    margin-left:auto;
+    margin-right:auto;
 
+}
+/* overflow:auto solved the problem of .navbar div white space on the right end of page */
 .recipe-cards{
-    width:96vw;
-    margin-left:1px;
-    margin-right:1px;
+    margin-left:auto;
+    margin-right:auto;
+    flex-direction: row;
+    justify-content: flex-start;
 }
 
 .recipe-card-div{
-    display:flex;
     height:330px;
-    width:300px;
+    width:280px;
+    padding-left:8px;
+    padding-right:8px;
+
 }
 
 .recipe-card-content-div{
@@ -23,6 +28,7 @@
     width:300px; */
     height:100%;
     width:100%;
+    padding:0;
 }
 .card-btn-div{
     font-size:small;
@@ -32,10 +38,9 @@
 }
 
 .recipe-img {
-    border-radius: 5%;
+    border-radius: 0.25rem;
     height: 220px;
-    width: 98%;
-    padding: 5px;
+    /* padding: 0px; */
 }
 
 .card-body{
