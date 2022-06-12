@@ -4,23 +4,23 @@
 {% block body %}
 
 
-<div id="browse-recipe-list" class="row">
+<div class="recipe-cards row">
   {% for cuisine_type, recipes in some_recipes_3_cuisines.items() %}
   <h4>{{cuisine_type}} Recipes</h4>
     {% for recipe in recipes %}
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 saved-recipe-summary mt-3">
-          <div class="card text-center bg-light">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+          <div class="card text-center bg-light recipe-card-content-div">
             <a href="/recipe/{{recipe.recipe_id}}">
                 <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
             </a>
-            <div class="card-text">
+            <div class="card-btn-div">
               <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
                 <button type="submit">Favorite</button>
               </form>
             </div>
             <div class="card-body">
                 <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
-                <div class="price card-text">
+                <div class="card-text">
                   #{{ recipe.cuisine.name }}
                   {% for course in recipe.courses %} 
                   #{{course.name}}
@@ -37,8 +37,10 @@
   {% for course_type, recipes in some_recipes_3_courses.items() %}
   <h4>{{course_type}} Recipes</h4>
     {% for recipe in recipes %}
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 saved-recipe-summary mt-3">
-          <div class="card text-center bg-light">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+          <div class="card text-center bg-light recipe-card-content-div">
+
+
             <a href="/recipe/{{recipe.recipe_id}}">
                 <img class="card-img-top img-circle" src="{{ recipe.photo_url }}">
             </a>
@@ -66,8 +68,9 @@
   {% for specialdiet_type, recipes in some_recipes_2_specialdiets.items() %}
   <h4>{{specialdiet_type}} Recipes</h4>
     {% for recipe in recipes %}
-      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 saved-recipe-summary mt-3">
-          <div class="card text-center bg-light">
+      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+          <div class="card text-center bg-light recipe-card-content-div">
+
             <a href="/recipe/{{recipe.recipe_id}}">
                 <img class="card-img-top img-circle" src="{{ recipe.photo_url }}">
             </a>

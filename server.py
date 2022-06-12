@@ -336,7 +336,7 @@ def search():
 
 @app.route("/cuisines")
 def show_cuisines():
-
+    
 
 
     return render_template("cuisines.html")
