@@ -335,11 +335,20 @@ def search():
     return render_template("search_output.html", search_returned_recipes=matched_recipes)
 
 @app.route("/cuisines")
-def show_cuisines():
+def display_cuisines_homepage():
+    allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
     
+    return render_template("cuisines.html", allrecipes_allcuisines = allrecipes_allcuisines)
+
+@app.route('/cuisines/<cuisine_type>')
+def show_cuisines(cuisine_type):
+    allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
+    recipes_of_the_cuisine_type = allrecipes_allcuisines[cuisine_type]
+
+    return render_template("recipes_per_cuisine.html", cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type)
 
 
-    return render_template("cuisines.html")
+
 
 
 

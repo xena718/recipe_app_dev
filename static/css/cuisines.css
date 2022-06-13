@@ -58,6 +58,12 @@ position:relative;
     border: 2px solid #fff;
 }
 
+.cuisine-circle a {
+    text-align:center;
+    font-size:14px;
+}
+
+
 .horizontal-scroll .btn-scroll {
     background: #fff;
     color: #999;

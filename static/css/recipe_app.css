@@ -18,8 +18,9 @@
 .recipe-card-div{
     height:330px;
     width:280px;
-    padding-left:8px;
-    padding-right:8px;
+    padding-left:10px;
+    padding-right:10px;
+    margin-bottom: 0.25rem;
 
 }
 
@@ -39,7 +40,7 @@
 
 .recipe-img {
     border-radius: 0.25rem;
-    height: 220px;
+    height: 190px;
     /* padding: 0px; */
 }
 

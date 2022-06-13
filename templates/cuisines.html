@@ -3,18 +3,8 @@
 
 {% block body %}
 
-<!-- <html>
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Browse</title>
-    <link rel="stylesheet" href="/static/css/cuisines.css"/>
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  </head> -->
-
-<!-- <body> -->
-
+<!-- the following commented out container-for-scroll was used to design carousel slide using some 1-16 dog pictures -->
+<!-- 
 <div class="container-for-scroll">
     <div class="horizontal-scroll">
         <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHonrizontally(1)">
@@ -48,12 +38,42 @@
         </button>
        
     </div>
+</div> -->
+
+<div class="container-for-scroll">
+    <div class="horizontal-scroll">
+        <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHonrizontally(1)">
+           <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="cuisines-container">
+            {% for cuisine_type in allrecipes_allcuisines %}
+            <div class="cuisine-circle">
+                <a href="/cuisines/{{cuisine_type}}">
+                    <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
+                    {{cuisine_type}}
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="btn-scroll" id="btn-scroll-right" onclick="scrollHonrizontally(-1)">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+       
+    </div>
 </div>
 
-<!-- <script src="/static/js/browse.js"></script>
+<!-- <div>
+    {% for cuisine_type in allrecipes_allcuisines %}
+    <div>
+        <a href="/cuisines/{{cuisine_type}}">
+            <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
+            {{cuisine_type}}
+        </a>
+    </div>
 
-</body>
-</html> -->
+
+    {% endfor %}
+</div> -->
 
 <script src="/static/js/browse.js"></script>
 
