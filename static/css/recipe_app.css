@@ -38,8 +38,8 @@
     margin: 1px;
     padding: 1px;
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 4px;
+    right: 4px;
     /* width: 24px; */
     /* height: 34px; */
     /* background: #d54215; */
@@ -53,6 +53,19 @@
     /* padding: 0px; */
 }
 
+#save-remove-btn{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width:30px;
+    height:30px;
+    border-radius: 50%;
+    background-color: rgb(247, 247, 237);
+    border:0px;
+}
+.bi-heart{
+    color:rgb(227, 33, 33);
+}
 
 .card-body{
     padding:4px;
