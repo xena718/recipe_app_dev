@@ -15,8 +15,9 @@
     justify-content: flex-start;
 }
 
+/* Maybe I should set this div to fix contents */
 .recipe-card-div{
-    height:330px;
+    height:310px;
     width:280px;
     padding-left:10px;
     padding-right:10px;
