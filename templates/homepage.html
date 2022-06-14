@@ -21,14 +21,13 @@
 <div class="recipe-cards row"> 
   {% for recipe in recipes_cuisines %}
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
-
           <div class="card text-center bg-light recipe-card-content-div">
             <a href="/recipe/{{recipe.recipe_id}}">
-                <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
+              <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
             </a>
             <div class="card-btn-div">
-              <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
-                <input type="submit" value="Favorite">
+              <form action="/remove-from-saved/{{ recipe.recipe_id }}" method="POST">
+                <button type="submit">Save</button>
               </form>
             </div>
             <div class="card-body">
