@@ -25,11 +25,19 @@
             <a href="/recipe/{{recipe.recipe_id}}">
               <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
             </a>
-            <div class="card-btn-div">
+            <!-- <div class="card-btn-div">
               <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
                 <button id="save-remove-btn" type="submit"><i class="bi bi-heart"></i></button>
               </form>
-            </div>
+            </div> -->
+
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+<!-- 
+              <form id="save-remove-form" action="/save-remove" method="POST">
+                <button id="save-remove-btn" type="submit"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+              </form> -->
+            </div>            
             <div class="card-body">
                 <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
                 <div class="card-text">

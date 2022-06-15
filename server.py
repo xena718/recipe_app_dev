@@ -40,7 +40,7 @@ def homepage():
     #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_name}")
     #     one_recipe_each_cuisine = random.choice(recipes_by_cuisine_name)
     #     one_recipe_per_cuisine.append(one_recipe_each_cuisine)    
-   
+   ###################################################################
     recipes = crud.recipes_dbjoinedload_cuisines() 
     # print("********************"+f"{recipes[1]}, {recipes[1].cuisine.name}")
     recipe_cuisine_names =[]
@@ -132,7 +132,35 @@ def show_account():
 
     return render_template("user_account.html", logged_in_user=user, user_saved_recipes=user_saved_recipes, user_added_recipes=user_added_recipes)
 
+@app.route("/save-remove", methods=["POST"])
+def save_remove():
+    user_email = session.get("logged_in_user_email")
+    if not user_email:
+        flash("please log in first to save a recipe")
+        return redirect('/signup-login')
+    
+    user = crud.get_user_by_email(user_email)
+    recipe_id = request.json.get("recipeId")
+    # print("*"*20+recipe_title)
 
+    recipe = crud.get_recipe_by_recipe_id(recipe_id)
+    saved_recipes_ids = [saved_recipe.recipe_id for saved_recipe in user.saved_recipes]
+    
+    if recipe.recipe_id in saved_recipes_ids:
+        saved_recipe_entry = crud.get_saved_recipe_by_recipe_id(recipe_id)
+        db.session.delete(saved_recipe_entry)
+        db.session.commit()
+        return "removed_from_saved"
+
+    else:
+        #create a saved_recipe object 
+        saved_recipe = crud.create_saved_recipe(user.user_id, recipe.recipe_id)
+        # saved_recipe = crud.create_saved_recipe(user, recipe)
+        # user.saved_recipes.append(recipe) #assication between user and saved recipes
+        db.session.add(saved_recipe)
+        db.session.commit() 
+
+        return "just_saved"
 
 
 @app.route("/add-to-saved/<recipe_id>", methods=["POST"])

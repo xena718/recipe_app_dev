@@ -1,53 +1,34 @@
 'use strict';
+// document.getElementsByClassName("save-remove-btn") also works
+const btns = document.querySelectorAll('.save-remove-btn')
 
-document.querySelector('#add-to-saved-form').addEventListener('submit',evt =>{
-    evt.preventDefault();
+for (const btn of btns) {
+
+    btn.addEventListener('click',evt =>{
+    console.log(btn)
+    const dataToServer ={recipeId: btn.dataset.recipeId};
+    console.log(dataToServer);
+
+    fetch('/save-remove',{
+        method: 'POST',
+        body: JSON.stringify(dataToServer),
+        headers: {
+            'Content-Type': 'application/json',
+            },
+    })
+    .then(response => response.text())
+    .then(serverData => {
+        // const icon = btn.children[0] # this works, but only when icon is the first child.
+        const icon = btn.querySelector("i")
+        if (serverData === "just_saved"){
+            icon.classList.replace("bi-heart", "bi-heart-fill")
+        }else if (serverData === "removed_from_saved"){
+            icon.classList.replace("bi-heart-fill", "bi-heart")
+        }
+    });
+
+    });
+
 }
-
-// document.querySelector('#add-to-saved-form').addEventListener('submit',evt =>{
-//     evt.preventDefault();
-
-//     const forminput = {
-//         recipe_instance: document.querySelector('#add-to-saved-input')
-//     };
-    
-//     fetch('/add-to-saved',{
-//         method: 'POST',
-//         body: JSON.stringify(forminput),
-//         headers: {
-//             'Content-Type': 'application/json',
-//           },
-//     })
-//     .then(response => response.json())
-//     .then(responseJSON => {
-//         // I want  to change the submit button to a different color 
-//     });
-
-// });
-
-
-// from AJAX lecture demo
-// 'use strict';
-
-// document.querySelector('#order-form').addEventListener('submit', evt => {
-//   evt.preventDefault();
-
-//   const formInputs = {
-//     type: document.querySelector('#type-field').value,
-//     amount: document.querySelector('#amount-field').value,
-//   };
-
-//   fetch('/new-order', {
-//     method: 'POST',
-//     body: JSON.stringify(formInputs),
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then(response => response.json())
-//     .then(responseJson => {
-//       alert(responseJson.status);
-//     });
-// });
 
 

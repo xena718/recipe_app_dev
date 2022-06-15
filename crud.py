@@ -40,6 +40,9 @@ def create_recipe(
 def get_recipe_by_recipe_id (recipe_id):
     return Recipe.query.get(recipe_id)
 
+def get_recipe_by_recipe_title (recipe_title):
+    return Recipe.query.filter(Recipe.title==recipe_title).first()
+
 def get_all_recipes():
     return Recipe.query.all()
 
