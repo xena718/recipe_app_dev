@@ -17,7 +17,7 @@
 
 /* Maybe I should set this div to fix contents */
 .recipe-card-div{
-    height:260px;
+    height:280px;
     width:280px;
     padding-left:10px;
     padding-right:10px;
@@ -57,8 +57,8 @@
     display:flex;
     justify-content: center;
     align-items:center;
-    width:30px;
-    height:30px;
+    width:34px;
+    height:34px;
     border-radius: 50%;
     background-color: rgb(247, 247, 237);
     border:0px;
@@ -69,22 +69,25 @@
 }
 
 .bi-heart{
+    font-size:18px;
     color:rgb(227, 33, 33);
 }
 .bi-heart-fill{
-    color:rgb(227, 33, 33);
+    font-size:18px;
+    color:rgb(253, 143, 143);
 }
 
-
-#save-remove-btn:hover{
-    background-color: rgb(225, 225, 213);
+.card-title{
+    margin-top: 8px;
+    margin-bottom: 12px;
 }
+
 .card-body{
     padding:4px;
     height:20px;
 }
 .card-text{
-    font-size:small;
+    font-size:0.75rem;
 }
 .h5, h5 {
     font-size: 1rem;

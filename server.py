@@ -20,7 +20,8 @@ app.jinja_env.undefined = StrictUndefined
 @app.route('/')
 def homepage():
     """view homepage. Return one random recipe per cuisine"""
-    
+    #one thing is improve is that heart of the recipe on homepage should be unfilled or filled if user logged in and the recipe has been saved by user
+
     one_recipe_per_cuisine = []
 
     # cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
