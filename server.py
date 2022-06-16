@@ -168,7 +168,19 @@ def save_remove():
 
 @app.route("/remove", methods=["POST"])
 def remove_from_saved_recipes():
-    pass 
+    #user must have logged in before user is routed to this route.
+    # user_email = session["logged_in_user_email"]
+    # user = crud.get_user_by_email(user_email)
+
+    recipe_id = request.json.get("recipeId")
+    recipe = crud.get_recipe_by_recipe_id(recipe_id)
+    saved_recipe_entry = crud.get_saved_recipe_by_recipe_id(recipe_id)
+    
+    #delete the saved_recipe_entry 
+    db.session.delete(saved_recipe_entry)
+    db.session.commit()
+
+    return "removed_from_saved" 
 
 
 
@@ -358,10 +370,11 @@ def browse_recipes():
 @app.route("/search", methods=["POST"])
 def search():
     """obtain user search input, parse input, and return results"""
-    input = request.form.get("search-input")
-    
+    input = request.form.get("search-input") 
     matched_recipes =crud.search_recipes(input)
 
+    user_email = session["logged_in_user_email"]
+    current_user = crud.get_user_by_email(user_email)
     # # how to do partial search () e.g. title contains one or multipl words of the input
 
     # split input (if phrase) to words and then search each word against title, author, ingredient
@@ -369,7 +382,7 @@ def search():
 
     # present the results in what order?order by title
 
-    return render_template("search_output.html", search_returned_recipes=matched_recipes)
+    return render_template("search_output.html", current_user=current_user, search_returned_recipes=matched_recipes)
 
 @app.route("/cuisines")
 def display_cuisines_homepage():

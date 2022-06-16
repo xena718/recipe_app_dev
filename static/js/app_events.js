@@ -49,17 +49,20 @@ for (const removeBtn of removeBtns){
             'Content-Type': 'application/json',
             },
     })
-    // the following code needs update.
-    .then(response => response.text())
-    .then(serverData => {
-        // const icon = btn.children[0] # this works, but only when icon is the first child.
-        const icon = btn.querySelector("i")
-        if (serverData === "just_saved"){
-            icon.classList.replace("bi-heart", "bi-heart-fill")
-        }else if (serverData === "removed_from_saved"){
-            icon.classList.replace("bi-heart-fill", "bi-heart")
-        }
-    });
+    
+    removeBtn.closest(".recipe-card-div").remove();
+
+
+    // .then(response => response.text())
+    // .then(serverData => {
+    //     // const icon = btn.children[0] # this works, but only when icon is the first child.
+    //     const recipeCardDiv = removeBtn.closest(".recipe-card-div")
+    //     console.log(recipeCardDiv)
+    //     if (serverData === "removed_from_saved"){
+    //         recipeCardDiv.remove()
+    //     }
+
+    // });
 
     });
 

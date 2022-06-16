@@ -3,11 +3,14 @@
 
 {% block body %}
 
+<div  class="text-above-recipe-cards">
+  <h4>Most-Saved Recipes</h4>
+</div>
 <div class="recipe-cards row"> 
   {% for recipe in recipes_cuisines %}
       <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
           <div class="card text-center bg-light recipe-card-content-div">
-            <a href="/recipe/{{recipe.recipe_id}}">
+            <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
               <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
             </a>
             <!-- <div class="card-btn-div">
@@ -27,7 +30,7 @@
 
             <div class="card-body">
                 <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
-                <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
+                <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
                 <div class="card-text">
                   {{ recipe.cuisine.name }}
                   {% for course in recipe.courses %} 

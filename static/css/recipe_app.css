@@ -7,6 +7,13 @@
     margin-right:auto;
 
 }
+.text-above-recipe-cards{
+    padding-left:10px;
+    padding-right:10px;
+    margin-top: 1rem;
+    margin-bottom: 0.1rem;
+}
+
 /* overflow:auto solved the problem of .navbar div white space on the right end of page */
 .recipe-cards{
     margin-left:auto;
@@ -46,6 +53,9 @@
     /* border-radius: 50%; */
 }
 
+.no-underline{
+    text-decoration: none;
+}
 
 .recipe-img {
     border-radius: 0.25rem;
@@ -53,7 +63,7 @@
     /* padding: 0px; */
 }
 
-.save-remove-btn{
+.save-remove-btn, .remove-btn{
     display:flex;
     justify-content: center;
     align-items:center;
@@ -64,12 +74,12 @@
     border:0px;
 }
 
-.save-remove-btn:hover{
-    background-color: rgb(225, 225, 213);
+.save-remove-btn:hover,.remove-btn:hover{
+    background-color: rgb(207, 207, 199);
 }
 
-.bi-heart{
-    font-size:18px;
+.bi-heart, .bi-dash-circle{
+    font-size:17px;
     color:rgb(227, 33, 33);
 }
 .bi-heart-fill{
@@ -91,6 +101,9 @@
 }
 .h5, h5 {
     font-size: 1rem;
+}
+h4{
+    font-size: 1.25rem;
 }
 
 
