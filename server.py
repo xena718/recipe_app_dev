@@ -183,6 +183,11 @@ def remove_from_saved_recipes():
     return "removed_from_saved" 
 
 
+# <div class="card-btn-div">
+#     <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
+#     <button id="save-remove-btn" type="submit"><i class="bi bi-heart"></i></button>
+#     </form>
+# </div> 
 
 @app.route("/add-to-saved/<recipe_id>", methods=["POST"])
 def add_to_saved(recipe_id):

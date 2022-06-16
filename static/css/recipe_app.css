@@ -107,3 +107,66 @@ h4{
 }
 
 
+/* Below Chunk for carousel slide for recipe cards */
+/* body{
+    padding:0;
+    margin:0;
+    box-sizing:border-box;
+}  */
+.container-for-scroll{
+    /* display:flex;
+    justify-content:center;
+    align-items: center;
+    background-color: #f9f9f9;
+    height:100vh; */
+    padding: 5px;
+    margin:5px;
+    width:98vw;
+    position:relative;
+    } 
+    
+.horizontal-scroll {
+    /* width:900px; */
+    width:96vw;
+    height: 320px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius:5px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+
+}
+
+.recipes-cards-slide-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    position: absolute;
+    left:0;
+
+}
+
+.recipe-card-div-in-carousel {
+    margin:10px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+
+
+.horizontal-scroll .btn-scroll {
+    background: #fff;
+    color: #999;
+    box-shadow: 0 0 10px #999;
+    padding: 5px 8px;
+    border: 0;
+    border-radius: 50%;
+    margin:0px 5px;
+    z-index: 1;
+    cursor: pointer;
+}

@@ -30,6 +30,8 @@ for (const btn of btns) {
             icon.classList.replace("bi-heart-fill", "bi-heart")
         }
     });
+    // catch errors when server is down for example. 
+    // recipe is deleted by user A while user b is trying to save the recipe.
 
     });
 
@@ -66,4 +68,27 @@ for (const removeBtn of removeBtns){
 
     });
 
+}
+
+
+// Carousel slide for recipe cards 
+
+let currentScrollPosition = 0;
+let scrollAmount = 400;
+
+const sCont = document.querySelector(".recipes-cards-slide-container");
+// const sCont = document.querySelector(".recipe-card-div-in-carousel");
+
+const hScroll = document.querySelector(".horizontal-scroll");
+let maxScroll = -sCont.offsetWidth+ hScroll.offsetWidth; 
+
+function scrollHonrizontally(val){
+    currentScrollPosition += (val*scrollAmount);
+    if (currentScrollPosition >0){
+        currentScrollPosition = 0;
+    }
+    if (currentScrollPosition<maxScroll){
+        currentScrollPosition = maxScroll;
+    }
+    sCont.style.left = currentScrollPosition + 'px';
 }
