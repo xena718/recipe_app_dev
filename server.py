@@ -166,6 +166,11 @@ def save_remove():
 
         return "just_saved"
 
+@app.route("/remove", methods=["POST"])
+def remove_from_saved_recipes():
+    pass 
+
+
 
 @app.route("/add-to-saved/<recipe_id>", methods=["POST"])
 def add_to_saved(recipe_id):
