@@ -22,8 +22,7 @@ def homepage():
     """view homepage. Return one random recipe per cuisine"""
     #one thing is improve is that heart of the recipe on homepage should be unfilled or filled if user logged in and the recipe has been saved by user
 
-    user_email = session["logged_in_user_email"]
-    current_user = crud.get_user_by_email(user_email)
+    user_email = session.get("logged_in_user_email")
     
     one_recipe_per_cuisine = []
 
@@ -56,8 +55,11 @@ def homepage():
         else:
             recipe_cuisine_names.append(recipe_cuisine_name)
             one_recipe_per_cuisine.append(recipe)
-
-    return render_template("homepage.html", current_user=current_user, recipes_cuisines=one_recipe_per_cuisine)
+    if user_email:
+        current_user = crud.get_user_by_email(user_email)
+        return render_template("homepage.html", current_user=current_user, recipes_cuisines=one_recipe_per_cuisine)
+    else:
+        return render_template("homepage.html", recipes_cuisines=one_recipe_per_cuisine)
 
 @app.route('/signup-login')
 def show_signup_login_page():

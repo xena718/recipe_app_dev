@@ -121,13 +121,13 @@ h4{
     height:100vh; */
     padding: 5px;
     margin:5px;
-    width:98vw;
+    /* width:98vw; */
     position:relative;
     } 
     
 .horizontal-scroll {
     /* width:900px; */
-    width:96vw;
+    /* width:96vw; */
     height: 320px;
     background-color: #fff;
     border: 1px solid #ddd;

@@ -57,7 +57,6 @@ for (const removeBtn of removeBtns){
 
     // .then(response => response.text())
     // .then(serverData => {
-    //     // const icon = btn.children[0] # this works, but only when icon is the first child.
     //     const recipeCardDiv = removeBtn.closest(".recipe-card-div")
     //     console.log(recipeCardDiv)
     //     if (serverData === "removed_from_saved"){
@@ -74,7 +73,7 @@ for (const removeBtn of removeBtns){
 // Carousel slide for recipe cards 
 
 let currentScrollPosition = 0;
-let scrollAmount = 400;
+let scrollAmount = 800;
 
 const sCont = document.querySelector(".recipes-cards-slide-container");
 // const sCont = document.querySelector(".recipe-card-div-in-carousel");
