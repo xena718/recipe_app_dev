@@ -1,34 +1,78 @@
-{% extends 'browse_base.html' %}
+{% extends 'base.html' %}
 {% block title %} {{cuisine_type}} {% endblock %}
 
 
 {% block body %}
 
-<div class="recipe-cards row"> 
-    {% for recipe in recipes_of_the_cuisine_type %}
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
-  
-            <div class="card text-center bg-light recipe-card-content-div">
-              <a href="/recipe/{{recipe.recipe_id}}">
-                  <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
+<div  class="title-above-carousel-slide">
+  <h5>Browse By Cuisines</h5>
+</div>
+
+<div class="browse-by-cuisines-container-for-scroll">
+  <div class="browse-by-cuisines-horizontal-scroll">
+      <button class="browse-by-cuisines-btn-scroll" id="btn-scroll-left" onclick="browseByCuisineScrollHonrizontally(1)">
+         <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="cuisines-container">
+          {% for cuisine_type in allrecipes_allcuisines %}
+          <div class="cuisine-circle">
+              <a href="/cuisines/{{cuisine_type}}" class="no-underline">
+                  <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
+                  {{cuisine_type}}
               </a>
-              <div class="card-btn-div">
-                <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
-                  <input type="submit" value="Save">
-                </form>
-              </div>
-              <div class="card-body">
-                  <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
-                  <div class="card-text">
-                    #{{ recipe.cuisine.name }}
-                    {% for course in recipe.courses %} 
-                    #{{course.name}}
-                    {% endfor %}
-                  </div>
-              </div>
+          </div>
+          {% endfor %}
+      </div>
+      <button class="browse-by-cuisines-btn-scroll" id="btn-scroll-right" onclick="browseByCuisineScrollHonrizontally(-1)">
+          <i class="fas fa-chevron-right"></i>
+      </button>
+     
+  </div>
+</div>
+<script src="/static/js/browse_by_cuisines.js"></script>
+
+<div  class="title-above-carousel-slide">
+  <h4>{{cuisine_type}} Cuisine Recipes</h4>
+</div>
+
+<div class="recipe-cards row"> 
+  {% for recipe in recipes_of_the_cuisine_type %}
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+        <div class="card text-center bg-light recipe-card-content-div">
+          <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
+            <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
+          </a>
+          {% if session.get("logged_in_user_email") %}
+            {% if recipe in current_user.saved_recipes %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+            </div>
+            {% else %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+            </div>
+            {% endif %}
+          {% else %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+            </div>
+        {% endif %}
+
+        <div class="card-body">
+            <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
+            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
+            <div class="card-text">
+              {{ recipe.cuisine.name }}
+              {% for course in recipe.courses %} 
+                | {{course.name}}
+              {% endfor %}
             </div>
         </div>
-    {% endfor %}
-  </div>
+        </div>
+    </div>
+  {% endfor %}
+</div>
+<script src="/static/js/app_events.js"></script>
+
 
 {% endblock %}

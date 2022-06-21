@@ -439,8 +439,13 @@ def show_cuisines(cuisine_type):
     allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
     recipes_of_the_cuisine_type = allrecipes_allcuisines[cuisine_type]
 
-    return render_template("recipes_per_cuisine.html", cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type)
+    user_email = session.get("logged_in_user_email")
 
+    if user_email:
+        current_user = crud.get_user_by_email(user_email)
+        return render_template("recipes_per_cuisine.html", current_user=current_user,cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, allrecipes_allcuisines=allrecipes_allcuisines)
+    else:
+        return render_template("recipes_per_cuisine.html", cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, allrecipes_allcuisines=allrecipes_allcuisines)
 
 
 
