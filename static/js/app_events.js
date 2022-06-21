@@ -78,7 +78,7 @@ let scrollAmount = 800;
 const sCont = document.querySelector(".recipes-cards-slide-container");
 // const sCont = document.querySelector(".recipe-card-div-in-carousel");
 
-const hScroll = document.querySelector(".horizontal-scroll");
+const hScroll = document.querySelector(".recipe-card-horizontal-scroll");
 let maxScroll = -sCont.offsetWidth+ hScroll.offsetWidth; 
 
 function scrollHonrizontally(val){
@@ -91,3 +91,4 @@ function scrollHonrizontally(val){
     }
     sCont.style.left = currentScrollPosition + 'px';
 }
+

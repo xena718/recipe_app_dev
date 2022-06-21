@@ -4,6 +4,7 @@ from model import (db, connect_to_db, Saved_Recipe, User, Recipe, Shopping_Recip
     Recipe_Direction, Quantity_Unit, Recipe_Ingredient,Recipe_Course, Course, Cuisine, Recipe_Specialdiet, Specialdiet)
 
 import random
+from sqlalchemy import desc
 
 
 def create_user(email, name, password):
@@ -164,6 +165,15 @@ def get_saved_recipe_by_recipe_id(recipe_id):
 
     return Saved_Recipe.query.filter(Saved_Recipe.recipe_id == recipe_id).first()
 
+
+def groupby_recipeid_orderby_count_for_saved_recipes():
+   
+    # ls_of_tp_recipe_id_count = db.session.query(Saved_Recipe.recipe_id, db.func.count(Saved_Recipe.user_id).label("num_saved")).group_by(Saved_Recipe.recipe_id).all() 
+    ls_of_tp_recipe_id_count = db.session.query(Saved_Recipe.recipe_id, db.func.count(Saved_Recipe.user_id).label("num_saved")).group_by(Saved_Recipe.recipe_id).order_by(desc("num_saved")).all() 
+
+    # print(ls_of_tp_recipe_id_count)
+    # ls_of_tp_recipe_id_count format: [(87, 1), (29, 1), (71, 1), (4, 1)]
+    return ls_of_tp_recipe_id_count
 
 # def create_shopping_recipe(user, recipe):
 #     """create and return a recipe by a user for shopping"""

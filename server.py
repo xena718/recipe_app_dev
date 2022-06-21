@@ -16,50 +16,86 @@ app = Flask(__name__)
 app.secret_key = "dev" #It’ll need a secret key (otherwise, flash and session won’t work)
 app.jinja_env.undefined = StrictUndefined
 
+# #homepage before 0620version
+# @app.route('/')
+# def homepage():
+#     """view homepage. Return one random recipe per cuisine"""
+#     #one thing is improve is that heart of the recipe on homepage should be unfilled or filled if user logged in and the recipe has been saved by user
 
+#     user_email = session.get("logged_in_user_email")
+    
+#     one_recipe_per_cuisine = []
+
+#     # cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+
+#     ####### this following chunck works ###########
+#     # for cuisine_name in cuisines:
+#     #     cuisine_instance = crud.get_cuisine_by_name(cuisine_name)
+#     #     recipes_by_cuisine_id = crud.get_recipes_by_cuisine_id(cuisine_instance.cuisine_id)
+#     #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_id}")
+#     #     one_recipe_per_cuisine_id = random.choice(recipes_by_cuisine_id)
+#     #     one_recipe_per_cuisine.append(one_recipe_per_cuisine_id)    
+    
+#     ########this following chunck doesn't work################
+#     # crud.recipes_dbjoinedload_cuisine() 
+#     # for cuisine_name in cuisines:
+#     #     recipes_by_cuisine_name = crud.get_recipe_by_cuisine_name(cuisine_name)
+#     #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_name}")
+#     #     one_recipe_each_cuisine = random.choice(recipes_by_cuisine_name)
+#     #     one_recipe_per_cuisine.append(one_recipe_each_cuisine)    
+#    ###################################################################
+#     recipes = crud.recipes_dbjoinedload_cuisines() 
+#     # print("********************"+f"{recipes[1]}, {recipes[1].cuisine.name}")
+#     recipe_cuisine_names =[]
+
+#     for recipe in recipes:
+#         recipe_cuisine_name = recipe.cuisine.name
+#         if recipe_cuisine_name in recipe_cuisine_names:
+#             continue
+#         else:
+#             recipe_cuisine_names.append(recipe_cuisine_name)
+#             one_recipe_per_cuisine.append(recipe)
+#     if user_email:
+#         current_user = crud.get_user_by_email(user_email)
+
+#         return render_template("homepage.html", current_user=current_user, recipes_cuisines=one_recipe_per_cuisine)
+#     else:
+#         return render_template("homepage.html", recipes_cuisines=one_recipe_per_cuisine)
+
+
+######homepage 0620version#########
 @app.route('/')
 def homepage():
-    """view homepage. Return one random recipe per cuisine"""
-    #one thing is improve is that heart of the recipe on homepage should be unfilled or filled if user logged in and the recipe has been saved by user
-
+    """
+    view homepage. Return most saved recipe per cuisine.
+    Allow user to browse by category.
+    """
     user_email = session.get("logged_in_user_email")
+    most_saved_recipe_per_cuisine = [] #if none of the recipes of the cuisine was saved, then no recipe for this cuisine
     
-    one_recipe_per_cuisine = []
+    ls_of_tp_recipe_id_count = crud.groupby_recipeid_orderby_count_for_saved_recipes()
+    cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
+    cuisines_copy = cuisines[:]
 
-    # cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
-
-    ####### this following chunck works ###########
-    # for cuisine_name in cuisines:
-    #     cuisine_instance = crud.get_cuisine_by_name(cuisine_name)
-    #     recipes_by_cuisine_id = crud.get_recipes_by_cuisine_id(cuisine_instance.cuisine_id)
-    #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_id}")
-    #     one_recipe_per_cuisine_id = random.choice(recipes_by_cuisine_id)
-    #     one_recipe_per_cuisine.append(one_recipe_per_cuisine_id)    
-    
-    ########this following chunck doesn't work################
-    # crud.recipes_dbjoinedload_cuisine() 
-    # for cuisine_name in cuisines:
-    #     recipes_by_cuisine_name = crud.get_recipe_by_cuisine_name(cuisine_name)
-    #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_name}")
-    #     one_recipe_each_cuisine = random.choice(recipes_by_cuisine_name)
-    #     one_recipe_per_cuisine.append(one_recipe_each_cuisine)    
-   ###################################################################
-    recipes = crud.recipes_dbjoinedload_cuisines() 
-    # print("********************"+f"{recipes[1]}, {recipes[1].cuisine.name}")
-    recipe_cuisine_names =[]
-
-    for recipe in recipes:
+    for item in ls_of_tp_recipe_id_count:
+        recipe_id, count = item
+        recipe = crud.get_recipe_by_recipe_id(recipe_id)
         recipe_cuisine_name = recipe.cuisine.name
-        if recipe_cuisine_name in recipe_cuisine_names:
-            continue
+        if recipe_cuisine_name in cuisines_copy:
+            cuisines_copy.remove(recipe_cuisine_name)
+            most_saved_recipe_per_cuisine.append(recipe)
         else:
-            recipe_cuisine_names.append(recipe_cuisine_name)
-            one_recipe_per_cuisine.append(recipe)
+            continue
+    # print("*"*20)
+    # print(len(most_saved_recipe_per_cuisine))
+    
+    allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
+
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("homepage.html", current_user=current_user, recipes_cuisines=one_recipe_per_cuisine)
+        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines)
     else:
-        return render_template("homepage.html", recipes_cuisines=one_recipe_per_cuisine)
+        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines)
 
 @app.route('/signup-login')
 def show_signup_login_page():

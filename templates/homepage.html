@@ -3,19 +3,19 @@
 
 {% block body %}
 
-<div  class="text-above-recipe-cards">
+<div  class="title-above-carousel-slide">
   <h4>Most-Saved Recipes</h4>
 </div>
 
-<div class="container-for-scroll">
-  <div class="horizontal-scroll">
+<div class="recipe-card-container-for-scroll">
+  <div class="recipe-card-horizontal-scroll">
       <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHonrizontally(1)">
          <i class="fas fa-chevron-left"></i>
       </button>
       <div class="recipes-cards-slide-container recipe-cards">
           {% for recipe in recipes_cuisines %}
           <div class="recipe-card-div-in-carousel col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
-            <div class="card text-center bg-light recipe-card-content-div">
+            <div class="card text-center recipe-card-content-div">
               <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
                 <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
               </a>
@@ -24,11 +24,15 @@
                 <div class="card-btn-div">
                   <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
                 </div>
+                {% else %}
+                <div class="card-btn-div">
+                  <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+                </div>
                 {% endif %}
               {% else %}
-              <div class="card-btn-div">
-                <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
-              </div>
+                <div class="card-btn-div">
+                  <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+                </div>
               {% endif %}
   
               <div class="card-body">
@@ -48,10 +52,38 @@
       </div>
       <button class="btn-scroll" id="btn-scroll-right" onclick="scrollHonrizontally(-1)">
           <i class="fas fa-chevron-right"></i>
+      </button> 
+  </div>
+</div>
+<script src="/static/js/app_events.js"></script>
+
+
+<div  class="title-above-carousel-slide">
+  <h4>Browse By Cuisines</h4>
+</div>
+
+<div class="browse-by-cuisines-container-for-scroll">
+  <div class="browse-by-cuisines-horizontal-scroll">
+      <button class="browse-by-cuisines-btn-scroll" id="btn-scroll-left" onclick="browseByCuisineScrollHonrizontally(1)">
+         <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="cuisines-container">
+          {% for cuisine_type in allrecipes_allcuisines %}
+          <div class="cuisine-circle">
+              <a href="/cuisines/{{cuisine_type}}">
+                  <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
+                  {{cuisine_type}}
+              </a>
+          </div>
+          {% endfor %}
+      </div>
+      <button class="browse-by-cuisines-btn-scroll" id="btn-scroll-right" onclick="browseByCuisineScrollHonrizontally(-1)">
+          <i class="fas fa-chevron-right"></i>
       </button>
      
   </div>
 </div>
+<script src="/static/js/browse_by_cuisines.js"></script>
 
 
 {% endblock %}
