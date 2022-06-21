@@ -70,7 +70,7 @@
       <div class="cuisines-container">
           {% for cuisine_type in allrecipes_allcuisines %}
           <div class="cuisine-circle">
-              <a href="/cuisines/{{cuisine_type}}">
+              <a href="/cuisines/{{cuisine_type}}" class="no-underline">
                   <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
                   {{cuisine_type}}
               </a>
@@ -84,6 +84,28 @@
   </div>
 </div>
 <script src="/static/js/browse_by_cuisines.js"></script>
+
+
+<div  class="title-above-carousel-slide">
+  <h4>Browse By Special Diets</h4>
+</div>
+
+<div class="browse-by-cuisines-container-for-scroll">
+  <div class="browse-by-cuisines-horizontal-scroll">
+
+      <div class="cuisines-container">
+          {% for specialdiet_type in allrecipes_allspecialdiets %}
+          <div class="cuisine-circle">
+              <a href="/specialdiets/{{specialdiet_type}}" class="no-underline">
+                  <img src= "/static/img/specialdiets-img/{{specialdiet_type}}.jfif" alt="{{specialdiet_type}}">
+                  <div>{{specialdiet_type}}</div>
+              </a>
+          </div>
+          {% endfor %}
+      </div>
+     
+  </div>
+</div>
 
 
 {% endblock %}

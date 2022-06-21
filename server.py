@@ -90,12 +90,13 @@ def homepage():
     # print(len(most_saved_recipe_per_cuisine))
     
     allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
+    allrecipes_allspecialdiets = crud.get_allrecipes_allspecialdiets()
 
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines)
+        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets)
     else:
-        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines)
+        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets)
 
 @app.route('/signup-login')
 def show_signup_login_page():

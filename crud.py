@@ -78,6 +78,17 @@ def get_allrecipes_allcuisines ():
     
     return allrecipes_allcuisines
 
+def get_allrecipes_allspecialdiets ():
+    allrecipes_allspecialdiets ={}
+    specialdiets = ["Vegetarian", "Gluten-free", "Non-Vegetarian", "Others"]    
+    recipes_join_specialdiets_query = db.session.query(Recipe).join(Recipe_Specialdiet, Recipe_Specialdiet.recipe_id == Recipe.recipe_id).join(Specialdiet, Specialdiet.specialdiet_id == Recipe_Specialdiet.specialdiet_id)
+    
+    for specialdiet_type in specialdiets:
+        all_recipes_of_the_specialdiet = recipes_join_specialdiets_query.filter(Specialdiet.name==specialdiet_type).all()
+        allrecipes_allspecialdiets[specialdiet_type] = all_recipes_of_the_specialdiet
+    
+    return allrecipes_allspecialdiets
+
 def get_some_recipes_3_cuisines():
     some_recipes_3_cuisines ={}
     cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
