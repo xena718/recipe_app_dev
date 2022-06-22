@@ -89,6 +89,17 @@ def get_allrecipes_allspecialdiets ():
     
     return allrecipes_allspecialdiets
 
+def get_allrecipes_allcourses ():
+    allrecipes_allcourses ={}
+    courses = ["Appetizer & Snacks", "Breakfast & Brunch", "Lunch", "Main Dish", "Salad", "Dessert", "Side Dishes", "Soups & Stews", "Drink"]    
+    recipes_join_courses_query = db.session.query(Recipe).join(Recipe_Course, Recipe_Course.recipe_id == Recipe.recipe_id).join(Course, Course.course_id == Recipe_Course.course_id)
+    
+    for course_type in courses:
+        all_recipes_of_the_course = recipes_join_courses_query.filter(Course.name==course_type).all()
+        allrecipes_allcourses[course_type] = all_recipes_of_the_course
+    
+    return allrecipes_allcourses
+
 def get_some_recipes_3_cuisines():
     some_recipes_3_cuisines ={}
     cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]

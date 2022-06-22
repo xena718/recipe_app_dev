@@ -55,7 +55,7 @@
       </button> 
   </div>
 </div>
-<script src="/static/js/app_events.js"></script>
+<!-- <script src="/static/js/app_events.js"></script> -->
 
 
 <div  class="title-above-carousel-slide">
@@ -95,7 +95,7 @@
 
       <div class="specialdiets-container">
           {% for specialdiet_type in allrecipes_allspecialdiets %}
-          <div class="specialdiets-circle">
+          <div class="specialdiet-circle">
               <a href="/specialdiets/{{specialdiet_type}}" class="no-underline">
                   <img src= "/static/img/specialdiets-img/{{specialdiet_type}}.jfif" alt="{{specialdiet_type}}">
                   <div>{{specialdiet_type}}</div>
@@ -106,6 +106,49 @@
      
   </div>
 </div>
+
+
+<div  class="title-above-carousel-slide">
+  <h4>Browse By Courses</h4>
+</div>
+
+<div class="browse-by-courses-container-for-scroll">
+  <div class="browse-by-courses-horizontal-scroll">
+      <button class="browse-by-courses-btn-scroll" id="btn-scroll-left" onclick="browseByCourseScrollHonrizontally(1)">
+         <i class="fas fa-chevron-left"></i>
+      </button>
+      <div class="courses-container">
+          {% for course_type in allrecipes_allcourses %}
+          <div class="course-circle">
+              <a href="/courses/{{course_type}}" class="no-underline">
+                  <img src= "/static/img/courses-img/{{course_type}}.jfif" alt="{{course_type}}">
+                  {{course_type}}
+              </a>
+          </div>
+          {% endfor %}
+      </div>
+      <button class="browse-by-courses-btn-scroll" id="btn-scroll-right" onclick="browseByCourseScrollHonrizontally(-1)">
+          <i class="fas fa-chevron-right"></i>
+      </button>
+     
+  </div>
+</div>
+<script src="/static/js/browse_by_courses.js"></script>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
+<div  class="title-above-carousel-slide">
+  <h4>Browse By Popular Ingredients</h4>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
 
 
 {% endblock %}

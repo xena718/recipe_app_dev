@@ -174,7 +174,7 @@ h4{
 }
 
 /* Below Chunk for carousel slide for browse by cuisines */
-.browse-by-cuisines-container-for-scroll, .browse-by-specialdiets-container-for-scroll{
+.browse-by-cuisines-container-for-scroll, .browse-by-specialdiets-container-for-scroll, .browse-by-courses-container-for-scrol{
     /* display:flex;
     justify-content:center;
     align-items: center;
@@ -185,7 +185,7 @@ h4{
     /* width:98vw; */
     position:relative;
     } 
-.browse-by-cuisines-horizontal-scroll,.browse-by-specialdiets-horizontal-scroll {
+.browse-by-cuisines-horizontal-scroll,.browse-by-specialdiets-horizontal-scroll, .browse-by-courses-horizontal-scroll {
     /* width:900px; */
     /* width:96vw; */
     height: 155px;
@@ -201,7 +201,7 @@ h4{
 
 }
 
-.cuisines-container, .specialdiets-container {
+.cuisines-container, .specialdiets-container, .courses-container {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
@@ -211,7 +211,7 @@ h4{
 
 }
 
-.cuisine-circle,.specialdiets-circle {
+.cuisine-circle,.specialdiet-circle, .course-circle {
     /* background: linear-gradient(rgb(231, 195, 184), rgba(255,115,0));
     width: 60px;
     height:60px; */
@@ -222,20 +222,20 @@ h4{
     border-radius: 50%;
 } 
 
-.cuisine-circle img,.specialdiets-circle img {
+.cuisine-circle img,.specialdiet-circle img, .course-circle img {
     width: 111px;
     height: 111px;
     border-radius: 50%;
     border: 2px solid #fff;
 }
 
-.cuisine-circle a, .specialdiets-circle a {
+.cuisine-circle a, .specialdiet-circle a, .course-circle a {
     text-align:center;
     font-size:14px;
 }
 
 
-.browse-by-cuisines-horizontal-scroll .browse-by-cuisines-btn-scroll {
+.browse-by-cuisines-horizontal-scroll .browse-by-cuisines-btn-scroll, .browse-by-courses-horizontal-scroll .browse-by-courses-btn-scroll {
     background: #fff;
     color: #999;
     box-shadow: 0 0 10px #999;
