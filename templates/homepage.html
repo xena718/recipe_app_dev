@@ -90,12 +90,12 @@
   <h4>Browse By Special Diets</h4>
 </div>
 
-<div class="browse-by-cuisines-container-for-scroll">
-  <div class="browse-by-cuisines-horizontal-scroll">
+<div class="browse-by-specialdiets-container-for-scroll">
+  <div class="browse-by-specialdiets-horizontal-scroll">
 
-      <div class="cuisines-container">
+      <div class="specialdiets-container">
           {% for specialdiet_type in allrecipes_allspecialdiets %}
-          <div class="cuisine-circle">
+          <div class="specialdiets-circle">
               <a href="/specialdiets/{{specialdiet_type}}" class="no-underline">
                   <img src= "/static/img/specialdiets-img/{{specialdiet_type}}.jfif" alt="{{specialdiet_type}}">
                   <div>{{specialdiet_type}}</div>

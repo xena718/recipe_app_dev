@@ -5,38 +5,33 @@
 {% block body %}
 
 <div  class="title-above-carousel-slide">
-  <h5>Browse By Cuisines</h5>
+    <h4>Browse By Special Diets</h4>
 </div>
 
-<div class="browse-by-cuisines-container-for-scroll">
-  <div class="browse-by-cuisines-horizontal-scroll">
-      <button class="browse-by-cuisines-btn-scroll" id="btn-scroll-left" onclick="browseByCuisineScrollHonrizontally(1)">
-         <i class="fas fa-chevron-left"></i>
-      </button>
-      <div class="cuisines-container">
-          {% for cuisine_type in allrecipes_allcuisines %}
-          <div class="cuisine-circle">
-              <a href="/cuisines/{{cuisine_type}}" class="no-underline">
-                  <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
-                  {{cuisine_type}}
-              </a>
-          </div>
-          {% endfor %}
-      </div>
-      <button class="browse-by-cuisines-btn-scroll" id="btn-scroll-right" onclick="browseByCuisineScrollHonrizontally(-1)">
-          <i class="fas fa-chevron-right"></i>
-      </button>
-     
-  </div>
+<div class="browse-by-specialdiets-container-for-scroll">
+    <div class="browse-by-specialdiets-horizontal-scroll">
+
+    <div class="specialdiets-container">
+        {% for specialdiet_type in allrecipes_allspecialdiets %}
+        <div class="specialdiets-circle">
+            <a href="/specialdiets/{{specialdiet_type}}" class="no-underline">
+                <img src= "/static/img/specialdiets-img/{{specialdiet_type}}.jfif" alt="{{specialdiet_type}}">
+                <div>{{specialdiet_type}}</div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    </div>
 </div>
-<script src="/static/js/browse_by_cuisines.js"></script>
+
+
 
 <div  class="title-above-carousel-slide">
-  <h4>{{cuisine_type}} Cuisine Recipes</h4>
+  <h4>{{specialdiet_type}} Recipes</h4>
 </div>
 
 <div class="recipe-cards row"> 
-  {% for recipe in recipes_of_the_cuisine_type %}
+  {% for recipe in recipes_of_the_specialdiet_type %}
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
         <div class="card text-center bg-light recipe-card-content-div">
           <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
@@ -63,12 +58,9 @@
             <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
             <div class="card-text">
               {{ recipe.cuisine.name }}
-              {% for specialdiet in recipe.specialdiets %} 
-              | {{specialdiet.name}} 
-              {% endfor %} 
-              <!-- {% for course in recipe.courses %} 
-                 {{course.name}}|
-              {% endfor %} -->
+              {% for course in recipe.courses %} 
+                | {{course.name}}
+              {% endfor %}
             </div>
         </div>
         </div>

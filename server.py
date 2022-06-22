@@ -435,7 +435,7 @@ def display_cuisines_homepage():
     return render_template("cuisines.html", allrecipes_allcuisines = allrecipes_allcuisines)
 
 @app.route('/cuisines/<cuisine_type>')
-def show_cuisines(cuisine_type):
+def show_recipes_of_any_cuisine(cuisine_type):
     allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
     recipes_of_the_cuisine_type = allrecipes_allcuisines[cuisine_type]
 
@@ -446,6 +446,21 @@ def show_cuisines(cuisine_type):
         return render_template("recipes_per_cuisine.html", current_user=current_user,cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, allrecipes_allcuisines=allrecipes_allcuisines)
     else:
         return render_template("recipes_per_cuisine.html", cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, allrecipes_allcuisines=allrecipes_allcuisines)
+
+
+@app.route('/specialdiets/<specialdiet_type>')
+def show_recipes_of_any_specialdiet(specialdiet_type):
+    allrecipes_allspecialdiets = crud.get_allrecipes_allspecialdiets()
+    recipes_of_the_specialdiet_type = allrecipes_allspecialdiets[specialdiet_type]
+
+    user_email = session.get("logged_in_user_email")
+
+    if user_email:
+        current_user = crud.get_user_by_email(user_email)
+        return render_template("recipes_per_specialdiet.html", current_user=current_user,specialdiet_type=specialdiet_type, recipes_of_the_specialdiet_type=recipes_of_the_specialdiet_type, allrecipes_allspecialdiets=allrecipes_allspecialdiets)
+    else:
+        return render_template("recipes_per_specialdiet.html", specialdiet_type=specialdiet_type, recipes_of_the_specialdiet_type=recipes_of_the_specialdiet_type, allrecipes_allspecialdiets=allrecipes_allspecialdiets)
+
 
 
 

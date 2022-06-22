@@ -3,9 +3,10 @@
 
 {% block body %}
 
-<h5 class="text-above-recipe-cards">
-  {{saved_recipes | length}} saved recipes
-</h5>
+
+<div  class="title-above-carousel-slide">
+  <h5>  {{saved_recipes | length}} saved recipes  </h5>
+</div>
 
 {% if saved_recipes %}
   <!-- <div class="recipe-cards row">
