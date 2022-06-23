@@ -40,12 +40,24 @@
     <div> Cook: {{recipe.cook_time}}</div>
     {% set prep_time_list = recipe.prep_time.split(' ') %}
     {% set cook_time_list = recipe.cook_time.split(' ') %}
-    {% if (prep_time_list[1] =="days") and(cook_time_list[1]=="days") %}
-      <div> Total: {{prep_time_list[0]+cook_time_list[0]}} days</div>
-    {% else if prep_time_list[1] =="days" %}  
-      <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
-    {% else if prep_time_list[1] =="days" %}  
 
+    {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
+      <div> Total: {{prep_time_list[0]+cook_time_list[0]}} days</div>
+    {% elif prep_time_list[1] =="days" %}  
+      <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
+    {% elif cook_time_list[1] =="days" %}  
+      <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
+    {% elif prep_time_list[1] != prep_time_list[1] %}
+      {% if prep_time_list[1] == "hours" %}
+      <div> Total: {{recipe.prep_time}} {{recipe.cook_time}}  </div>
+      {% elif cook_time_list[1] == "hours" %}
+      <div> Total: what is {{recipe.cook_time}} xx{{recipe.prep_time}} </div>
+      {% endif %}
+
+    {% else %}
+    <div> Total: {{prep_time_list[0]+cook_time_list[0]}} ?? {{prep_time_list[1]}} </div>
+
+    {% endif %}
 
     <div> Servings: {{recipe.servings}}</div>
 
