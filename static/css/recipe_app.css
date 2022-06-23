@@ -246,3 +246,37 @@ h4{
     z-index: 1;
     cursor: pointer;
 }
+
+
+/* the following Chunk for recipe detail page */
+.recipe-title-author-description{
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-left:auto;
+    margin-right:auto;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.recipe-summary-img-save-btn{
+    height:400px;
+    /* padding-left:10px;
+    padding-right:10px; */
+    margin-bottom: 0.25rem;
+    background-color: rgb(254, 254, 254);
+    margin-left:auto;
+    margin-right:auto;
+    /* border:1px solid rgba(0,0,0,.125); */
+    border-radius: 0.25rem;
+    position:relative;
+    display:flex;
+    flex-direction: row-reverse;
+    text-align: center;
+
+}
+.recipe-summary-img-save-btn img {
+    /* width: 300px; */
+    height: 360px;
+    border-radius: 1%;
+    border: 2px solid #fff;
+}

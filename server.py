@@ -298,9 +298,13 @@ def show_recipe(recipe_id):
     """Show details on a particular recipe."""
 
     recipe = crud.get_recipe_by_recipe_id(recipe_id)
-    
+    user_email = session.get("logged_in_user_email")
+    if user_email:
+        current_user = crud.get_user_by_email(user_email)
+        return render_template("recipe_details.html", current_user=current_user, recipe=recipe)
 
-    return render_template("recipe_details.html", recipe=recipe)
+    else:    
+        return render_template("recipe_details.html", recipe=recipe)
 
 @app.route("/add-to-shoppinglist/<recipe_id>", methods=["POST"])
 def add_ingredients_to_shoppinglist(recipe_id):

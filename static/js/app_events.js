@@ -37,7 +37,7 @@ for (const btn of btns) {
 
 }
 
-// ## the following chunk is remove a recipe from user's collection at saved_recipe homepage. ##
+// ## the following chunk is to remove a recipe from user's collection at saved_recipe homepage. ##
 
 const removeBtns = document.querySelectorAll(".remove-btn")
 for (const removeBtn of removeBtns){
@@ -52,18 +52,18 @@ for (const removeBtn of removeBtns){
             },
     })
     
-    removeBtn.closest(".recipe-card-div").remove();
+    // removeBtn.closest(".recipe-card-div").remove();
 
 
-    // .then(response => response.text())
-    // .then(serverData => {
-    //     const recipeCardDiv = removeBtn.closest(".recipe-card-div")
-    //     console.log(recipeCardDiv)
-    //     if (serverData === "removed_from_saved"){
-    //         recipeCardDiv.remove()
-    //     }
+    .then(response => response.text())
+    .then(serverData => {
+        const recipeCardDiv = removeBtn.closest(".recipe-card-div")
+        console.log(recipeCardDiv)
+        if (serverData === "removed_from_saved"){
+            recipeCardDiv.remove()
+        }
 
-    // });
+    });
 
     });
 

@@ -4,30 +4,58 @@
 
 {% block body %}
 
-
-<h1>{{ recipe.title }}</h1>
-<p>by {{recipe.author}}</p>
-
-<img src="{{ recipe.photo_url }}">
-
-<div>
-  Cuisine: {{ recipe.cuisine.name }} <br>
-  Diet: 
-  {% for specialdiet in recipe.specialdiets %}
-      {{specialdiet.name}}
-  {% endfor %}
+<div class="recipe-title-author-description">
+  <h2>{{ recipe.title }}</h2>
+  <p>by {{recipe.author}}</p>
+  
+  <h4>Description</h4>
+  <div>
+    {{ recipe.description }}
+  </div>
 </div>
 
-<h4>Description</h4>
-<div>
-  {{ recipe.description }}
+<div class="recipe-summary-img-save-btn">
+  <div class="recipe-img-save-btn-text-under-img">
+    <img src="{{ recipe.photo_url }}">
+    {% if (session.get("logged_in_user_email")) and (recipe in current_user.saved_recipes) %}
+    <div class="card-btn-div">
+      <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+    </div>
+    {% else %}
+    <div class="card-btn-div">
+      <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+    </div>
+    {% endif %}
+  
+    <div>
+      {{ recipe.cuisine.name }} |
+      {% for specialdiet in recipe.specialdiets %}
+      |{{specialdiet.name}}
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="recipe-summary-card">
+    <div> Prep: {{recipe.prep_time}}</div>
+    <div> Cook: {{recipe.cook_time}}</div>
+    {% set prep_time_list = recipe.prep_time.split(' ') %}
+    {% set cook_time_list = recipe.cook_time.split(' ') %}
+    {% if (prep_time_list[1] =="days") and(cook_time_list[1]=="days") %}
+      <div> Total: {{prep_time_list[0]+cook_time_list[0]}} days</div>
+    {% else if prep_time_list[1] =="days" %}  
+      <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
+    {% else if prep_time_list[1] =="days" %}  
+
+
+    <div> Servings: {{recipe.servings}}</div>
+
+  </div>
+
+
 </div>
 
-<div>
-  <form action="/add-to-saved/{{ recipe.recipe_id }}" method="POST">
-    <input type="submit" value="Favorite">
-  </form>
-</div>
+
+
 
 <div>
   Prep: {{recipe.prep_time}}
