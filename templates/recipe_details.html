@@ -28,9 +28,9 @@
     {% endif %}
   
     <div>
-      {{ recipe.cuisine.name }} |
+      {{ recipe.cuisine.name }}
       {% for specialdiet in recipe.specialdiets %}
-      |{{specialdiet.name}}
+      | {{specialdiet.name}}
       {% endfor %}
     </div>
   </div>
@@ -38,51 +38,51 @@
   <div class="recipe-summary-card">
     <div> Prep: {{recipe.prep_time}}</div>
     <div> Cook: {{recipe.cook_time}}</div>
-    {% set prep_time_list = recipe.prep_time.split(' ') %}
-    {% set cook_time_list = recipe.cook_time.split(' ') %}
+    {% set prep_time_list = recipe.prep_time.split(' ')  %}
+    {% set cook_time_list = recipe.cook_time.split(' ')  %}
 
     {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
-      <div> Total: {{prep_time_list[0]+cook_time_list[0]}} days</div>
+      <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}} days</div>
     {% elif prep_time_list[1] =="days" %}  
       <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
     {% elif cook_time_list[1] =="days" %}  
       <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
-    {% elif prep_time_list[1] != prep_time_list[1] %}
+    {% elif prep_time_list[1] != cook_time_list[1] %}
       {% if prep_time_list[1] == "hours" %}
       <div> Total: {{recipe.prep_time}} {{recipe.cook_time}}  </div>
       {% elif cook_time_list[1] == "hours" %}
-      <div> Total: what is {{recipe.cook_time}} xx{{recipe.prep_time}} </div>
+      <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
       {% endif %}
 
     {% else %}
-    <div> Total: {{prep_time_list[0]+cook_time_list[0]}} ?? {{prep_time_list[1]}} </div>
-
+    <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
     {% endif %}
-
     <div> Servings: {{recipe.servings}}</div>
-
   </div>
+</div>
 
-
+<div class="row">
+  <div class="col-sm-3 ingredients-title-div">
+    <h4>Ingredients</h4>
+  </div>
+  <div class="col-sm-9 servings-size-adjust-div">
+    <form action="/servings-size-form">
+      <label for="servings-size-adjust"></label>
+      <input type="number" id="servings-size-adjust" name="servings-size-adjust" value="{{recipe.servings}}" style="width: 70px;">
+      <input type="submit" class = "adjust-btn" value="Adjust">
+    </form>
+    <p>Original recipe yields {{recipe.servings}} servings</p>
+  </div>
 </div>
 
 
-
-
-<div>
-  Prep: {{recipe.prep_time}}
-  Cook: {{recipe.cook_time}}
-  Total: TBD
-  Yield: {{recipe.servings}} servings
-</div>
-<h4>Ingredients</h4>
-
-<h5>Serving Size: {{recipe.servings}}</h5>
-<div>
+<div class="recipe-ingredients-div">
   {% for ingredient in recipe.recipe_ingredients %}
-    <div> {{ingredient.quantity}} {{ingredient.unit.name}} {{ingredient.name}}</div>
+    <div class="recipe-ingredient"> {{ingredient.quantity}} {{ingredient.unit.name}} {{ingredient.name}}</div>
   {% endfor %}
 </div>
+
+
 
 <div>
   <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST">

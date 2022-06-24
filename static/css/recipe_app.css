@@ -280,3 +280,15 @@ h4{
     border-radius: 1%;
     border: 2px solid #fff;
 }
+
+.adjust-btn{
+    background: rgb(255, 255, 255);
+    color:rgba(0,0,0,.95);
+    border:2px solid rgb(210, 61, 61);
+
+}
+.adjust-btn:hover{
+    background-color: rgb(208, 96, 96);
+}
+
+
