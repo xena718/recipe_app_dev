@@ -1,3 +1,5 @@
+'use strict';
+
 let currentBrowseByCourseScrollPosition = 0;
 let BrowseByCourseScrollAmount = 800;
 

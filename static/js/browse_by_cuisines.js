@@ -1,3 +1,5 @@
+'use strict';
+
 let currentBrowseByCuisineScrollPosition = 0;
 let BrowseByCuisineScrollAmount = 800;
 
