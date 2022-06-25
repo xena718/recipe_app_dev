@@ -284,7 +284,8 @@ h4{
 .adjust-btn{
     background: rgb(255, 255, 255);
     color:rgba(0,0,0,.95);
-    border:2px solid rgb(214, 44, 44);
+    border:1.7px solid rgb(214, 44, 44);
+    border-radius: 8%;
 
 }
 .adjust-btn:hover{
@@ -292,4 +293,13 @@ h4{
     color:rgb(255, 255, 255);
 }
 
+#servings-size-input{
+    text-align: center;
+    width: 70px;
+}
+
+.recipe-ingredient-li{
+    padding: 7px;
+    list-style: none;
+}
 

@@ -2,12 +2,32 @@
 
 document.querySelector("#servings-size-form").addEventListener('submit',evt => {
     evt.preventDefault();
-    const servingsSize = document.querySelector("#servings-size-adjust").value;
-    const servingsSizeDefault = document.querySelector("#servings-size-adjust").defaultValue;
+    const servingsSize = Number(document.querySelector("#servings-size-adjust").value);
+    const servingsSizeDefault = Number(document.querySelector("#servings-size-adjust").defaultValue);
+    // console.log(servingsSize);
+    // console.log(servingsSizeDefault);
+
     if (servingsSize !== servingsSizeDefault){
-        allIngredientCheckboxes = document.querySelector(".form-check-input")
-        for ( const ingredientCheckbox of allIngredientCheckboxes){
-            
+        const allIngredientCheckBoxes = document.querySelectorAll(".form-check-input")
+        // const allIngredientInputLabels = document.querySelectorAll(".form-check-label")
+        // const ingredient = document.querySelector(".form-check-input").defaultValue;
+        // console.log(allIngredientInputLabels);
+        for ( const ingredientCheckBox of allIngredientCheckBoxes){
+            const ingredient = ingredientCheckBox.defaultValue;
+            const checkBoxLabel = ingredientCheckBox.nextElementSibling;
+            console.log(ingredient.name);
+            if (ingredient.quantity !==""){
+                // console.log(ingredientInputLabel.textContent)
+                // console.log(ingredient.quantity)
+                checkBoxLabel.textContent = `${servingsSize/servingsSizeDefault}`
+                // checkBoxLabel.textContent = `${ingredient.quantity}`
+                
+                // checkBoxLabel.textContent = `${servingsSize/servingsSizeDefault*(ingredient.quantity)}`
+                // checkBoxLabel.textContent = `${servingsSize/servingsSizeDefault*(ingredient.quantity)} ${ingredient.unit.name} ${ingredient.name}`
+            }else{
+                // checkBoxLabel.textContent = `${servingsSize/servingsSizeDefault}`
+                // checkBoxLabel.textContent = `${ingredient.quantity} ${ingredient.unit.name} ${ingredient.name}`
+            }
         }
     }
     
