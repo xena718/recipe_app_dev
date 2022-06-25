@@ -284,11 +284,12 @@ h4{
 .adjust-btn{
     background: rgb(255, 255, 255);
     color:rgba(0,0,0,.95);
-    border:2px solid rgb(210, 61, 61);
+    border:2px solid rgb(214, 44, 44);
 
 }
 .adjust-btn:hover{
-    background-color: rgb(208, 96, 96);
+    background-color: rgb(192, 42, 42);
+    color:rgb(255, 255, 255);
 }
 
 
