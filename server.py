@@ -306,26 +306,46 @@ def show_recipe(recipe_id):
     else:    
         return render_template("recipe_details.html", recipe=recipe)
 
-@app.route("/add-to-shoppinglist/<recipe_id>", methods=["POST"])
-def add_ingredients_to_shoppinglist(recipe_id):
-    """
-    add static recipe ingredients from database to shopping list
-    if servings size change, this route cannot handle it, but javascript AJAX can?.
-    """
-    user_email = session.get("logged_in_user_email")
-    if not user_email:
-        flash("please log in first to access saved recipe collections")
-        return redirect('/signup-login')
-    else:
-        user = crud.get_user_by_email(user_email)
-        shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id)
-        db.session.add(shopping_recipe)
-        db.session.commit()
+# @app.route("/add-to-shoppinglist/<recipe_id>", methods=["POST"])
+# def add_ingredients_to_shoppinglist(recipe_id):
+#     """
+#     add static recipe ingredients from database to shopping list
+#     if servings size change, this route cannot handle it, but javascript AJAX can?.
+#     """
+#     user_email = session.get("logged_in_user_email")
+#     if not user_email:
+#         flash("please log in first to access saved recipe collections")
+#         return redirect('/signup-login')
+#     else:
+#         user = crud.get_user_by_email(user_email)
+#         shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id)
+#         db.session.add(shopping_recipe)
+#         db.session.commit()
 
-        flash("All ingredients addeded to your shoppinglist") 
-        #noted that the actual action is to add recipe into shopping_recipe table.
+#         flash("All ingredients addeded to your shoppinglist") 
+#         #noted that the actual action is to add recipe into shopping_recipe table.
         
-        return redirect(f"/recipe/{recipe_id}")
+#         return redirect(f"/recipe/{recipe_id}")
+
+@app.route('/add-to-shoppinglist', methods=["POST"])
+def add_ingredients_to_shoppinglist():
+    user_email = session.get("logged_in_user_email")
+    # if not user_email:
+    #     flash("please log in first to add ingredients to shopping list")
+        # return "not logged in"
+    # breakpoint()
+
+    user = crud.get_user_by_email(user_email)
+    recipe_id = request.json.get("recipeID")
+    
+    # recipe_id is a string?
+    print("##"*20+recipe_id)
+
+    # recipe = crud.get_recipe_by_recipe_id(recipe_id)
+    shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id)
+    db.session.add(shopping_recipe)
+    db.session.commit()
+    return "added_shopping_recipe_entry"
 
 
 @app.route("/shoppinglist")

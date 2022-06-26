@@ -100,8 +100,9 @@
 
 
 <div>
-  <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST">
-    <input type="submit"class="add-ingredients-to-shoppinglist-btn" value="Add All Ingredients To Shopping List">
+  <!-- <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST"> -->
+  <form id="add-to-shoppinglist-form" action="/add-to-shoppinglist" method="POST">
+    <input type="submit" data-recipe-id="{{ recipe.recipe_id }}" class="add-ingredients-to-shoppinglist-btn" value="Add All Ingredients To Shopping List">
   </form>
 </div>
 
