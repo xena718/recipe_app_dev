@@ -285,10 +285,11 @@ h4{
     background: rgb(255, 255, 255);
     color:rgba(0,0,0,.95);
     border:1.7px solid rgb(214, 44, 44);
-    border-radius: 8%;
-
+    border-radius: 4px;
+    padding: 3px 15px;
+    font-weight: 500;
 }
-.adjust-btn:hover{
+.adjust-btn:hover, .add-ingredients-to-shoppinglist-btn:hover{
     background-color: rgb(192, 42, 42);
     color:rgb(255, 255, 255);
 }
@@ -296,10 +297,25 @@ h4{
 #servings-size-input{
     text-align: center;
     width: 70px;
+    border-radius: 4px;
+    border:1.5px solid rgba(47, 46, 46, 0.95);
+    padding: 3px 15px;
 }
 
 .recipe-ingredient-li{
-    padding: 7px;
+    padding: 1px;
     list-style: none;
 }
 
+.add-ingredients-to-shoppinglist-btn{
+    background: rgb(255, 255, 255);
+    color:rgba(0,0,0,.95);
+    border:2px solid rgb(214, 44, 44);
+    border-radius: 4px;
+    height:60px;
+    width: fit-content;
+    padding: 0px 20px;
+    /* font-weight: bold; */
+    font-weight: 500;
+    /* font-size: 14px; */
+}
