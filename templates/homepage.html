@@ -21,11 +21,11 @@
               </a>
               {% if (session.get("logged_in_user_email")) and (recipe in current_user.saved_recipes) %}
                 <div class="card-btn-div">
-                  <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+                  <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
                 </div>
               {% else %}
                 <div class="card-btn-div">
-                  <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+                  <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" ><i id="save-remove-icon" class="bi bi-heart"></i></button>
                 </div>
               {% endif %}
   

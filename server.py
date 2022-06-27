@@ -330,16 +330,13 @@ def show_recipe(recipe_id):
 @app.route('/add-to-shoppinglist', methods=["POST"])
 def add_ingredients_to_shoppinglist():
     user_email = session.get("logged_in_user_email")
-    # if not user_email:
-    #     flash("please log in first to add ingredients to shopping list")
-        # return "not logged in"
+    if not user_email:
+        # flash("please log in first to add ingredients to shopping list")
+        return "not_logged_in"
     # breakpoint()
 
     user = crud.get_user_by_email(user_email)
     recipe_id = request.json.get("recipeID")
-    
-    # recipe_id is a string?
-    print("##"*20+recipe_id)
 
     # recipe = crud.get_recipe_by_recipe_id(recipe_id)
     shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id)

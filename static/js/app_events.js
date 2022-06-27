@@ -11,7 +11,7 @@ for (const btn of btns) {
     btn.addEventListener('click',evt =>{
     // console.log(btn)
     const addRemoveToServer ={recipeId: btn.dataset.recipeId};
-    // console.log(dataToServer);
+    console.log(addRemoveToServer);
 
     fetch('/save-remove',{
         method: 'POST',

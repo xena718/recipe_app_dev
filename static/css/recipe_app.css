@@ -307,7 +307,7 @@ h4{
     list-style: none;
 }
 
-.add-ingredients-to-shoppinglist-btn{
+.add-ingredients-to-shoppinglist-btn, .add-to-shoppinglist-btn{
     background: rgb(255, 255, 255);
     color:rgba(0,0,0,.95);
     border:2px solid rgb(214, 44, 44);
