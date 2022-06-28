@@ -103,6 +103,7 @@
   <!-- <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST"> -->
   <form id="add-to-shoppinglist-form" action="/add-to-shoppinglist" method="POST">
     <input type="submit" data-recipe-id="{{ recipe.recipe_id }}" class="add-ingredients-to-shoppinglist-btn" value="Add All Ingredients To Shopping List">
+    <i id ="add-to-shoppinglist-cart-icon" class="bi bi-cart"></i>
   </form>
 </div>
 
@@ -113,11 +114,12 @@
   </button>
 </div> -->
 
-
+<br />
 <h4>Directions</h4>
 <div>
   {% for direction in recipe.recipe_directions %}
-    <div> Step {{direction.step_number}}: {{direction.step_guidance}}</div>
+    <div class="step-num"> Step {{direction.step_number}}</div>
+    <div class="guidance-per-step"> {{direction.step_guidance}}</div>
   {% endfor %}
 </div>
 

@@ -35,7 +35,8 @@ addAllToShoppingListForm.addEventListener('submit',evt => {
     evt.preventDefault();
     // check if user logged in or not. Need to be in the server side.
     const addAllToShoppingListBtn = addAllToShoppingListForm.querySelector(".add-ingredients-to-shoppinglist-btn")
-    const recipeIDToServer ={recipeID: addAllToShoppingListBtn.dataset.recipeId};
+    const servingsSizeOnPage = Number(document.querySelector("#servings-size-input").value);
+    const recipeIDToServer ={recipeID: addAllToShoppingListBtn.dataset.recipeId,servings:servingsSizeOnPage};
     console.log(recipeIDToServer);
     fetch('/add-to-shoppinglist',{
         method: 'POST',
@@ -48,6 +49,8 @@ addAllToShoppingListForm.addEventListener('submit',evt => {
     .then(serverData => {
         if (serverData === "added_shopping_recipe_entry"){
             addAllToShoppingListBtn.value = "Added All Ingredients to Shopping List";
+            document.querySelector("#add-to-shoppinglist-cart-icon").classList.replace("bi-cart", "bi-cart-check");
+
         }else if(serverData === "not_logged_in"){
             alert('please log in first to add ingredients to shopping list');
 

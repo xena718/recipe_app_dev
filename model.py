@@ -35,7 +35,9 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
 
     saved_recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="saved_by_users")
-    shopping_recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="shopping_by_users")
+    #commented out on 0627 for data model update.
+    # shopping_recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="shopping_by_users")
+    
     # noted that different attribute names between Recipe and Saved_Recipe, Recipe and Shopping_List are needed.
     #it errors if recipe as attribute names for the two relationship above.
 
@@ -75,19 +77,38 @@ class Recipe(db.Model):
         return f"<recipe title = {self.title}, recipe author = {self.author}>"
     
 
+# class Shopping_Recipe (db.Model):
+#     """An association table for users and recipes added to shopping list"""
+
+#     __tablename__ = "shopping_recipes"
+
+#     shopping_recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+#     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
+#     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+
+#     # shopping_recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="shopping_by_users")
+
+#     def __repr__(self):
+#         return f"<recipe id(s) in a shopping list = {self.recipe_id}, user id of the shoping list = {self.user_id}>"
+
 class Shopping_Recipe (db.Model):
-    """An association table for users and recipes added to shopping list"""
+    """A middle table for users and recipes added to shopping list"""
 
     __tablename__ = "shopping_recipes"
 
     shopping_recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
+    recipe_servings = db.Column(db.Integer, nullable=False)
 
+    recipe_for_shopping = db.relationship('Recipe', backref='shopping_recipes')
+    by_user = db.relationship("User", backref="shopping_recipes")
     # shopping_recipes = db.relationship("Recipe", secondary = "shopping_recipes", backref="shopping_by_users")
 
     def __repr__(self):
         return f"<recipe id(s) in a shopping list = {self.recipe_id}, user id of the shoping list = {self.user_id}>"
+
+   
 
 class Recipe_Direction(db.Model):
     """recipe direction/step"""

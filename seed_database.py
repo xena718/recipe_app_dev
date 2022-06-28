@@ -17,8 +17,8 @@ model.db.create_all()
 
 
 #create two users
-user_cr = crud.create_user("cr@test.com","cr","cr")
-user_dm = crud.create_user("dm@test.com","dm","dm")
+user_cr = crud.create_user("cr6@test.com","cr6","cr")
+user_dm = crud.create_user("dm6@test.com","dm6","dm")
 
 model.db.session.add_all([user_cr, user_dm])
 model.db.session.commit()
@@ -100,15 +100,26 @@ for each_recipe in recipe_data:
     for each_specialdiet in recipe_specialdiets:
         specialdiet_instance = crud.get_specialdiet_by_name(each_specialdiet)
         specialdiet_instance.recipes.append(db_recipe) 
+    
 
-    if db_recipe.recipe_id %2 ==0:
-        user_cr.shopping_recipes.append(db_recipe) #assication between user and shopping recipes
+    if db_recipe.recipe_id %5 == 0:
+        # shopping_recipe_instance = crud.create_shopping_recipe(db_recipe,user_cr, servings)
+        # print("##"*2)
+        shopping_recipe_instance = crud.create_shopping_recipe(user_cr.user_id,db_recipe.recipe_id, servings)
+        # shopping_recipe_instance = crud.create_shopping_recipe(user_cr,db_recipe, servings)
+
+        model.db.session.add(shopping_recipe_instance)
+
+        # user_cr.shopping_recipes.append(db_recipe) #assication between user and shopping recipes
     else:
         user_cr.saved_recipes.append(db_recipe) #assication between user and saved recipes
 
 
     model.db.session.add(db_recipe)
     model.db.session.commit()
+    # model.db.session.add(shopping_recipe_instance)
+    # model.db.session.commit()
+
     
 
     # recipe_directions is a dict 

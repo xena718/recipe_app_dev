@@ -28,6 +28,9 @@ for (const btn of btns) {
             icon.classList.replace("bi-heart", "bi-heart-fill")
         }else if (serverData === "removed_from_saved"){
             icon.classList.replace("bi-heart-fill", "bi-heart")
+        }else if(serverData === "not_logged_in"){
+            alert("please log in first to add ingredients to shopping list")
+
         }
     });
     // catch errors when server is down for example. 

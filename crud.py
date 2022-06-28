@@ -204,15 +204,42 @@ def groupby_recipeid_orderby_count_for_saved_recipes():
 #     shopping_recipe = Shopping_Recipe(user=user, recipe=recipe)
     
 #     return shopping_recipe
-def create_shopping_recipe(user_id, recipe_id):
-    """create a entry of shopping recipe by the logged in user"""
 
-    shopping_recipe = Shopping_Recipe(user_id=user_id, recipe_id=recipe_id)
+#062722 commented out for testing purpose
+# def create_shopping_recipe(user_id, recipe_id):
+#     """create a entry of shopping recipe by the logged in user"""
+
+#     shopping_recipe = Shopping_Recipe(user_id=user_id, recipe_id=recipe_id)
+    
+#     return shopping_recipe
+
+def create_shopping_recipe(user_id, recipe_id, recipe_servings):
+    """
+    create a entry of shopping recipe by the logged in user
+    """
+
+    shopping_recipe = Shopping_Recipe(user_id=user_id, recipe_id=recipe_id, recipe_servings=recipe_servings)
     
     return shopping_recipe
 
+
+# def create_shopping_recipe(user, recipe, recipe_servings):
+#     """
+#     create a entry of shopping recipe by the logged in user
+#     recipe and user are instances.
+#     """
+
+#     shopping_recipe = Shopping_Recipe(user=user, recipe=recipe, recipe_servings=recipe_servings)
+    
+#     return shopping_recipe
+
+
 def get_shopping_recipes_by_user(user_id):
     return Shopping_Recipe.query.filter(Shopping_Recipe.user_id == user_id).all()
+
+def get_shopping_recipes_by_userID_RecipeID(user_id, recipe_id):
+    """ there should be one record"""
+    return Shopping_Recipe.query.filter((Shopping_Recipe.user_id == user_id)&(Shopping_Recipe.recipe_id == recipe_id)).first()
 
 def create_recipe_direction(recipe, step_number, step_guidance):
     """create and return a cooking step and guidance for a recipe"""

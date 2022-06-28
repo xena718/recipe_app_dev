@@ -180,8 +180,8 @@ def show_account():
 def save_remove():
     user_email = session.get("logged_in_user_email")
     if not user_email:
-        flash("please log in first to save a recipe")
-        return redirect('/signup-login')
+        # flash("please log in first to save a recipe")
+        return "not_logged_in"
     
     user = crud.get_user_by_email(user_email)
     recipe_id = request.json.get("recipeId")
@@ -337,13 +337,59 @@ def add_ingredients_to_shoppinglist():
 
     user = crud.get_user_by_email(user_email)
     recipe_id = request.json.get("recipeID")
+    servings = request.json.get("servings")
 
     # recipe = crud.get_recipe_by_recipe_id(recipe_id)
-    shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id)
-    db.session.add(shopping_recipe)
-    db.session.commit()
+    shopping_recipe_instance = crud.get_shopping_recipes_by_userID_RecipeID(user.user_id, recipe_id)
+    if shopping_recipe_instance:
+        shopping_recipe_instance.servings = servings
+        db.session.commit()
+    else:
+        shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id,servings)
+        db.session.add(shopping_recipe)
+        db.session.commit()
+    
     return "added_shopping_recipe_entry"
 
+
+# @app.route("/shoppinglist")
+# def show_shoppinglist():
+#     """Show shoppinglist of the currently logged in user"""
+#     #TO BE UPDATED
+#     user_email = session.get("logged_in_user_email")
+#     if not user_email:
+#         flash("please log in first to access shopping list")
+#         return redirect('/signup-login')
+#     else:
+#         user = crud.get_user_by_email(user_email)
+#         # user.shopping_recipes: a list of recipe object that are added to shopping_list by user.
+#         shopping_recipes = user.shopping_recipes
+
+#         ###deal with ingredients (quantity and category)###
+#         ### update0522: will need to add unit###
+#         recipes_ingredients = crud.recipes_dbjoinedload_recipe_ingredients()
+#         ingredients_for_all_shopping_recipes ={}
+#         #{"catogery name": {ingredient_name:ingredient_quantity}
+        
+#         for recipe in shopping_recipes:
+#             for ingredient in recipe.recipe_ingredients:
+#                 if ingredient.category in ingredients_for_all_shopping_recipes:
+#                     if ingredient.quantity!="" and ingredient.quantity !=" ":
+#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
+#                     else:
+#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
+                        
+#                 else:
+#                     ingredients_for_all_shopping_recipes[ingredient.category]={}
+#                     if ingredient.quantity!="" and ingredient.quantity !=" ":
+#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
+#                     else:
+#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
+                        
+#         print("*"*20)
+#         print(ingredients_for_all_shopping_recipes)
+
+#         return render_template("shopping_list.html", logged_in_user =user, shopping_recipes=shopping_recipes,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
 
 @app.route("/shoppinglist")
 def show_shoppinglist():
@@ -368,7 +414,7 @@ def show_shoppinglist():
             for ingredient in recipe.recipe_ingredients:
                 if ingredient.category in ingredients_for_all_shopping_recipes:
                     if ingredient.quantity!="" and ingredient.quantity !=" ":
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity*()))
                     else:
                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
                         
@@ -383,6 +429,7 @@ def show_shoppinglist():
         print(ingredients_for_all_shopping_recipes)
 
         return render_template("shopping_list.html", logged_in_user =user, shopping_recipes=shopping_recipes,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
+
 
 ####### I think i may not need this route if I have the logic in Jinga???####
 @app.route("/add-recipe")
