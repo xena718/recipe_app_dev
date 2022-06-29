@@ -7,16 +7,9 @@
     Hello {{logged_in_user.name}}! 
 </h2>
 <h5>
-    You have {{shopping_recipes | length}} recipes in your shopping list.
+    You have {{recipe_instance_servings_dict | length}} recipes in your shopping list.
 </h5>
-{% if shopping_recipes %}
-<!-- <div>
-    {% for recipe in shopping_recipes %}
-    <div>
-        <a href="/recipe/{{recipe.recipe_id}}">{{recipe.title}}</a>
-    </div>
-    {% endfor %}
-</div> -->
+{% if recipe_instance_servings_dict %}
 
 
 <div class="recipe-card-container-for-scroll">
@@ -25,7 +18,7 @@
            <i class="fas fa-chevron-left"></i>
         </button>
         <div class="recipes-cards-slide-container recipe-cards">
-            {% for recipe in shopping_recipes %}
+            {% for recipe, servings in recipe_instance_servings_dict.items() %}
             <div class="recipe-card-div-in-carousel col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
               <div class="card text-center recipe-card-content-div">
                 <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
@@ -35,13 +28,11 @@
                     <button class="remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-dash-circle"></i></button>
                 </div>
                 <div class="card-body">
-                    <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
+                    <!-- <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div> -->
                     <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
                     <div class="card-text">
-                      {{ recipe.cuisine.name }}
-                      {% for course in recipe.courses %} 
-                       | {{course.name}}
-                      {% endfor %}
+                        current servings : {{servings[0]}} |
+                        original servings: {{servings[1]}}
                     </div>
                 </div>              
             

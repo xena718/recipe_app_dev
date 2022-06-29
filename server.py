@@ -401,8 +401,18 @@ def show_shoppinglist():
         return redirect('/signup-login')
     else:
         user = crud.get_user_by_email(user_email)
-        # user.shopping_recipes: a list of recipe object that are added to shopping_list by user.
-        shopping_recipes = user.shopping_recipes
+        #when shopping_recipe table was an association table. user.shopping_recipes: a list of recipe object that are added to shopping_list by user.
+        
+        shopping_recipe_entries = user.shopping_recipes
+        # a list of  shopping_recipe_entry
+        recipe_instance_servings_dict = {}
+        # {recipe_instance: [current_servings,original_servings]}
+
+        for shopping_recipe_entry in shopping_recipe_entries:
+            recipe_instance = crud.get_recipe_by_recipe_id(shopping_recipe_entry.recipe_id) # one recipe instance returned.
+            current_servings = shopping_recipe_entry.recipe_servings
+            original_servings = recipe_instance.servings
+            recipe_instance_servings_dict[recipe_instance] = [current_servings,original_servings]
 
         ###deal with ingredients (quantity and category)###
         ### update0522: will need to add unit###
@@ -410,25 +420,27 @@ def show_shoppinglist():
         ingredients_for_all_shopping_recipes ={}
         #{"catogery name": {ingredient_name:ingredient_quantity}
         
-        for recipe in shopping_recipes:
+        for shopping_recipe_entry in shopping_recipe_entries:
+            recipe = crud.get_recipe_by_recipe_id(shopping_recipe_entry.recipe_id) 
+            recipe_servings = shopping_recipe_entry.recipe_servings
             for ingredient in recipe.recipe_ingredients:
                 if ingredient.category in ingredients_for_all_shopping_recipes:
                     if ingredient.quantity!="" and ingredient.quantity !=" ":
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity*()))
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
                     else:
                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
                         
                 else:
                     ingredients_for_all_shopping_recipes[ingredient.category]={}
                     if ingredient.quantity!="" and ingredient.quantity !=" ":
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
                     else:
                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
                         
         print("*"*20)
         print(ingredients_for_all_shopping_recipes)
 
-        return render_template("shopping_list.html", logged_in_user =user, shopping_recipes=shopping_recipes,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
+        return render_template("shopping_list.html", logged_in_user =user, recipe_instance_servings_dict=recipe_instance_servings_dict,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
 
 
 ####### I think i may not need this route if I have the logic in Jinga???####
