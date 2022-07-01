@@ -556,7 +556,18 @@ def show_recipes_of_any_course(course_type):
     else:
         return render_template("recipes_per_course.html", course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
 
+@app.route('/ingredients/<ingredient_name>')
+def show_recipes_of_the_ingredient(ingredient_name):
+    """return recipes that contains a certain ingredient"""
+    all_recipes_of_the_ingredient = crud.get_recipes_by_ingredient_name(ingredient_name)
 
+    user_email = session.get("logged_in_user_email")
+
+    if user_email:
+        current_user = crud.get_user_by_email(user_email)
+        return render_template("recipes_per_course.html", current_user=current_user, course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
+    else:
+        return render_template("recipes_per_course.html", course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
 
 
 if __name__ == "__main__":

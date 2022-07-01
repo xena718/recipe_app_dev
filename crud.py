@@ -66,6 +66,7 @@ def search_recipes(input):
         .join(Specialdiet, Specialdiet.specialdiet_id == Recipe_Specialdiet.specialdiet_id)
         .filter(Recipe.title.ilike(f'%{input}%') | Cuisine.name.ilike(f'%{input}%')| Recipe.author.ilike(f'%{input}%') | Recipe_Ingredient.name.ilike(f'%{input}%') | Course.name.ilike(f'%{input}%') | Specialdiet.name.ilike(f'%{input}%'))
     ).all()
+    
 
 def get_allrecipes_allcuisines ():
     allrecipes_allcuisines ={}
@@ -260,6 +261,13 @@ def create_recipe_ingredient(recipe, name, category,quantity, unit):
 
 def query_all_ingredients():
     return Recipe_Ingredient.query
+
+
+def get_recipes_by_ingredient_name(ingredient_name):
+    recipes_ingredients_query = db.session.query(Recipe).join(Recipe_Ingredient, Recipe_Ingredient.recipe_id == Recipe.recipe_id)
+    all_recipes_of_the_ingredient = recipes_ingredients_query.filter(Recipe_Ingredient.name == ingredient_name).all()
+    return all_recipes_of_the_ingredient
+    
 
 def create_quantity_unit (name):
     
