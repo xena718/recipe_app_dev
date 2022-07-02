@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block title %} {{ingredient_name}} {% endblock %}
+
+
+{% block body %}
+
+<div  class="title-above-carousel-slide">
+  <h5>Browse By Popular Ingredients</h5>
+</div>
+
+<div class="try">
+  <svg class="icon">
+    <use xlink:href="static/img/ingredients_icons/myicons.svg#asparagus" />
+  </svg> 
+</div>
+<div class="container">
+    <div class="row">
+      <div class="col">
+        <svg class="icon">
+            <use xlink:href="static/img/ingredients_icons/myicons.svg.svg#asparagus" />
+        </svg>
+      </div>
+      <div class="col">
+        Column
+      </div>
+      <div class="col">
+        Column
+      </div>
+    </div>
+  </div>
+
+
+<div  class="title-above-carousel-slide">
+  <h4>{{ingredient_name | capitalize}} Recipes</h4>
+</div>
+
+<div class="recipe-cards row"> 
+  {% for recipe in recipes_of_the_ingredient %}
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+        <div class="card text-center bg-light recipe-card-content-div">
+          <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
+            <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
+          </a>
+          {% if session.get("logged_in_user_email") %}
+            {% if recipe in current_user.saved_recipes %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+            </div>
+            {% else %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+            </div>
+            {% endif %}
+          {% else %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+            </div>
+        {% endif %}
+
+        <div class="card-body">
+            <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
+            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
+            <div class="card-text">
+              {{ recipe.cuisine.name }}
+              {% for specialdiet in recipe.specialdiets %} 
+              | {{specialdiet.name}} 
+              {% endfor %} 
+
+            </div>
+        </div>
+        </div>
+    </div>
+  {% endfor %}
+</div>
+<script src="/static/js/app_events.js"></script>
+
+
+{% endblock %}

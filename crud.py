@@ -264,9 +264,10 @@ def query_all_ingredients():
 
 
 def get_recipes_by_ingredient_name(ingredient_name):
-    recipes_ingredients_query = db.session.query(Recipe).join(Recipe_Ingredient, Recipe_Ingredient.recipe_id == Recipe.recipe_id)
-    all_recipes_of_the_ingredient = recipes_ingredients_query.filter(Recipe_Ingredient.name == ingredient_name).all()
-    return all_recipes_of_the_ingredient
+    recipes_ingredients_query = db.session.query(
+        Recipe).join(Recipe_Ingredient, Recipe_Ingredient.recipe_id == Recipe.recipe_id)
+    recipes_of_the_ingredient = recipes_ingredients_query.filter(Recipe_Ingredient.name.ilike(f'%{ingredient_name}%')).all()
+    return recipes_of_the_ingredient
     
 
 def create_quantity_unit (name):

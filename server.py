@@ -93,6 +93,14 @@ def homepage():
     allrecipes_allspecialdiets = crud.get_allrecipes_allspecialdiets()
     allrecipes_allcourses = crud.get_allrecipes_allcourses()
 
+    popular_ingredients = [
+        "Asparagus","Avocado","Bacon","Beans","Beef","Bread",
+        "Cauliflower","Cheese","Chicken","Chicken Breasts",
+        "Chicken Thighs","Chicken Wing","Duck","Egg",
+        "Ground Beef","Pork","Pasta",
+        "Potato","Rice","Salmon","Shrimp","Tofu"
+    ]
+    
     if user_email:
         current_user = crud.get_user_by_email(user_email)
         return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets, allrecipes_allcourses=allrecipes_allcourses)
@@ -559,15 +567,21 @@ def show_recipes_of_any_course(course_type):
 @app.route('/ingredients/<ingredient_name>')
 def show_recipes_of_the_ingredient(ingredient_name):
     """return recipes that contains a certain ingredient"""
-    all_recipes_of_the_ingredient = crud.get_recipes_by_ingredient_name(ingredient_name)
-
+    recipes_of_the_ingredient = crud.get_recipes_by_ingredient_name(ingredient_name)
+    popular_ingredients = [
+        "Asparagus","Avocado","Bacon","Beans","Beef","Bread",
+        "Cauliflower","Cheese","Chicken","Chicken Breasts",
+        "Chicken Thighs","Chicken Wing","Duck","Egg",
+        "Ground Beef","Pork","Pasta",
+        "Potato","Rice","Salmon","Shrimp","Tofu"
+    ]
     user_email = session.get("logged_in_user_email")
 
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("recipes_per_course.html", current_user=current_user, course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
+        return render_template("recipes_per_ingredient.html", current_user=current_user, ingredient_name = ingredient_name, recipes_of_the_ingredient=recipes_of_the_ingredient, popular_ingredients=popular_ingredients)
     else:
-        return render_template("recipes_per_course.html", course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
+        return render_template("recipes_per_ingredient.html", ingredient_name = ingredient_name, recipes_of_the_ingredient=recipes_of_the_ingredient, popular_ingredients=popular_ingredients)
 
 
 if __name__ == "__main__":
