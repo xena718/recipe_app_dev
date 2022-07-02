@@ -96,16 +96,16 @@ def homepage():
     popular_ingredients = [
         "Asparagus","Avocado","Bacon","Beans","Beef","Bread",
         "Cauliflower","Cheese","Chicken","Chicken Breasts",
-        "Chicken Thighs","Chicken Wing","Duck","Egg",
+        "Chicken Thighs","Chicken Wings","Duck","Egg",
         "Ground Beef","Pork","Pasta",
         "Potato","Rice","Salmon","Shrimp","Tofu"
     ]
-    
+
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets, allrecipes_allcourses=allrecipes_allcourses)
+        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets, allrecipes_allcourses=allrecipes_allcourses,popular_ingredients=popular_ingredients)
     else:
-        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets,allrecipes_allcourses=allrecipes_allcourses)
+        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets,allrecipes_allcourses=allrecipes_allcourses,popular_ingredients=popular_ingredients)
 
 @app.route('/signup-login')
 def show_signup_login_page():
