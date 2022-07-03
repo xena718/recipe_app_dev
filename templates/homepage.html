@@ -47,7 +47,7 @@
                   <div class="card-btn-div">
                     <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
                   </div>      
-                <div class="card-body-featured-recipe-right">
+                <div class="card-body">
                     <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}} | {{ recipe.cuisine.name }}</div>
                     <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
 
@@ -65,7 +65,7 @@
                   <div class="card-btn-div">
                     <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
                   </div>      
-                <div class="card-body-featured-recipe-right">
+                <div class="card-body">
                     <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}} | {{ recipe.cuisine.name }}</div>
                     <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
                 </div>
@@ -142,7 +142,11 @@
           {% for cuisine_type in allrecipes_allcuisines %}
           <div class="cuisine-circle">
               <a href="/cuisines/{{cuisine_type}}" class="no-underline">
-                  <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
+                  <!-- <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}"> -->
+                 
+                  <svg class="icon cuisine-icon">
+                    <use xlink:href="static/img/cuisines-img/cuisines-icons.svg#{{cuisine_type}}"/>
+                  </svg> 
                   {{cuisine_type}}
               </a>
           </div>
@@ -218,7 +222,7 @@
         <use xlink:href="static/img/ingredients_icons/myicons.svg#{{ingredient|lower}}"/>
       </svg> 
       <span class="ingredient-name-span">{{ingredient}}</span>
-  </a>
+    </a>
   </div>
   {% endfor %}
 </div>

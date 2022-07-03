@@ -1,5 +1,24 @@
+.container{
+    margin-top:65px;
+}
+
 .navbar{
     margin-bottom:20px;
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    height:62px;
+
+}
+
+.navbar-nav a {
+    font-weight: 500;
+    color: black;
+    padding-top:18px;
+}
+.search-form-div{
+    margin-top:12px;
+
 }
 
 .container{
@@ -27,7 +46,7 @@
 
 /* Maybe I should set this div to fix contents */
 .recipe-card-div{
-    height:280px;
+    height:285px;
     width:280px;
     padding-left:10px;
     padding-right:10px;
@@ -99,9 +118,11 @@
 .card-body{
     padding:4px;
     height:20px;
+    font-weight: 500;
 }
 .card-text{
     font-size:0.75rem;
+    padding:2px;
 }
 .h5, h5 {
     font-size: 1rem;
@@ -193,7 +214,7 @@ h4{
 .browse-by-cuisines-horizontal-scroll,.browse-by-specialdiets-horizontal-scroll, .browse-by-courses-horizontal-scroll {
     /* width:900px; */
     /* width:96vw; */
-    height: 155px;
+    height: 170px;
     background-color: #fff;
     border: 1px solid rgb(230, 230, 230);
     border-radius:5px;
@@ -232,11 +253,15 @@ h4{
     height: 111px;
     border-radius: 50%;
     border: 2px solid #fff;
+    margin-bottom:10px;
 }
 
 .cuisine-circle a, .specialdiet-circle a, .course-circle a {
     text-align:center;
     font-size:14px;
+    font-weight: 500;
+    color: rgb(8, 8, 188);
+
 }
 
 
@@ -340,6 +365,12 @@ h4{
     height:30px;
 }
 
+.cuisine-icon{
+    width:88px;
+    height:88px;
+    margin-bottom: 10px;
+}
+
 .ingredient-icon-container{
     margin-top:12px;
 }
@@ -349,6 +380,8 @@ h4{
 }
 .ingredient-name-span{
     margin-left:8px;
+    color:black;
+  
 }
 
 .featured-recipe-left-card img{
@@ -369,6 +402,7 @@ h4{
     padding:4px;
     height:100px;
     background-color: rgb(254, 254, 254);
+    font-weight:500;
 }
 
 .featured-recipe-right-card-div{

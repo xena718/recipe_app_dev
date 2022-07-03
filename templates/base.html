@@ -9,14 +9,14 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-light navbar-expand-lg" style="background: rgb(246, 200, 110);">
+    <nav class="navbar fixed-top navbar-light navbar-expand-lg" style="background: rgb(246, 200, 110);">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
             <img src="/static/img/yummy-logo.jpg" class="rounded-circle" alt="" width="44" height="38">
             </a>
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav"> 
-                    <div>
+                    <div class="search-form-div">
                       <form class="d-flex" action="/search" method="POST">
                         <input id="search-input" name= "search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                         <button id="search-button" class="btn btn-light my-2 my-sm-0" type="submit">
