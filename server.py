@@ -101,11 +101,18 @@ def homepage():
         "Potato","Rice","Salmon","Shrimp","Tofu"
     ]
 
+
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets, allrecipes_allcourses=allrecipes_allcourses,popular_ingredients=popular_ingredients)
+        user_saved_recipes = current_user.saved_recipes
+        featured_recipes = []
+        for recipe in most_saved_recipe_per_cuisine:
+            if recipe not in user_saved_recipes and len(featured_recipes)<3:
+                featured_recipes.append(recipe)
+        return render_template("homepage.html", current_user=current_user, recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets, allrecipes_allcourses=allrecipes_allcourses,popular_ingredients=popular_ingredients,featured_recipes=featured_recipes)
     else:
-        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets,allrecipes_allcourses=allrecipes_allcourses,popular_ingredients=popular_ingredients)
+        featured_recipes =random.choices(most_saved_recipe_per_cuisine,k=3)
+        return render_template("homepage.html", recipes_cuisines=most_saved_recipe_per_cuisine, allrecipes_allcuisines= allrecipes_allcuisines, allrecipes_allspecialdiets=allrecipes_allspecialdiets,allrecipes_allcourses=allrecipes_allcourses,popular_ingredients=popular_ingredients,featured_recipes=featured_recipes)
 
 @app.route('/signup-login')
 def show_signup_login_page():
