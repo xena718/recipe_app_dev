@@ -61,7 +61,7 @@
     </select><br>
 
 
-    <div>
+    <div class="ingredients-div">
         <label for="ingredients-input">
             Ingredients 
             <p>For each ingredient, please input quantity, select quantity unit, and input ingredient name (including and any special preparation (i.e. sifted, softened, chopped) in the ingredient name field</p>
@@ -80,7 +80,7 @@
             <option value="{{ingredient_type}}">{{ingredient_type}}</option>
             {% endfor %}
         </select>
-        <button class="icon ingredient-remove" type="button" data-type="ingredient" aria-label="close">
+        <button class="icon ingredient-remove-btn" type="button" aria-label="close">
             <span class="visually-hidden">
               Remove Direction
             </span>
@@ -90,8 +90,7 @@
         </div> 
     </div>
     <button type="button" id="add-ingredient-button">+Add Ingredient</button> <br>
-
-    <div>
+    <div class="directions-div">
         <div>
             Directions
             <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p><br>
@@ -101,7 +100,7 @@
                 Step <span class="step-number">1</span>
             </label>
             <textarea id="step-number" name="step-guidance" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
-            <button class="icon direction-remove" type="button" data-type="direction" aria-label="close">
+            <button class="icon direction-remove-btn" type="button" aria-label="close">
                 <span class="visually-hidden">
                   Remove Direction
                 </span>
