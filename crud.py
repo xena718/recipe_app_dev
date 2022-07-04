@@ -276,6 +276,7 @@ def create_quantity_unit (name):
 
     return quantity_unit
 
+
 def get_quantity_unit_by_name(name):
     return Quantity_Unit.query.filter(Quantity_Unit.name == name).first()
 

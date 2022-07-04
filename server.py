@@ -468,6 +468,8 @@ def add_recipe():
         return redirect('/')
     else:
         # user = crud.get_user_by_email(user_email)
+        ingredient_categories =["Baked and Bakery", "Beverages", "Canned Goods and Soups", "Herbs and Spices", "Meat and Seafood",  "Vegetables and Fruits",  "Dairy, Eggs and Cheese",  "Grains, Pasta, and Sides",  "Condiments and Seasonings",  "Basic Cooking Ingredients",  "Baking Supplies",  "Uncategorized"]
+        courses = ["Appetizer & Snacks", "Breakfast & Brunch", "Lunch", "Main Dish", "Salad", "Dessert", "Side Dishes", "Soups & Stews", "Drink"]    
         cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
         quantity_units = ["tablespoons", "tablespoon", "T", "TB", "Tbl", "Tbsp", 
     "cups","cup","c","C",
@@ -483,14 +485,74 @@ def add_recipe():
     "grams","gram","g",
     "","no unit","other unit"]
 
-    return render_template('add_recipe.html', cuisines=cuisines, quantity_units=quantity_units)
+    return render_template('add_recipe.html', cuisines=cuisines, courses=courses, quantity_units=quantity_units, ingredient_categories=ingredient_categories)
         
 
 
 @app.route("/handle-add-recipe-form", methods=["POST"])
 def handle_add_recipe_form():
     """handle user submitted form of newly added recipe. Update database"""
-    pass
+    user_email = session["logged_in_user_email"]
+    current_user = crud.get_user_by_email(user_email)
+    
+    title = request.form.get('recipe title')
+    author = request.form.get('author')
+    description = request.form.get('description')
+    photo_url = request.form.get("photo-url")
+    servings = request.form.get('servings')
+    prep_time_quan = request.form.get('prep-time')
+    prep_time_unit = request.form.get('prep-time-unit-select')
+    prep_time = prep_time_quan + " " + prep_time_unit
+    cook_time_quan = request.form.get('cook-time')
+    cook_time_unit = request.form.get('cook-time-unit-select')
+    cook_time = cook_time_quan + " " + cook_time_unit
+    cuisine_name = request.form.get('cuisine-type-select')
+    cuisine = crud.get_cuisine_by_name(cuisine_name)
+    notes = request.form.get('notes')
+
+    new_recipe = crud.create_recipe(
+        current_user, title, author, description, photo_url, servings, 
+        prep_time, cook_time, cuisine, notes)
+    
+    ingredient_name_list = request.form.getlist('ingredient-name')
+    ingredient_quantity_list = request.form.getlist('ingredient-quantity')
+    unit_name_list = request.form.getlist('quantity-unit-select')
+    ingredient_category_list = request.form.getlist('ingredient-category-select')
+    
+    print("#"*20)
+    print(ingredient_name_list)
+    # the following while loop is to create recipe_ingredient_entry for all ingredients in the form.
+    i=0
+    while i<len(ingredient_name_list):
+        ingredient_name = ingredient_name_list[i]
+        ingredient_quantity = ingredient_quantity_list[i]
+        unit_name = unit_name_list[i]
+        unit = crud.get_quantity_unit_by_name(unit_name)
+        ingredient_category = ingredient_category_list[i]
+        recipe_ingredient_entry = crud.create_recipe_ingredient(new_recipe, ingredient_name, ingredient_category, ingredient_quantity, unit)
+        i +=1
+    
+    # ingredient_name = request.form.get('ingredient-name')
+    # ingredient_quantity = request.form.get('ingredient-quantity')
+    # unit_name = request.form.get('quantity-unit-select')
+    # unit = crud.get_quantity_unit_by_name(unit_name)
+    # ingredient_category = request.form.get('ingredient-catogory-select')
+    # recipe_ingredient_entry = crud.create_recipe_ingredient(new_recipe, ingredient_name, ingredient_category, ingredient_quantity, unit)
+
+    step_number = 1
+    step_guidance = request.form.get('step-guidance')
+    recipe_direction_entry = crud.create_recipe_direction(new_recipe, step_number, step_guidance)
+    
+
+    course_name = request.form.get('course-type-select')
+    course = crud.get_course_by_name(course_name)
+    course.recipes.append(new_recipe)
+
+    specialdiet_name = request.form.get('specialdiet-type-select')
+    specialdiet = crud.get_specialdiet_by_name(specialdiet_name)
+    specialdiet.recipes.append(new_recipe)
+
+    return render_template("thank_you.html")
 
 @app.route("/browse")
 def browse_recipes():
