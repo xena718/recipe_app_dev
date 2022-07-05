@@ -1,5 +1,5 @@
 .container{
-    margin-top:65px;
+    margin-top:60px;
 }
 
 .navbar{
@@ -435,3 +435,180 @@ h4{
     justify-content: start;
 }
 
+/* below for add-recipe page */
+.add-recipe-container{
+    background-image:url(/static/img/background_2.jfif);
+    background-repeat: repeat-x repeat-y;
+    /* margin: 0 0 48px; */
+    padding-top: 24px;
+}
+.add-recipe-inner-container{
+    width: 800px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    margin-left:auto;
+    margin-right:auto;
+    padding: 35px 50px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%);
+    display:flex;
+    justify-content: center;
+}
+.add-recipe-form-heading{
+    margin-bottom: 16px;
+}
+.add-svg{
+    width:80px;
+    height:80px;
+}
+.add-recipe-form-description{
+    margin-bottom: 32px;
+}
+.add-recipe-form-section{
+    border-top: 1px solid rgba(0,0,0,.15);
+    padding: 28px 0;
+}
+.add-recipe-form-input-wrapper, .add-recipe-form-author-photoURL-wrapper, .add-recipe-form-servings-prep-cook-wrapper{
+    width: 100%;
+    margin-bottom: 32px;
+}
+.add-recipe-form-input-label{
+    width: 100%;
+    margin-bottom: 4px;
+    font: normal 700 16px/24px "Source Sans Pro",sans-serif;
+    letter-spacing: 0;
+}
+.add-recipe-form-input-text{
+    width: 100%;
+    font: 400 16px/24px "Source Sans Pro",sans-serif;
+    letter-spacing: 0;
+    min-height: 48px;
+    padding: 0 16px;
+    border: 1px solid rgba(0,0,0,.65);
+    border-radius:4px;
+}
+.add-recipe-form-input-textarea{
+    min-height: 168px;
+    width: 100%;
+    font: 400 16px/24px "Source Sans Pro",sans-serif;
+    letter-spacing: 0;
+    padding: 16px;
+    resize: vertical;
+    border: 1px solid rgba(0,0,0,.65);
+    border-radius:4px;
+    /* writing-mode: horizontal-tb !important; */
+
+}
+.add-recipe-input-dropdown{
+    display:flex;
+}
+
+.prep-cook-time-label{
+    text-align:center;
+}
+.prep-cook-time-input-dropdown{
+    display:flex;
+    justify-content:center;
+}
+
+
+.add-recipe-form-time-input{
+    width: 90px;
+    float: right;
+    font: 400 16px/24px "Source Sans Pro",sans-serif;
+    letter-spacing: 0;
+    min-height: 48px;
+    padding: 0 16px;
+    border: 1px solid rgba(0,0,0,.65);
+    border-radius:4px;
+}
+.add-recipe-form-timedropdown{
+    padding: 0 16px;
+    margin-left: 16px;
+    width: 95px;
+    min-height: 48px;
+    border-radius:4px;
+}
+.add-recipe-category-dropdown{
+    padding: 0 16px;
+    width: 200px;
+    min-height: 48px;
+    border-radius:4px;   
+}
+.add-recipe-form-section-title{
+    margin-top: 0;
+    margin-bottom: 8px;
+    font: normal 700 16px/24px "Source Sans Pro",sans-serif;
+    letter-spacing: 0;
+}
+.ingredient-subdiv-1, .ingredient-subdiv-2{
+    display:flex;
+    justify-content: start;
+}
+
+.ingredient-quantity-input{
+    width: 125px;
+    letter-spacing: 0;
+    min-height: 48px;
+    padding: 0 5px;
+    border: 1px solid rgba(0,0,0,.65);
+    border-radius:4px;
+    margin-right:5px;
+    margin-bottom: 5px;
+}
+.ingredient-unit-dropdown{
+    margin-right:5px;
+    margin-bottom:5px;
+}
+.ingredient-name-div{
+    width:450px;
+    margin-bottom: 5px;
+}
+.ingredient-category-label{
+    width: 160px;
+    letter-spacing: 0;
+    min-height: 48px;
+    border-radius:4px;
+    margin-right:5px;
+    /* text-align: center; */
+    vertical-align: middle;
+    display:table-cell;
+
+
+}
+.ingredient-remove-btn{
+    margin-left: 120px;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width:34px;
+    height:34px;
+    border-radius: 50%;
+    background-color: rgb(246, 246, 237);
+    border:0px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+.ingredient-remove-btn:hover{
+    background-color: rgb(207, 207, 199);
+}
+
+.ingredient-subdiv-2{
+    position:relative;
+}
+
+#add-ingredient-button{
+    background-color: rgb(255, 255, 255);
+    /* color:rgba(0,0,0,.95); */
+    border:2px solid rgb(214, 44, 44);
+    border-radius: 4px;
+    height:50px;
+    width: fit-content;
+    padding: 0px 20px;
+    font-weight: 500;  
+    margin-top:20px;
+}
+.ingredient-quantity-unit-name-category-div{
+    margin-bottom:20px;
+}

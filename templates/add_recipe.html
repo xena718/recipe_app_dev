@@ -4,122 +4,236 @@
 
 {% block body %}
 
-<form method="post" action="/handle-add-recipe-form">
-    <label for="recipe title">Recipe Title</label>
-    <input type="text" maxlength="200" id="recipe title" name="recipe title" placeholder="[Required] Give your recipe an title"><br>
- 
-    <label for="author">Author</label>
-    <input type="text" maxlength="100" id="author" name="author" placeholder="[Required] Author name"><br>
- 
-    <label for="description">Description</label>
-    <textarea id="description" name="description" maxlength="4000" placeholder="[Optional though encouraged] Tell us the story of your recipe and what makes it special"></textarea> <br>
-   
-    <label for="photo-url">Photo URL</label>
-    <input type="text" id="photo-url" name="photo-url" placeholder="[Optional but encouraged] photo url"><br>
-
-    <label for="servings">Servings</label>
-    <input type="nuber" id="servings" name="servings" placeholder="[Required] e.g. 4"><br>
-    
-    <label for="prep-time">Prep time</label>
-    <input type="nuber" id="prep-time" name="prep-time" placeholder="[Required] 0">
-
-    <select name="prep-time-unit-select" required>
-        <option value="mins" selected>mins</option>
-        <option value="hours">hours</option>
-        <option value="days">days</option>
-    </select><br>
-
-    <label for="cook-time">Cook time</label>
-    <input type="nuber" id="cook-time" name="cook-time" placeholder="[Required] 0">
-
-    <select name="cook-time-unit-select" required>
-        <option value="mins" selected>mins</option>
-        <option value="hours">hours</option>
-        <option value="days">days</option>
-    </select><br>
-
-    <label for="cuisine-type-select">Cuisine</label>
-    <select name="cuisine-type-select" id="cuisine-type-select" required>
-        {% for cuisine_type in cuisines %}
-        <option value="{{cuisine_type}}">{{cuisine_type}}</option>
-        {% endfor %}
-    </select><br>
-
-    <label for="course-type-select">Course</label>
-    <select name="course-type-select" id="course-type-select" required>
-        {% for course_type in courses %}
-        <option value="{{course_type}}">{{course_type}}</option>
-        {% endfor %}
-    </select><br>
-
-    <label for="specialdiet-type-select">Special Diet</label>
-    <select name="specialdiet-type-select" id="specialdiet-type-select" required>
-        <option value="Vegetarian" selected>Vegetarian</option>
-        <option value="Gluten-free">Gluten-free</option>
-        <option value="Non-Vegetarian">Non-Vegetarian</option>
-        <option value="Others">Others</option>
-    </select><br>
-
-
-    <div class="ingredients-div">
-        <label for="ingredients-input">
-            Ingredients 
-            <p>For each ingredient, please input quantity, select quantity unit, and input ingredient name (including and any special preparation (i.e. sifted, softened, chopped) in the ingredient name field</p>
-        </label>
-        <div class="ingredient-quantity-unit-name-category-div"> 
-        <input type="number" id="ingredients-input" name="ingredient-quantity" placeholder="ingredient quantity. e.g.1">
-        <select name="quantity-unit-select" id="ingredients-input" required>
-            {% for quantity_unit in quantity_units %}
-            <option value="{{quantity_unit}}">{{quantity_unit}}</option>
-            {% endfor %}
-        </select>      
-        <input type="text" id="ingredients-input" name="ingredient-name" placeholder="ingredient name. e.g. chopped onion">
-        <label for="ingredient-category-select">Ingredient Category</label>
-        <select name="ingredient-category-select" id="ingredient-category-select" required>
-            {% for ingredient_type in ingredient_categories %}
-            <option value="{{ingredient_type}}">{{ingredient_type}}</option>
-            {% endfor %}
-        </select>
-        <button class="icon ingredient-remove-btn" type="button" aria-label="close">
-            <span class="visually-hidden">
-              Remove Direction
-            </span>
-            <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
-            </span>
-        </button>
-        </div> 
-    </div>
-    <button type="button" id="add-ingredient-button">+Add Ingredient</button> <br>
-    <div class="directions-div">
-        <div>
-            Directions
-            <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p><br>
+<div class="add-recipe-container">
+  <div class="add-recipe-inner-container">
+    <div class="add-recipe-form-container">
+        <div class="add-recipe-form-heading">
+            <h1 class="form-headline">
+                <span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="rgb(227, 33, 33)" class="bi bi-plus add-svg" viewBox="0 0 16 16">
+                    <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+                  </svg>
+                </span> 
+                Add a Recipe
+            </h1>
         </div>
-        <div class="step-number-direction-div"> 
-            <label for="step-number">
-                Step <span class="step-number">1</span>
-            </label>
-            <textarea id="step-number" name="step-guidance" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
-            <button class="icon direction-remove-btn" type="button" aria-label="close">
-                <span class="visually-hidden">
-                  Remove Direction
-                </span>
-                <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
-                </span>
-            </button>
+        <div class="add-recipe-form-description">
+            <h5>Add your recipe to your favorites, share with friends and family. Uploading is easy!</h5>
         </div>
+        <div class="add-recipe-form-inputs-all">
+            <form method="post" action="/handle-add-recipe-form">
+            <div class="add-recipe-form-section">
+                <div class="add-recipe-form-input-wrapper">
+                    <label for="recipe title" class="add-recipe-form-input-label">Recipe Title</label>
+                    <input type="text" maxlength="200" id="recipe title" name="recipe title" class="add-recipe-form-input-text" placeholder="Give your recipe a title">    
+                </div>
+                <div class="add-recipe-form-author-photoURL-wrapper">
+                    <div class="row">
+                      <div class="col">
+                        <label for="author" class="add-recipe-form-input-label">Author</label>
+                        <input type="text" maxlength="100" id="author" name="author" class="add-recipe-form-input-text" placeholder="Author name of the recipe">        
+                      </div>
+                      <div class="col">
+                        <label for="photo-url" class="add-recipe-form-input-label">Photo URL [Optional]</label>
+                        <input type="text" id="photo-url" name="photo-url" class="add-recipe-form-input-text" placeholder="photo url [optional]">
+                      </div>
+                    </div>
+                </div>
+                <div class="add-recipe-form-input-wrapper">
+                    <label for="description" class="add-recipe-form-input-label">Description [Optional]</label>
+                    <textarea id="description" name="description" maxlength="4000" class="add-recipe-form-input-textarea" placeholder="Tell us the story of your recipe"></textarea>
+                </div>
 
-    </div>
-    <button type="button" id="add-cooking-step-button">+Add Step</button> <br>
+                <div class="add-recipe-form-servings-prep-cook-wrapper">
+                    <div class="row justify-content-md-center">
+                      <div class="col-2">
+                        <label for="servings" class="add-recipe-form-input-label">Servings</label>
+                        <input type="number" id="servings" name="servings" class="add-recipe-form-input-text" placeholder="e.g. 4">
+                      </div>
+                      <div class="col-5">
+                        <label for="prep-time" class="add-recipe-form-input-label prep-cook-time-label">Prep Time</label>
+                        <div class="add-recipe-input-dropdown prep-cook-time-input-dropdown">
+                            <input type="number" id="prep-time" name="prep-time" class="add-recipe-form-time-input" placeholder="e.g. 0">
+                            <select name="prep-time-unit-select" class="add-recipe-form-timedropdown" required>
+                                <option value="mins" selected>mins</option>
+                                <option value="hours">hours</option>
+                                <option value="days">days</option>
+                            </select>
+                        </div>
+                      </div>
+                      <div class="col-4">
+                        <label for="cook-time" class="add-recipe-form-input-label prep-cook-time-label">Cook Time</label>
+                        <div class="add-recipe-input-dropdown prep-cook-time-input-dropdown">
+                            <input type="number" id="cook-time" name="cook-time" class="add-recipe-form-time-input" placeholder="e.g. 0">
+                            <select name="cook-time-unit-select" class="add-recipe-form-timedropdown" required>
+                                <option value="mins" selected>mins</option>
+                                <option value="hours">hours</option>
+                                <option value="days">days</option>
+                            </select>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="add-recipe-form-categories-wrapper">
+                    <div class="row justify-content-md-center">
+                      <div class="col">
+                        <label for="cuisine-type-select" class="add-recipe-form-input-label">Cuisine</label>
+                        <select name="cuisine-type-select" class="add-recipe-category-dropdown" id="cuisine-type-select" required>
+                            {% for cuisine_type in cuisines %}
+                            <option value="{{cuisine_type}}">{{cuisine_type}}</option>
+                            {% endfor %}
+                        </select>
+
+                      </div>
+                      <div class="col">
+                        <label for="course-type-select" class="add-recipe-form-input-label">Course</label>
+                        <select name="course-type-select" id="course-type-select" class="add-recipe-category-dropdown" required>
+                            {% for course_type in courses %}
+                            <option value="{{course_type}}">{{course_type}}</option>
+                            {% endfor %}
+                        </select>
+  
+                      </div>
+                      <div class="col">
+                        <label for="specialdiet-type-select" class="add-recipe-form-input-label">Special Diet</label>
+                        <select name="specialdiet-type-select" id="specialdiet-type-select" class="add-recipe-category-dropdown" required>
+                            <option value="Vegetarian" selected>Vegetarian</option>
+                            <option value="Gluten-free">Gluten-free</option>
+                            <option value="Non-Vegetarian">Non-Vegetarian</option>
+                            <option value="Others">Others</option>
+                        </select>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="add-recipe-form-section">
+                <h2 class="add-recipe-form-section-title">Ingredients</h2>
+                <p id="section-description" class="section-description">Enter ingredient name [including any special preparation (i.e. sifted, softened, chopped)] and quntity. Select quantity unit (i.e. cups, tablespoons) and ingredient category.</p>
+                <div class="ingredients-div">
+                    <div class="ingredient-quantity-unit-name-category-div">
+                        <div class="ingredient-subdiv-1">
+                            <input type="number" id="ingredients-input" name="ingredient-quantity" class="ingredient-quantity-input" placeholder="quantity. e.g.1">
+                            <select name="quantity-unit-select" class="ingredient-unit-dropdown" id="ingredients-input" required>
+                                {% for quantity_unit in quantity_units %}
+                                <option value="{{quantity_unit}}">{{quantity_unit}}</option>
+                                {% endfor %}
+                            </select>  
+                            <input type="text" id="ingredients-input" name="ingredient-name" class="ingredient-name-div" placeholder="ingredient name. e.g. chopped onion">
+                        </div> 
+                        <div class="ingredient-subdiv-2">
+                            <div>
+                            <label for="ingredient-category-select" class="ingredient-category-label">Ingredient Category</label>
+                            </div>
+                            <select name="ingredient-category-select" class="ingredient-category-dropdown"id="ingredient-category-select" required>
+                                {% for ingredient_type in ingredient_categories %}
+                                <option value="{{ingredient_type}}">{{ingredient_type}}</option>
+                                {% endfor %}
+                            </select>
+                            <button class="icon ingredient-remove-btn" type="button" aria-label="close">
+                                <span class="visually-hidden">
+                                Remove Ingredient
+                                </span>
+                                <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                                </span>
+                            </button>
+                        </div> 
+
+                    </div> 
+                    <button type="button" id="add-ingredient-button">+Add Ingredient</button> <br>
+
+                </div>        
+            </div>
+
+
+            <div class="add-recipe-form-section">
+                <h2 class="add-recipe-form-section-title">Directions</h2>
+                <p id="section-description" class="section-description">Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p>
+                <div class="directions-div">
+                    <div class="step-number-direction-div"> 
+                        <label for="step-number">
+                            Step <span class="step-number">1</span>
+                        </label>
+                        <textarea id="step-number" name="step-guidance" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
+                        <button class="icon direction-remove-btn" type="button" aria-label="close">
+                            <span class="visually-hidden">
+                            Remove Direction
+                            </span>
+                            <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+
+                </div>
+                <button type="button" id="add-cooking-step-button">+Add Step</button> <br>
+            </div>
+
+
+                
+
+
+<!-- 
+                <div class="ingredients-div">
+                    <label for="ingredients-input">
+                        Ingredients 
+                        <p>For each ingredient, please input quantity, select quantity unit, and input ingredient name (including and any special preparation (i.e. sifted, softened, chopped) in the ingredient name field</p>
+                    </label>
+                    <div class="ingredient-quantity-unit-name-category-div"> 
+                    <input type="number" id="ingredients-input" name="ingredient-quantity" placeholder="ingredient quantity. e.g.1">
+                    <select name="quantity-unit-select" id="ingredients-input" required>
+                        {% for quantity_unit in quantity_units %}
+                        <option value="{{quantity_unit}}">{{quantity_unit}}</option>
+                        {% endfor %}
+                    </select>      
+                    <input type="text" id="ingredients-input" name="ingredient-name" placeholder="ingredient name. e.g. chopped onion">
+                    <label for="ingredient-category-select">Ingredient Category</label>
+                    <select name="ingredient-category-select" id="ingredient-category-select" required>
+                        {% for ingredient_type in ingredient_categories %}
+                        <option value="{{ingredient_type}}">{{ingredient_type}}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="icon ingredient-remove-btn" type="button" aria-label="close">
+                        <span class="visually-hidden">
+                        Remove Direction
+                        </span>
+                        <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                        </span>
+                    </button>
+                    </div> 
+                </div>
+                <button type="button" id="add-ingredient-button">+Add Ingredient</button> <br> -->
+                <div class="directions-div">
+                    <div>
+                        Directions
+                        <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p><br>
+                    </div>
+                    <div class="step-number-direction-div"> 
+                        <label for="step-number">
+                            Step <span class="step-number">1</span>
+                        </label>
+                        <textarea id="step-number" name="step-guidance" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
+                        <button class="icon direction-remove-btn" type="button" aria-label="close">
+                            <span class="visually-hidden">
+                            Remove Direction
+                            </span>
+                            <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+
+                </div>
+                <button type="button" id="add-cooking-step-button">+Add Step</button> <br>
 
 
 
-    <label for="notes">Notes</label>
-    <input type="notes" id="notes" name="notes" placeholder="[Optional]"><br>
+                <label for="notes">Notes</label>
+                <input type="notes" id="notes" name="notes" placeholder="[Optional]"><br>
 
-    <input type="submit">
-</form>
-
+                <input type="submit">
+            </form>
+        </div>
+    </div>   
+  </div>   
+</div>
 <script src="/static/js/add_recipe.js"></script>
 
 
