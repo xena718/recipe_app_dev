@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="add-recipe-form-servings-prep-cook-wrapper">
-                    <div class="row justify-content-md-center">
+                    <div class="row ">
                       <div class="col-2">
                         <label for="servings" class="add-recipe-form-input-label">Servings</label>
                         <input type="number" id="servings" name="servings" class="add-recipe-form-input-text" placeholder="e.g. 4">
@@ -139,7 +139,7 @@
                         </div> 
 
                     </div> 
-                    <button type="button" id="add-ingredient-button">+Add Ingredient</button> <br>
+                    <button type="button" id="add-ingredient-button">+ Add Ingredient</button> <br>
 
                 </div>        
             </div>
@@ -150,10 +150,10 @@
                 <p id="section-description" class="section-description">Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p>
                 <div class="directions-div">
                     <div class="step-number-direction-div"> 
-                        <label for="step-number">
+                        <label for="step-number" class="step-and-number">
                             Step <span class="step-number">1</span>
                         </label>
-                        <textarea id="step-number" name="step-guidance" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
+                        <textarea id="step-number" name="step-guidance" class="step-guidance-textarea" placeholder="Preheat an air fryer to 400 degrees F (200 degrees C) for 7 minutes."></textarea>
                         <button class="icon direction-remove-btn" type="button" aria-label="close">
                             <span class="visually-hidden">
                             Remove Direction
@@ -161,74 +161,21 @@
                             <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
                             </span>
                         </button>
+
                     </div>
 
                 </div>
-                <button type="button" id="add-cooking-step-button">+Add Step</button> <br>
+                <button type="button" id="add-cooking-step-button">+ Add Step</button> <br>
             </div>
 
 
-                
+            <div class="add-recipe-form-section">
+                <h2 class="add-recipe-form-section-title">Notes[Optional]</h2>
+                <p id="section-description" class="section-description">Add any helpful information about the recipe (e.g., ingredient substitutions or storage) here.</p>
+                <input type="notes" id="notes" name="notes" class="add-recipe-form-input-text" placeholder="additional notes">
+            </div>
 
-
-<!-- 
-                <div class="ingredients-div">
-                    <label for="ingredients-input">
-                        Ingredients 
-                        <p>For each ingredient, please input quantity, select quantity unit, and input ingredient name (including and any special preparation (i.e. sifted, softened, chopped) in the ingredient name field</p>
-                    </label>
-                    <div class="ingredient-quantity-unit-name-category-div"> 
-                    <input type="number" id="ingredients-input" name="ingredient-quantity" placeholder="ingredient quantity. e.g.1">
-                    <select name="quantity-unit-select" id="ingredients-input" required>
-                        {% for quantity_unit in quantity_units %}
-                        <option value="{{quantity_unit}}">{{quantity_unit}}</option>
-                        {% endfor %}
-                    </select>      
-                    <input type="text" id="ingredients-input" name="ingredient-name" placeholder="ingredient name. e.g. chopped onion">
-                    <label for="ingredient-category-select">Ingredient Category</label>
-                    <select name="ingredient-category-select" id="ingredient-category-select" required>
-                        {% for ingredient_type in ingredient_categories %}
-                        <option value="{{ingredient_type}}">{{ingredient_type}}</option>
-                        {% endfor %}
-                    </select>
-                    <button class="icon ingredient-remove-btn" type="button" aria-label="close">
-                        <span class="visually-hidden">
-                        Remove Direction
-                        </span>
-                        <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
-                        </span>
-                    </button>
-                    </div> 
-                </div>
-                <button type="button" id="add-ingredient-button">+Add Ingredient</button> <br> -->
-                <div class="directions-div">
-                    <div>
-                        Directions
-                        <p>Explain how to make your recipe, including oven temperatures, baking or cooking times, and pan sizes, etc.</p><br>
-                    </div>
-                    <div class="step-number-direction-div"> 
-                        <label for="step-number">
-                            Step <span class="step-number">1</span>
-                        </label>
-                        <textarea id="step-number" name="step-guidance" placeholder="ingredient name. e.g. chopped onion"></textarea><br> 
-                        <button class="icon direction-remove-btn" type="button" aria-label="close">
-                            <span class="visually-hidden">
-                            Remove Direction
-                            </span>
-                            <span class="icon icon-close-circle default-icon remove-ingredient-step-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" aria-hidden="true"><path fill="000" fill-opacity=".65" d="M14.59 8L12 10.59 9.41 8 8 9.41 10.59 12 8 14.59 9.41 16 12 13.41 14.59 16 16 14.59 13.41 12 16 9.41 14.59 8zM12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path></svg>
-                            </span>
-                        </button>
-                    </div>
-
-                </div>
-                <button type="button" id="add-cooking-step-button">+Add Step</button> <br>
-
-
-
-                <label for="notes">Notes</label>
-                <input type="notes" id="notes" name="notes" placeholder="[Optional]"><br>
-
-                <input type="submit">
+                <input type="submit" value="Submit Recipe" id="add-recipe-submit">
             </form>
         </div>
     </div>   

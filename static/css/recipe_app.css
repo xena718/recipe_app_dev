@@ -433,6 +433,8 @@ h4{
 .step-number-direction-div{
     display:flex;
     justify-content: start;
+    position:relative;
+
 }
 
 /* below for add-recipe page */
@@ -529,7 +531,7 @@ h4{
     min-height: 48px;
     border-radius:4px;
 }
-.add-recipe-category-dropdown{
+.add-recipe-category-dropdown, .ingredient-category-dropdown{
     padding: 0 16px;
     width: 200px;
     min-height: 48px;
@@ -570,6 +572,7 @@ h4{
     min-height: 48px;
     border-radius:4px;
     margin-right:5px;
+    padding-top:10px;
     /* text-align: center; */
     vertical-align: middle;
     display:table-cell;
@@ -577,7 +580,7 @@ h4{
 
 }
 .ingredient-remove-btn{
-    margin-left: 120px;
+    /* margin-left: 120px; */
     display:flex;
     justify-content: center;
     align-items:center;
@@ -590,15 +593,29 @@ h4{
     top: 0px;
     right: 0px;
 }
-.ingredient-remove-btn:hover{
+.direction-remove-btn{
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    width:34px;
+    height:34px;
+    border-radius: 50%;
+    background-color: rgb(246, 246, 237);
+    border:0px;
+    position: absolute;
+    top: 23px;
+    right: 0px;
+}
+.ingredient-remove-btn:hover, .direction-remove-btn:hover{
     background-color: rgb(207, 207, 199);
 }
+
 
 .ingredient-subdiv-2{
     position:relative;
 }
 
-#add-ingredient-button{
+#add-ingredient-button, #add-cooking-step-button, #add-recipe-submit{
     background-color: rgb(255, 255, 255);
     /* color:rgba(0,0,0,.95); */
     border:2px solid rgb(214, 44, 44);
@@ -607,8 +624,39 @@ h4{
     width: fit-content;
     padding: 0px 20px;
     font-weight: 500;  
-    margin-top:20px;
+    margin-top:10px;
+    font: normal 600 14px/22px "Source Sans Pro",sans-serif;
+
 }
-.ingredient-quantity-unit-name-category-div{
+#add-recipe-submit{
+    font: normal 600 18px/24px "Source Sans Pro",sans-serif;
+}
+
+#add-ingredient-button:hover, #add-cooking-step-button:hover, #add-recipe-submit:hover{
+    background-color: rgb(192, 42, 42);
+    color:rgb(255, 255, 255);
+}
+
+.ingredient-quantity-unit-name-category-div, .step-number-direction-div{
     margin-bottom:20px;
+
+}
+
+.step-and-number{
+    padding-top:28px;
+}
+
+
+.step-guidance-textarea{
+    min-height: 60px;
+    width: 83%;
+    font: 400 16px/24px "Source Sans Pro",sans-serif;
+    letter-spacing: 0;
+    padding: 16px;
+    margin-left:20px;
+    resize: vertical;
+    border: 1px solid rgba(0,0,0,.65);
+    border-radius:4px;
+    /* writing-mode: horizontal-tb !important; */
+
 }
