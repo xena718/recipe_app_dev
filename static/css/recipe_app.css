@@ -36,6 +36,18 @@
     margin-bottom: 0.5rem;
 }
 
+.text-above-carousel-slide{
+    padding:5px;
+    margin-left:5px;
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+.container-2-shoppinglist-page{
+    margin-left:5px;
+    margin-top:20px;
+    margin-bottom:10px;
+}
 /* overflow:auto solved the problem of .navbar div white space on the right end of page */
 .recipe-cards{
     margin-left:auto;
@@ -439,8 +451,9 @@ h4{
 
 /* below for add-recipe page */
 .add-recipe-container{
-    background-image:url(/static/img/background_2.jfif);
-    background-repeat: repeat-x repeat-y;
+    background-image:url(/static/img/ingredient1.jpg);
+    background-repeat: no-repeat center center;
+    background-size:cover;
     /* margin: 0 0 48px; */
     padding-top: 24px;
 }
@@ -659,4 +672,34 @@ h4{
     border-radius:4px;
     /* writing-mode: horizontal-tb !important; */
 
+}
+
+.ingredient-category{
+    margin-top: 20px;
+    margin-bottom: 10px;
+    padding-top:10px;
+    border-top: 1px solid rgba(0,0,0,.10);
+    font-size: 1rem;
+    color: #2d2d2d;
+    font-weight: 500;
+    font-family: "Source Sans Pro",Arial;
+    min-height: 48px;
+}
+
+.ingredient-category-name-span{
+    padding-left:15px;
+    padding-top:10px;
+    margin-top:10px;
+    padding-bottom: 0;
+}
+.ingredient-items{
+    margin-left:5px;
+    margin-top:10px;
+}
+.ingredient-item{
+    margin-left:5px;
+    margin-top:10px;
+}
+.ingredient-info-span{
+    padding-left:10px;
 }

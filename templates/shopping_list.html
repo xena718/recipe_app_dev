@@ -3,14 +3,12 @@
 
 {% block body %}
 
-<h2>
-    Hello {{logged_in_user.name}}! 
-</h2>
-<h5>
-    You have {{recipe_instance_servings_dict | length}} recipes in your shopping list.
-</h5>
-{% if recipe_instance_servings_dict %}
+<div class="container-1-shoppinglist-page">
+<div class="text-above-carousel-slide">
+    You have {{recipe_instance_servings_dict | length}} recipes in your shopping list!
+</div>
 
+{% if recipe_instance_servings_dict %}
 
 <div class="recipe-card-container-for-scroll">
     <div class="recipe-card-horizontal-scroll">
@@ -46,28 +44,45 @@
     </div>
   </div>
   <script src="/static/js/app_events.js"></script>
- 
-<br/>
+</div>
+
+
+<div class="container-2-shoppinglist-page">
 <h4>Shopping List</h4>
 <div>
     {% for category_name in ingredients_for_all_shopping_recipes %}
-        <li>{{category_name}}</li>
+
+        <div class="ingredient-category">
+            <svg class="icon ingredient-icon">
+                <use xlink:href="static/img/ingredient_categories.svg#{{category_name}}"/>
+              </svg> 
+            <span class="ingredient-category-name-span"> {{category_name}}</span>    
+        </div>
+        <div class="ingredient-items">
             {% for ingredient_name in ingredients_for_all_shopping_recipes[category_name] %}
                 {% if ingredients_for_all_shopping_recipes[category_name].get(ingredient_name) == 0 %}
-                    <div>
-                        {{ingredient_name}}
+                    <div class="ingredient-item">
+                        <i class="bi bi-circle"></i>
+                        <span class="ingredient-info-span"> {{ingredient_name}}</span>
+                        
                     </div>
                 {% else %}    
-                    <div>
-                        {{ingredient_name}}: {{ingredients_for_all_shopping_recipes[category_name].get(ingredient_name)}}
+                    <div class="ingredient-item">
+                        <i class="bi bi-circle"></i>
+                        <span class="ingredient-info-span"> 
+                            {{ingredient_name}}: {{ingredients_for_all_shopping_recipes[category_name].get(ingredient_name)}}
+                        </span>
+
+                        
                     </div>
                 {% endif %}
 
             {% endfor %}
+        </div>
 
     {% endfor %}
 </div>
-
+</div>
 {% endif %}
 
 {% endblock %}
