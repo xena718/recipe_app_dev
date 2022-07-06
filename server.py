@@ -200,15 +200,17 @@ def save_remove():
     
     user = crud.get_user_by_email(user_email)
     recipe_id = request.json.get("recipeId")
-    # print("*"*20+recipe_title)
+    # print("*"*20)
 
     recipe = crud.get_recipe_by_recipe_id(recipe_id)
     saved_recipes_ids = [saved_recipe.recipe_id for saved_recipe in user.saved_recipes]
     
     if recipe.recipe_id in saved_recipes_ids:
-        saved_recipe_entry = crud.get_saved_recipe_by_recipe_id(recipe_id)
+        saved_recipe_entry = crud.get_saved_recipe_by_recipeID_userID(recipe_id, user.user_id)
         db.session.delete(saved_recipe_entry)
         db.session.commit()
+        print("*#*"*20)
+
         return "removed_from_saved"
 
     else:
@@ -224,18 +226,32 @@ def save_remove():
 @app.route("/remove", methods=["POST"])
 def remove_from_saved_recipes():
     #user must have logged in before user is routed to this route.
-    # user_email = session["logged_in_user_email"]
-    # user = crud.get_user_by_email(user_email)
+    user_email = session["logged_in_user_email"]
+    user = crud.get_user_by_email(user_email)
 
     recipe_id = request.json.get("recipeId")
     recipe = crud.get_recipe_by_recipe_id(recipe_id)
-    saved_recipe_entry = crud.get_saved_recipe_by_recipe_id(recipe_id)
+    saved_recipe_entry = crud.get_saved_recipe_by_recipeID_userID(recipe_id, user.user_id)
     
     #delete the saved_recipe_entry 
     db.session.delete(saved_recipe_entry)
     db.session.commit()
 
     return "removed_from_saved" 
+
+@app.route("/remove-shopping-recipe", methods=["POST"])
+def remove_shopping_recipe():
+    recipe_id = request.json.get("recipeId")
+    # recipe = crud.get_recipe_by_recipe_id(recipe_id)
+    user_email=session.get("logged_in_user_email")
+    user = crud.get_user_by_email(user_email)
+    shopping_recipe_instance = crud.get_shopping_recipe_by_userID_RecipeID(user.user_id, recipe_id)
+    
+    db.session.delete(shopping_recipe_instance)
+    db.session.commit()
+
+    return "removed_from_shoppinglist"
+    
 
 
 # <div class="card-btn-div">
@@ -281,7 +297,7 @@ def remove_recipe_from_saved(recipe_id):
     user_email = session["logged_in_user_email"]
     user = crud.get_user_by_email(user_email)
     recipe = crud.get_recipe_by_recipe_id(recipe_id)
-    saved_recipe_entry = crud.get_saved_recipe_by_recipe_id(recipe_id)
+    saved_recipe_entry = crud.get_saved_recipe_by_recipeID_userID(recipe_id, user.user_id)
     
     #delete the saved_recipe_entry 
     db.session.delete(saved_recipe_entry)
@@ -355,7 +371,7 @@ def add_ingredients_to_shoppinglist():
     servings = request.json.get("servings")
 
     # recipe = crud.get_recipe_by_recipe_id(recipe_id)
-    shopping_recipe_instance = crud.get_shopping_recipes_by_userID_RecipeID(user.user_id, recipe_id)
+    shopping_recipe_instance = crud.get_shopping_recipe_by_userID_RecipeID(user.user_id, recipe_id)
     if shopping_recipe_instance:
         shopping_recipe_instance.servings = servings
         db.session.commit()
@@ -365,46 +381,6 @@ def add_ingredients_to_shoppinglist():
         db.session.commit()
     
     return "added_shopping_recipe_entry"
-
-
-# @app.route("/shoppinglist")
-# def show_shoppinglist():
-#     """Show shoppinglist of the currently logged in user"""
-#     #TO BE UPDATED
-#     user_email = session.get("logged_in_user_email")
-#     if not user_email:
-#         flash("please log in first to access shopping list")
-#         return redirect('/signup-login')
-#     else:
-#         user = crud.get_user_by_email(user_email)
-#         # user.shopping_recipes: a list of recipe object that are added to shopping_list by user.
-#         shopping_recipes = user.shopping_recipes
-
-#         ###deal with ingredients (quantity and category)###
-#         ### update0522: will need to add unit###
-#         recipes_ingredients = crud.recipes_dbjoinedload_recipe_ingredients()
-#         ingredients_for_all_shopping_recipes ={}
-#         #{"catogery name": {ingredient_name:ingredient_quantity}
-        
-#         for recipe in shopping_recipes:
-#             for ingredient in recipe.recipe_ingredients:
-#                 if ingredient.category in ingredients_for_all_shopping_recipes:
-#                     if ingredient.quantity!="" and ingredient.quantity !=" ":
-#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
-#                     else:
-#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
-                        
-#                 else:
-#                     ingredients_for_all_shopping_recipes[ingredient.category]={}
-#                     if ingredient.quantity!="" and ingredient.quantity !=" ":
-#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity))
-#                     else:
-#                         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
-                        
-#         print("*"*20)
-#         print(ingredients_for_all_shopping_recipes)
-
-#         return render_template("shopping_list.html", logged_in_user =user, shopping_recipes=shopping_recipes,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
 
 @app.route("/shoppinglist")
 def show_shoppinglist():
@@ -431,26 +407,47 @@ def show_shoppinglist():
 
         ###deal with ingredients (quantity and category)###
         ### update0522: will need to add unit###
-        recipes_ingredients = crud.recipes_dbjoinedload_recipe_ingredients()
+        # recipes_ingredients = crud.recipes_dbjoinedload_recipe_ingredients()
         ingredients_for_all_shopping_recipes ={}
         #{"catogery name": {ingredient_name:ingredient_quantity}
+        #{"catogery name": {ingredient_name:[(ingredient_quantity,ingredient_unit)]}
+        #{"catogery name": {ingredient_name:{ingredient_unit:ingredient_quantity}}
+
+        recipes_ingredients_units = crud.recipes_join_ingredients_units_query()
         
         for shopping_recipe_entry in shopping_recipe_entries:
             recipe = crud.get_recipe_by_recipe_id(shopping_recipe_entry.recipe_id) 
             recipe_servings = shopping_recipe_entry.recipe_servings
             for ingredient in recipe.recipe_ingredients:
-                if ingredient.category in ingredients_for_all_shopping_recipes:
-                    if ingredient.quantity!="" and ingredient.quantity !=" ":
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
-                    else:
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
-                        
-                else:
+                if ingredient.category not in ingredients_for_all_shopping_recipes:
                     ingredients_for_all_shopping_recipes[ingredient.category]={}
-                    if ingredient.quantity!="" and ingredient.quantity !=" ":
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
-                    else:
-                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
+                if ingredient.name not in ingredients_for_all_shopping_recipes[ingredient.category].keys():
+                    ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = {}
+                if ingredient.quantity != "" and ingredient.quantity != " ":
+                    if ingredient.unit.name not in ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name].keys():
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name][ingredient.unit.name]=round(float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings))),1)
+                    else: 
+                        ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name][ingredient.unit.name]+=round(float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings))),1)
+
+        #below is update quantity to int if the quantity is actually an integer with one decimal place.
+        for key1, value1 in ingredients_for_all_shopping_recipes.items():
+            for key2, value2 in value1.items():
+                for key3, value3 in value2.items():
+                    if value3 == int(value3):
+                        ingredients_for_all_shopping_recipes[key1][key2][key3] = int(value3)
+
+
+                    # if ingredient.quantity!="" and ingredient.quantity !=" ":
+                    #     ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
+                    # else:
+                    #     ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
+                        
+                # else:
+                #     ingredients_for_all_shopping_recipes[ingredient.category]={}
+                #     if ingredient.quantity!="" and ingredient.quantity !=" ":
+                #         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
+                #     else:
+                #         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
                         
         print("*"*20)
         print(ingredients_for_all_shopping_recipes)

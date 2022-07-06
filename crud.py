@@ -66,7 +66,6 @@ def search_recipes(input):
         .join(Specialdiet, Specialdiet.specialdiet_id == Recipe_Specialdiet.specialdiet_id)
         .filter(Recipe.title.ilike(f'%{input}%') | Cuisine.name.ilike(f'%{input}%')| Recipe.author.ilike(f'%{input}%') | Recipe_Ingredient.name.ilike(f'%{input}%') | Course.name.ilike(f'%{input}%') | Specialdiet.name.ilike(f'%{input}%'))
     ).all()
-    
 
 def get_allrecipes_allcuisines ():
     allrecipes_allcuisines ={}
@@ -169,6 +168,10 @@ def recipes_dbjoinedload_recipe_ingredients():
     return Recipe.query.options(db.joinedload('recipe_ingredients')).all()
     #recipe_ingredients is the attribute (relationship between Recipe and Recipe_Ingredient)
 
+def recipes_join_ingredients_units_query():
+    recipes_join_ingredients_units_query = db.session.query(Recipe).join(Recipe_Ingredient,Recipe_Ingredient.recipe_id== Recipe.recipe_id).join(Quantity_Unit, Quantity_Unit.unit_id==Recipe_Ingredient.quantity_unit).all()
+    return recipes_join_ingredients_units_query
+
 def create_saved_recipe(user, recipe):
     """create and return a saved recipe by a user"""
     #user and recipe are not instances, but id
@@ -187,6 +190,10 @@ def create_saved_recipe(user, recipe):
 def get_saved_recipe_by_recipe_id(recipe_id):
 
     return Saved_Recipe.query.filter(Saved_Recipe.recipe_id == recipe_id).first()
+
+def get_saved_recipe_by_recipeID_userID(recipe_id, user_id):
+    """only one entry should be returned"""
+    return Saved_Recipe.query.filter((Saved_Recipe.user_id == user_id)&(Saved_Recipe.recipe_id == recipe_id)).first()
 
 
 def groupby_recipeid_orderby_count_for_saved_recipes():
@@ -238,7 +245,7 @@ def create_shopping_recipe(user_id, recipe_id, recipe_servings):
 def get_shopping_recipes_by_user(user_id):
     return Shopping_Recipe.query.filter(Shopping_Recipe.user_id == user_id).all()
 
-def get_shopping_recipes_by_userID_RecipeID(user_id, recipe_id):
+def get_shopping_recipe_by_userID_RecipeID(user_id, recipe_id):
     """ there should be one record"""
     return Shopping_Recipe.query.filter((Shopping_Recipe.user_id == user_id)&(Shopping_Recipe.recipe_id == recipe_id)).first()
 

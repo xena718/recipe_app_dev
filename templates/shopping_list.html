@@ -5,7 +5,7 @@
 
 <div class="container-1-shoppinglist-page">
 <div class="text-above-carousel-slide">
-    You have {{recipe_instance_servings_dict | length}} recipes in your shopping list!
+    You have <span id="shopping-recipe-quantity">{{recipe_instance_servings_dict | length}}</span> recipes in your shopping list!
 </div>
 
 {% if recipe_instance_servings_dict %}
@@ -23,7 +23,7 @@
                   <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
                 </a>
                 <div class="card-btn-div">
-                    <button class="remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-dash-circle"></i></button>
+                    <button class="recipe-remove-btn-in-shoppinglist" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-dash-circle"></i></button>
                 </div>
                 <div class="card-body">
                     <!-- <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div> -->
@@ -48,7 +48,8 @@
 
 
 <div class="container-2-shoppinglist-page">
-<h4>Shopping List</h4>
+<h4 class="h4-title-above-p">Shopping List</h4>
+<p><i class="bi bi-info-circle ingredient-icon"></i> Click the ingredient to show/hide its associated recipes!</p>
 <div>
     {% for category_name in ingredients_for_all_shopping_recipes %}
 
@@ -60,20 +61,48 @@
         </div>
         <div class="ingredient-items">
             {% for ingredient_name in ingredients_for_all_shopping_recipes[category_name] %}
-                {% if ingredients_for_all_shopping_recipes[category_name].get(ingredient_name) == 0 %}
+                {% if ingredients_for_all_shopping_recipes[category_name].get(ingredient_name) == {} %}
                     <div class="ingredient-item">
                         <i class="bi bi-circle"></i>
-                        <span class="ingredient-info-span"> {{ingredient_name}}</span>
-                        
+                        <!-- <span class="ingredient-info-span"> {{ingredient_name}}</span> -->
+                        <a class="ingredient-info" style="text-decoration:none" class="no-underline" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> 
+                            {{ingredient_name}}
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="ingredient-associated-recipes-div">
+                        {% for recipe in recipe_instance_servings_dict %}
+                            {% for ingredient in recipe.recipe_ingredients %} 
+                                {% if ingredient.name == ingredient_name %}
+                                <a class="btn btn-light ingredient-associated-recipe-title-btn" role="button" href="/recipe/{{recipe.recipe_id}}" class="no-underline">
+                                    {{ recipe.title }}
+                                </a>  
+                                {% endif %} 
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
                     </div>
                 {% else %}    
                     <div class="ingredient-item">
                         <i class="bi bi-circle"></i>
-                        <span class="ingredient-info-span"> 
-                            {{ingredient_name}}: {{ingredients_for_all_shopping_recipes[category_name].get(ingredient_name)}}
-                        </span>
+                        <a class="ingredient-info" style="text-decoration:none" class="no-underline" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> 
+                            {{ingredient_name}}: 
+                            {% for key, value in ingredients_for_all_shopping_recipes[category_name][ingredient_name].items() %}
+                            {{value}} {{key}}
+                            {% endfor %}
+                        </a>
 
-                        
+                    <div class="collapse" id="collapseExample">
+                        <div class="ingredient-associated-recipes-div">
+                        {% for recipe in recipe_instance_servings_dict %}
+                            {% for ingredient in recipe.recipe_ingredients %} 
+                                {% if ingredient.name == ingredient_name %}
+                                <a class="btn btn-light ingredient-associated-recipe-title-btn" role="button" href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a>  
+                                {% endif %} 
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
+                    </div>    
                     </div>
                 {% endif %}
 

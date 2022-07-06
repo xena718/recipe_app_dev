@@ -98,7 +98,7 @@
     /* padding: 0px; */
 }
 
-.save-remove-btn, .remove-btn{
+.save-remove-btn, .remove-btn, .recipe-remove-btn-in-shoppinglist{
     display:flex;
     justify-content: center;
     align-items:center;
@@ -109,7 +109,7 @@
     border:0px;
 }
 
-.save-remove-btn:hover,.remove-btn:hover{
+.save-remove-btn:hover,.remove-btn:hover, .recipe-remove-btn-in-shoppinglist:hover{
     background-color: rgb(207, 207, 199);
 }
 
@@ -143,7 +143,11 @@ h4{
     font-size: 1.25rem;
     /* margin-bottom: 15px; */
     margin-top: 15px;
+    /* margin-bottom: 15px; */
+}
 
+.h4-title-above-p{
+    margin-bottom: 15px;
 }
 
 
@@ -681,7 +685,7 @@ h4{
     border-top: 1px solid rgba(0,0,0,.10);
     font-size: 1rem;
     color: #2d2d2d;
-    font-weight: 500;
+    font-weight: bold;
     font-family: "Source Sans Pro",Arial;
     min-height: 48px;
 }
@@ -700,6 +704,19 @@ h4{
     margin-left:5px;
     margin-top:10px;
 }
-.ingredient-info-span{
+
+.ingredient-associated-recipes-div{
+    margin-top:8px;
+    margin-left:30px;
+}
+.ingredient-associated-recipe-title-btn{
+    margin-right:10px;
+}
+.ingredient-info{
     padding-left:10px;
+    color: #2d2d2d;
+    /* font-weight: 500; */
+    /* font-family: "Source Sans Pro",Arial; */
+    font: 400 16px/24px "Source Sans Pro",sans-serif;
+
 }

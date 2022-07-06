@@ -28,6 +28,7 @@ for (const btn of btns) {
             icon.classList.replace("bi-heart", "bi-heart-fill")
         }else if (serverData === "removed_from_saved"){
             icon.classList.replace("bi-heart-fill", "bi-heart")
+            console.log("just removed");
         }else if(serverData === "not_logged_in"){
             alert("please log in first to add ingredients to shopping list")
 
@@ -46,6 +47,8 @@ const removeBtns = document.querySelectorAll(".remove-btn")
 for (const removeBtn of removeBtns){
     removeBtn.addEventListener('click', evt =>{
     const removeToServer ={recipeId: removeBtn.dataset.recipeId};
+    const allCurrentRecipeCardDivs = document.querySelectorAll(".recipe-card-div");
+    document.querySelector("#saved-recipe-quantity").innerHTML=allCurrentRecipeCardDivs.length-1;
 
     fetch('/remove',{
         method: 'POST',
@@ -56,14 +59,51 @@ for (const removeBtn of removeBtns){
     })
     
     // removeBtn.closest(".recipe-card-div").remove();
-
-
     .then(response => response.text())
     .then(serverData => {
-        const recipeCardDiv = removeBtn.closest(".recipe-card-div")
-        console.log(recipeCardDiv)
+        const recipeCardDiv = removeBtn.closest(".recipe-card-div");
+        // console.log(recipeCardDiv)
         if (serverData === "removed_from_saved"){
-            recipeCardDiv.remove()
+            recipeCardDiv.remove();
+            console.log("just removed");
+            // const allCurrentRecipeCardDivs = document.querySelectorAll(".saved-recipe-quantity");
+            // document.querySelector("#saved-recipe-quantity").innerHTML=allCurrentRecipeCardDivs.length;
+        }
+
+    });
+
+    });
+
+}
+
+// below is for removing recipe and update shopping list on shopping list page 
+const removeRecipeSLBtns = document.querySelectorAll(".recipe-remove-btn-in-shoppinglist")
+for (const removeRecipeSLBtn of removeRecipeSLBtns){
+    removeRecipeSLBtn.addEventListener('click', evt =>{
+    const infoToServer ={recipeId: removeRecipeSLBtn.dataset.recipeId};
+    const allCurrentShoppingRecipes = document.querySelectorAll(".recipe-card-div");
+    document.querySelector("#shopping-recipe-quantity").innerHTML=allCurrentShoppingRecipes.length-1;
+
+    fetch('/remove-shopping-recipe',{
+        method: 'POST',
+        body: JSON.stringify(infoToServer),
+        headers: {
+            'Content-Type': 'application/json',
+            },
+    })
+    
+    .then(response => response.text())
+    .then(serverData => {
+        const shoppingRecipeCardDiv = removeRecipeSLBtn.closest(".recipe-card-div");
+        // console.log(recipeCardDiv)
+        if (serverData === "removed_from_shoppinglist"){
+            shoppingRecipeCardDiv.remove();
+            // shoppingRecipeCardDiv.style.display= "none";
+            window.location.reload();
+
+            console.log("just removed");
+            // const allCurrentRecipeCardDivs = document.querySelectorAll(".saved-recipe-quantity");
+            // document.querySelector("#saved-recipe-quantity").innerHTML=allCurrentRecipeCardDivs.length;
         }
 
     });
