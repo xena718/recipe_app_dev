@@ -3,9 +3,13 @@
 
 {% block body %}
 
-<h5>
-  {{search_returned_recipes | length}} results
-</h5>
+
+
+<div  class="title-above-carousel-slide">
+  <h5>
+    {{search_returned_recipes | length}} results
+  </h5>
+</div>
 
 {% if search_returned_recipes %}
   <!-- <div class="recipe-cards row">

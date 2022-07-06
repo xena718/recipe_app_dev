@@ -136,6 +136,8 @@
     padding:4px;
     height:20px;
     font-weight: 500;
+    background-color: rgb(254, 254, 254);
+
 }
 .card-text{
     font-size:0.75rem;
@@ -460,7 +462,7 @@ h4{
 
 /* below for add-recipe page */
 .add-recipe-container{
-    background-image:url(/static/img/ingredient1.jpg);
+    background-image:url(/static/img/herb1.jpg);
     background-repeat: no-repeat center center;
     background-size:cover;
     /* margin: 0 0 48px; */
@@ -477,6 +479,8 @@ h4{
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%);
     display:flex;
     justify-content: center;
+    border: 1px solid rgba(0,0,0,.2);
+
 }
 .add-recipe-form-heading{
     margin-bottom: 16px;
