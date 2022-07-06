@@ -2,6 +2,11 @@
     margin-top:60px;
 }
 
+.logo-img{
+    /* position:absolute; */
+    /* left:25px; */
+}
+
 .navbar{
     margin-bottom:20px;
     display:flex;
@@ -11,10 +16,10 @@
 
 }
 
-.navbar-nav a {
+.nav-link {
     font-weight: 500;
     color: black;
-    padding-top:18px;
+    padding-top:4px;
 }
 .search-form-div{
     margin-top:12px;

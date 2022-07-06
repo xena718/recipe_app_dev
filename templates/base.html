@@ -9,49 +9,47 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg" style="background: rgb(246, 200, 110);">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-            <img src="/static/img/yummy-logo.jpg" class="rounded-circle" alt="" width="44" height="38">
-            </a>
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav"> 
-                    <div class="search-form-div">
-                      <form class="d-flex" action="/search" method="POST">
-                        <input id="search-input" name= "search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        <button id="search-button" class="btn btn-light my-2 my-sm-0" type="submit">
-                          <i class="bi bi-search"></i>
-                        </button>
-                      </form>
-                    </div>
-                    <!-- <a class="nav-link dropdown-togggle" id="navbarDropdownMenuLink" href="/browse" role="button" data-bs-toggle="dropdown" aria-expanded="false">Browse</a> -->
-                    <!-- <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink"> -->
-                    <!-- <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/cuisines">Cuisines</a></li>
-                        <li><a class="dropdown-item" href="/courses">Courses</a></li>
-                        <li><a class="dropdown-item" href="/specialdiet">Special Diet</a></li>
-                    </ul>                    -->
-                    <!-- <div class="dropdown">
-                        <a class="nav-link dropdown-toggle" href="/browse" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                          Browse
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                          <li><a class="dropdown-item" href="/cuisines">Cuisines</a></li>
-                          <li><a class="dropdown-item" href="/course">Courses</a></li>
-                          <li><a class="dropdown-item" href="/specialdiet">Special Diet</a></li>
-                        </ul>
-                    </div>                     -->
-                    <a class="nav-link" href="/saved">Saved</a>
-                    <a class="nav-link" href="/add-recipe">Add Recipe</a>
-                    <a class="nav-link" href="/shoppinglist">Shopping List</a>
-                    <a class="nav-link" href="/account">Account</a>
-                    <a class="nav-link" href="/signup-login">Sign Up/Log In</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light" style="background: rgb(246, 200, 110);">
+      <div class="container-fluid">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+          <img src="/static/img/yummy-logo.jpg" class="rounded-circle logo-img" alt="" width="44" height="38">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+          <div class="search-form-div">
+          <form class="d-flex" action="/search" method="POST">
+            <input id="search-input" name= "search-input" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button id="search-button" class="btn btn-light my-2 my-sm-0" type="submit">
+              <i class="bi bi-search"></i>
+            </button>
+          </form>
+          </div>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" href="/saved">Saved</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/add-recipe">Add Recipe</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/shoppinglist">Shopping List</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/account">Account</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/signup-login">Sign Up/Log In</a>
+            </li>
 
+          </ul>
+
+        </div>
+      </div>
+    </nav>
+ 
+    
 <div class="container">
 
   <!-- Show flashed messages -->
