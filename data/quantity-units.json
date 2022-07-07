@@ -1,6 +1,6 @@
 ["tablespoons", "tablespoon", "T", "TB", "Tbl", "Tbsp", 
     "cups","cup","c","C",
-    "teaspoons", "teaspoon", "t", "tsp",
+    "teaspoons", "teaspoon", "t", "tsp","tbsp",
     "pints","pint","pt",
     "oz","OZ","ounces","ounce",
     "milliliters","milliliter","ml","mL",
@@ -10,4 +10,4 @@
     "gallons","gallon","gl","GL","Gal",
     "kilograms","kilogram","kg",
     "grams","gram","g",
-    "","no unit","other unit"]
+    "","no unit","other unit","gm", "gms","inch","drops"]

@@ -78,15 +78,6 @@
 </div>
 
 
-<!-- <div class="row recipe-ingredients-div">
-  {% for ingredient in recipe.recipe_ingredients %}
-  <form action="/recipe-ingredient-checkbox">
-    <input type="checkbox" id="recipe-ingredient" name="recipe-ingredient" value="{{ingredient}}">
-    <label for="recipe-ingredient"> {{ingredient.quantity}} {{ingredient.unit.name}} {{ingredient.name}}</label><br>
-  </form>
-  {% endfor %}
-</div> -->
-
 <div class="form-check recipe-ingredients-div">
   {% for ingredient in recipe.recipe_ingredients %}
   <li class="recipe-ingredient-li">

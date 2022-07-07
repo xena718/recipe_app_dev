@@ -64,7 +64,7 @@ model.db.session.commit()
 
 
 #create a recipe entry/instance and establish various relationships with recipe
-with open("data/recipes.json") as f:
+with open("data/test.json") as f:
     recipe_data =json.loads(f.read()) #recipe_data is a python list, converted from json array by loads method
 
 # recipes_in_db =[]  
@@ -153,6 +153,8 @@ for each_recipe in recipe_data:
         # quantity_unit = recipe_ingredient["unit_name"]
 
         quantity_unit = crud.get_quantity_unit_by_name(recipe_ingredient["unit_name"])
+        print("####"*20)
+        print(quantity_unit)
         db_recipe_ingredient = crud.create_recipe_ingredient(db_recipe, name, category,quantity, quantity_unit)
         recipe_ingredients_in_db.append(db_recipe_ingredient)
         model.db.session.add_all(recipe_ingredients_in_db)
