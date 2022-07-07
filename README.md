@@ -69,4 +69,4 @@ To Be Added...
  * [Allrecipes](https://www.allrecipes.com/)
 
 ## <a name="aboutme"></a>About Me :eyes: 
-Hello! I'm Chengfeng, a software engineer and scientific researcher in Biotech. I created YummyApp in eight weeks(4-8 hrs per week) during my part-time full-stack engineer study at Hackbright. Check our my other projects on my [Github](https://github.com/xena718?tab=repositories)! I'd love to connect with you on [Linkedin] (https://www.linkedin.com/in/chengfengren/)!
+Hello! I'm Chengfeng, a software engineer and scientific researcher in Biotech. I created YummyApp in eight weeks(4-8 hrs per week) during my part-time full-stack engineer study at Hackbright. Check out my other projects on my [Github](https://github.com/xena718?tab=repositories)! I'd love to connect with you on [Linkedin](https://www.linkedin.com/in/chengfengren/)!
