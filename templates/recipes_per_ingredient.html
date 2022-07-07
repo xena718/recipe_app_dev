@@ -5,39 +5,23 @@
 {% block body %}
 
 <div  class="title-above-carousel-slide">
-  <h5>Browse By Popular Ingredients</h5>
+  <h4>Browse By Popular Ingredients</h4>
 </div>
-
-<div class="try">
-  <svg class="icon">
-    <use xlink:href="#cauliflower" />
-  </svg> 
-</div>
-
-<div class="try">
-  <svg class="icon">
-    <use xlink:href="static/img/ingredients_icons/myicons.svg#asparagus" />
-  </svg> 
-</div>
-<div class="container">
-    <div class="row">
-      <div class="col">
-        <svg class="icon">
-            <use xlink:href="static/img/ingredients_icons/myicons.svg.svg#asparagus" />
-        </svg>
-      </div>
-      <div class="col">
-        Column
-      </div>
-      <div class="col">
-        Column
-      </div>
-    </div>
+<div class="row ingredients-container">
+  {% for ingredient in popular_ingredients %}
+  <div class="col-6 col-md-3 ingredient-icon-container">
+    <a href="/ingredients/{{ingredient}}" class="no-underline">
+      <svg class="icon ingredient-icon">
+        <use xlink:href="static/img/ingredients_icons/myicons.svg#{{ingredient|lower}}"/>
+      </svg> 
+      <span class="ingredient-name-span">{{ingredient}}</span>
+    </a>
   </div>
-
+  {% endfor %}
+</div>
 
 <div  class="title-above-carousel-slide">
-  <h4>{{ingredient_name | capitalize}} Recipes</h4>
+  <h4> Recipes that contain {{ingredient_name}}</h4>
 </div>
 
 <div class="recipe-cards row"> 
@@ -65,14 +49,14 @@
 
         <div class="card-body">
             <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
-            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
-            <div class="card-text">
+            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
+            <!-- <div class="card-text">
               {{ recipe.cuisine.name }}
               {% for specialdiet in recipe.specialdiets %} 
               | {{specialdiet.name}} 
               {% endfor %} 
 
-            </div>
+            </div> -->
         </div>
         </div>
     </div>

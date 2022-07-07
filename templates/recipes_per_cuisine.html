@@ -17,8 +17,10 @@
           {% for cuisine_type in allrecipes_allcuisines %}
           <div class="cuisine-circle">
               <a href="/cuisines/{{cuisine_type}}" class="no-underline">
-                  <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}">
-                  {{cuisine_type}}
+                <svg class="icon cuisine-icon">
+                  <use xlink:href="static/img/cuisines-img/cuisines-icons-copy.svg#{{cuisine_type}}"/>
+                </svg> 
+              {{cuisine_type}}
               </a>
           </div>
           {% endfor %}
@@ -29,7 +31,9 @@
      
   </div>
 </div>
+ 
 <script src="/static/js/browse_by_cuisines.js"></script>
+
 
 <div  class="title-above-carousel-slide">
   <h4>{{cuisine_type}} Cuisine Recipes</h4>
@@ -60,21 +64,14 @@
 
         <div class="card-body">
             <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
-            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
-            <div class="card-text">
-              {{ recipe.cuisine.name }}
-              {% for specialdiet in recipe.specialdiets %} 
-              | {{specialdiet.name}} 
-              {% endfor %} 
-              <!-- {% for course in recipe.courses %} 
-                 {{course.name}}|
-              {% endfor %} -->
-            </div>
+            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
         </div>
         </div>
     </div>
   {% endfor %}
 </div>
+
+
 <script src="/static/js/app_events.js"></script>
 
 

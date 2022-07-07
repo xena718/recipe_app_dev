@@ -57,13 +57,13 @@
   
               <div class="card-body">
                   <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
-                  <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
-                  <div class="card-text">
+                  <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
+                  <!-- <div class="card-text">
                     {{ recipe.cuisine.name }}
                     {% for course in recipe.courses %} 
                      | {{course.name}}
                     {% endfor %}
-                  </div>
+                  </div> -->
               </div>
             </div>
         </div>

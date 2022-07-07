@@ -8,22 +8,23 @@
     <h4>Browse By Special Diets</h4>
 </div>
 
+
 <div class="browse-by-specialdiets-container-for-scroll">
-    <div class="browse-by-specialdiets-horizontal-scroll">
+  <div class="browse-by-specialdiets-horizontal-scroll">
 
-    <div class="specialdiets-container">
-        {% for specialdiet_type in allrecipes_allspecialdiets %}
-        <div class="specialdiets-circle">
-            <a href="/specialdiets/{{specialdiet_type}}" class="no-underline">
-                <img src= "/static/img/specialdiets-img/{{specialdiet_type}}.jfif" alt="{{specialdiet_type}}">
-                <div>{{specialdiet_type}}</div>
-            </a>
-        </div>
-        {% endfor %}
-    </div>
-    </div>
+      <div class="specialdiets-container">
+          {% for specialdiet_type in allrecipes_allspecialdiets %}
+          <div class="specialdiet-circle">
+              <a href="/specialdiets/{{specialdiet_type}}" class="no-underline">
+                  <img src= "/static/img/specialdiets-img/{{specialdiet_type}}.jfif" alt="{{specialdiet_type}}">
+                  <div>{{specialdiet_type}}</div>
+              </a>
+          </div>
+          {% endfor %}
+      </div>
+     
+  </div>
 </div>
-
 
 
 <div  class="title-above-carousel-slide">
@@ -55,13 +56,7 @@
 
         <div class="card-body">
             <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
-            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
-            <div class="card-text">
-              {{ recipe.cuisine.name }}
-              {% for course in recipe.courses %} 
-                | {{course.name}}
-              {% endfor %}
-            </div>
+            <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="card-title-href no-underline">{{ recipe.title }}</a></h5>
         </div>
         </div>
     </div>

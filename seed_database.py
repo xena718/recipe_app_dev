@@ -64,7 +64,7 @@ model.db.session.commit()
 
 
 #create a recipe entry/instance and establish various relationships with recipe
-with open("data/test.json") as f:
+with open("data/recipes_real.json") as f:
     recipe_data =json.loads(f.read()) #recipe_data is a python list, converted from json array by loads method
 
 # recipes_in_db =[]  

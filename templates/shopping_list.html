@@ -5,7 +5,7 @@
 
 <div class="container-1-shoppinglist-page">
 <div class="text-above-carousel-slide">
-    <h5>You have <span id="shopping-recipe-quantity">{{recipe_instance_servings_dict | length}}</span> recipes in your shopping list!</h5>
+    <h5>You have <span id="shopping-recipe-quantity">{{recipe_instance_servings_dict | length}}</span> recipes in your shopping cart!</h5>
 </div>
 
 {% if recipe_instance_servings_dict %}
@@ -27,9 +27,9 @@
                 </div>
                 <div class="card-body">
                     <!-- <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div> -->
-                    <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a></h5>
+                    <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
                     <div class="card-text">
-                        current servings : {{servings[0]}} |
+                        shopping servings : {{servings[0]}} |
                         original servings: {{servings[1]}}
                     </div>
                 </div>              
@@ -113,5 +113,8 @@
 </div>
 </div>
 {% endif %}
+
+
+<script src="/static/js/shopping_list_events.js"></script>
 
 {% endblock %}

@@ -25,12 +25,12 @@
               <div class="card-body-featured-recipe-left">
                   <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div>
                   <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
-                  <div class="card-text">
+                  <!-- <div class="card-text">
                     {{ recipe.cuisine.name }}
                     {% for specialdiet in recipe.specialdiets %} 
                     | {{specialdiet.name}} 
                     {% endfor %} 
-                  </div>
+                  </div> -->
               </div>
               </div>
           </div>
@@ -138,7 +138,7 @@
                   <!-- <img src= "/static/img/cuisines-img/{{cuisine_type}}.jfif" alt="{{cuisine_type}}"> -->
                  
                   <svg class="icon cuisine-icon">
-                    <use xlink:href="static/img/cuisines-img/cuisines-icons.svg#{{cuisine_type}}"/>
+                    <use xlink:href="static/img/cuisines-img/cuisines-icons-copy.svg#{{cuisine_type}}"/>
                   </svg> 
                   {{cuisine_type}}
               </a>

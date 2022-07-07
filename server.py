@@ -385,7 +385,6 @@ def add_ingredients_to_shoppinglist():
 @app.route("/shoppinglist")
 def show_shoppinglist():
     """Show shoppinglist of the currently logged in user"""
-    #TO BE UPDATED
     user_email = session.get("logged_in_user_email")
     if not user_email:
         flash("please log in first to access shopping list")
@@ -583,11 +582,11 @@ def search():
 
     return render_template("search_output.html", current_user=current_user, search_returned_recipes=matched_recipes)
 
-@app.route("/cuisines")
-def display_cuisines_homepage():
-    allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
+# @app.route("/cuisines")
+# def display_cuisines_homepage():
+#     allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
     
-    return render_template("cuisines.html", allrecipes_allcuisines = allrecipes_allcuisines)
+#     return render_template("cuisines.html", allrecipes_allcuisines = allrecipes_allcuisines)
 
 @app.route('/cuisines/<cuisine_type>')
 def show_recipes_of_any_cuisine(cuisine_type):

@@ -4,13 +4,13 @@
 // by clicking heart and unheart button on the top right of recipe card##
 
 // document.getElementsByClassName("save-remove-btn") also works
-const btns = document.querySelectorAll('.save-remove-btn')
+const saveRemoveBtns = document.querySelectorAll('.save-remove-btn')
 
-for (const btn of btns) {
+for (const saveRemoveBtn of saveRemoveBtns) {
 
-    btn.addEventListener('click',evt =>{
+    saveRemoveBtn.addEventListener('click',evt =>{
     // console.log(btn)
-    const addRemoveToServer ={recipeId: btn.dataset.recipeId};
+    const addRemoveToServer ={recipeId: saveRemoveBtn.dataset.recipeId};
     console.log(addRemoveToServer);
 
     fetch('/save-remove',{
@@ -23,7 +23,7 @@ for (const btn of btns) {
     .then(response => response.text())
     .then(serverData => {
         // const icon = btn.children[0] # this works, but only when icon is the first child.
-        const icon = btn.querySelector("i")
+        const icon = saveRemoveBtn.querySelector("i")
         if (serverData === "just_saved"){
             icon.classList.replace("bi-heart", "bi-heart-fill")
         }else if (serverData === "removed_from_saved"){
@@ -134,4 +134,5 @@ function scrollHonrizontally(val){
     }
     sCont.style.left = currentScrollPosition + 'px';
 }
+
 
