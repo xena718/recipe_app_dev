@@ -4,114 +4,121 @@
 
 {% block body %}
 
-<!-- <script src="./dist/fraction-calculator.min.js"></script>  -->
 
-<div class="recipe-title-author-description">
-  <h2>{{ recipe.title }}</h2>
-  <p>by {{recipe.author}}</p>
+<div class="recipe-detail-container">
+  <div class="recipe-detail-inner-container">
+    <div class="row summary-img">
+      <div class="col-5">
+        <h2>{{ recipe.title }}</h2>
+        <p>by {{recipe.author}}</p>
+        <p>
+          {{ recipe.cuisine.name }}
+          {% for specialdiet in recipe.specialdiets %}
+          | {{specialdiet.name}}
+          {% endfor %}
+        </p>
+        <div> 
+          <svg class="icon cuisine-icon">
+            <use xlink:href="static/img/cuisines-img/cuisines-icons-copy.svg#American"/>
+          </svg> 
+        </div>
+        <div class="recipe-summary-card">
+          <div> Prep: {{recipe.prep_time}}</div>
+          <div> Cook: {{recipe.cook_time}}</div>
+          {% set prep_time_list = recipe.prep_time.split(' ')  %}
+          {% set cook_time_list = recipe.cook_time.split(' ')  %}
   
-  <h4>Description</h4>
-  <div>
-    {{ recipe.description }}
-  </div>
-</div>
+          {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
+            <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}} days</div>
+          {% elif prep_time_list[1] =="days" %}  
+            <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
+          {% elif cook_time_list[1] =="days" %}  
+            <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
+          {% elif prep_time_list[1] != cook_time_list[1] %}
+            {% if prep_time_list[1] == "hours" %}
+            <div> Total: {{recipe.prep_time}} {{recipe.cook_time}}  </div>
+            {% elif cook_time_list[1] == "hours" %}
+            <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
+            {% endif %}
+  
+          {% else %}
+          <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
+          {% endif %}
+          <div> Servings: {{recipe.servings}}</div>
+        </div>
+      </div>
 
-<div class="recipe-summary-img-save-btn">
-  <div class="recipe-img-save-btn-text-under-img">
-    <img src="{{ recipe.photo_url }}">
-    {% if (session.get("logged_in_user_email")) and (recipe in current_user.saved_recipes) %}
-    <div class="card-btn-div">
-      <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+      <div class="col-7">
+        <div class="recipe-summary-img-save-btn">
+          <div class="recipe-img-save-btn-text-under-img">
+            <img src="{{ recipe.photo_url }}">
+            {% if (session.get("logged_in_user_email")) and (recipe in current_user.saved_recipes) %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+            </div>
+            {% else %}
+            <div class="card-btn-div">
+              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+
+      </div>
     </div>
-    {% else %}
-    <div class="card-btn-div">
-      <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
-    </div>
-    {% endif %}
-  
+  <div class="row description-container">
+    <h4>Description</h4>
     <div>
-      {{ recipe.cuisine.name }}
-      {% for specialdiet in recipe.specialdiets %}
-      | {{specialdiet.name}}
-      {% endfor %}
+      {{ recipe.description }}
+    </div>
+  </div>
+    
+  <div class="row">
+    <div class="col-6">
+        <div class="ingredients-title-div">
+          <h4>Ingredients</h4>
+          <p>Original recipe yields {{recipe.servings}} servings</p>
+        </div>
+        <div class="servings-size-adjust-div">
+          <form id= "servings-size-form" action="/servings-size-form">
+            <label for="servings-size-input"></label>
+            <input type="number" min="1" id="servings-size-input" name="servings-size-input" value="{{recipe.servings}}" >
+            <input type="submit" class = "adjust-btn" value="Adjust">
+          </form>
+        </div>
+      <div class="form-check recipe-ingredients-div">
+        {% for ingredient in recipe.recipe_ingredients %}
+        <li class="recipe-ingredient-li">
+        <form>
+          <input class="form-check-input" type="checkbox" id="flexCheckDefault recipe-ingredient" name="recipe-ingredient" value="{{ingredient}}">
+          <label class="form-check-label" for="flexCheckDefault recipe-ingredient"> <span class="ingredient-quantity">{{ingredient.quantity}}</span> {{ingredient.unit.name}} {{ingredient.name}}</label><br>
+        </form>
+        </li>
+        {% endfor %}
+      </div>
+      <div>
+        <!-- <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST"> -->
+        <form id="add-to-shoppinglist-form" action="/add-to-shoppinglist" method="POST">
+          <input type="submit" data-recipe-id="{{ recipe.recipe_id }}" class="add-ingredients-to-shoppinglist-btn" value="Add All Ingredients To Shopping List">
+          <i id ="add-to-shoppinglist-cart-icon" class="bi bi-cart"></i>
+        </form>
+      </div>
+  
+    </div>
+    <div class="col-6">
+      <h4>Directions</h4>
+      <div>
+        {% for direction in recipe.recipe_directions %}
+          <div class="step-num"> Step {{direction.step_number}}</div>
+          <div class="guidance-per-step"> {{direction.step_guidance}}</div>
+        {% endfor %}
+      </div>
     </div>
   </div>
 
-  <div class="recipe-summary-card">
-    <div> Prep: {{recipe.prep_time}}</div>
-    <div> Cook: {{recipe.cook_time}}</div>
-    {% set prep_time_list = recipe.prep_time.split(' ')  %}
-    {% set cook_time_list = recipe.cook_time.split(' ')  %}
 
-    {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
-      <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}} days</div>
-    {% elif prep_time_list[1] =="days" %}  
-      <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
-    {% elif cook_time_list[1] =="days" %}  
-      <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
-    {% elif prep_time_list[1] != cook_time_list[1] %}
-      {% if prep_time_list[1] == "hours" %}
-      <div> Total: {{recipe.prep_time}} {{recipe.cook_time}}  </div>
-      {% elif cook_time_list[1] == "hours" %}
-      <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
-      {% endif %}
 
-    {% else %}
-    <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
-    {% endif %}
-    <div> Servings: {{recipe.servings}}</div>
   </div>
-</div>
-
-<div class="row">
-  <div class="col-sm-3 ingredients-title-div">
-    <h4>Ingredients</h4>
-  </div>
-  <div class="col-sm-9 servings-size-adjust-div">
-    <form id= "servings-size-form" action="/servings-size-form">
-      <label for="servings-size-input"></label>
-      <input type="number" min="1" id="servings-size-input" name="servings-size-input" value="{{recipe.servings}}" >
-      <input type="submit" class = "adjust-btn" value="Adjust">
-    </form>
-    <p>Original recipe yields {{recipe.servings}} servings</p>
-  </div>
-</div>
-
-
-<div class="form-check recipe-ingredients-div">
-  {% for ingredient in recipe.recipe_ingredients %}
-  <li class="recipe-ingredient-li">
-  <form>
-    <input class="form-check-input" type="checkbox" id="flexCheckDefault recipe-ingredient" name="recipe-ingredient" value="{{ingredient}}">
-    <label class="form-check-label" for="flexCheckDefault recipe-ingredient"> <span class="ingredient-quantity">{{ingredient.quantity}}</span> {{ingredient.unit.name}} {{ingredient.name}}</label><br>
-  </form>
-  </li>
-  {% endfor %}
-</div>
-
-
-<div>
-  <!-- <form action="/add-to-shoppinglist/{{ recipe.recipe_id }}" method="POST"> -->
-  <form id="add-to-shoppinglist-form" action="/add-to-shoppinglist" method="POST">
-    <input type="submit" data-recipe-id="{{ recipe.recipe_id }}" class="add-ingredients-to-shoppinglist-btn" value="Add All Ingredients To Shopping List">
-    <i id ="add-to-shoppinglist-cart-icon" class="bi bi-cart"></i>
-  </form>
-</div>
-
-<!-- <div class="add-to-shoppinglist-div">
-  <button class="add-to-shoppinglist-btn" data-recipe-id="{{ recipe.recipe_id }}">
-    <span id="add-to-shoppinglist-text">Add All Ingredients To Shopping List</span>
-    <i id="add-to-shoppinglist-icon" class="bi bi-cart"></i>
-  </button>
-</div> -->
-
-<br />
-<h4>Directions</h4>
-<div>
-  {% for direction in recipe.recipe_directions %}
-    <div class="step-num"> Step {{direction.step_number}}</div>
-    <div class="guidance-per-step"> {{direction.step_guidance}}</div>
-  {% endfor %}
 </div>
 
 <script src="/static/js/recipe_details_events.js"></script>
