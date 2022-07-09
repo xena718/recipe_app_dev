@@ -4,37 +4,14 @@
 {% block body %}
 
 
+<div class="saved-recipe-page-container">
+
 <div  class="title-above-carousel-slide">
   <h5> You have <span id="saved-recipe-quantity">{{saved_recipes | length}}</span> saved recipes  </h5>
 </div>
 
 {% if saved_recipes %}
-  <!-- <div class="recipe-cards row">
-    {% for recipe in saved_recipes %}
-        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
-
-            <div class="card text-center bg-light recipe-card-content-div">
-              <a href="/recipe/{{recipe.recipe_id}}">
-                  <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
-              </a>
-              <div class="card-btn-div">
-                <form action="/remove-from-saved/{{ recipe.recipe_id }}" method="POST">
-                  <button type="submit">Remove</button>
-                </form>
-              </div>
-              <div class="card-body">
-                  <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}">{{ recipe.title }}</a></h5>
-                  <div class="price card-text">
-                    #{{ recipe.cuisine.name }}
-                    {% for course in recipe.courses %} 
-                    #{{course.name}}
-                    {% endfor %}
-                  </div>
-              </div>
-            </div>
-        </div>
-    {% endfor %}
-  </div> -->
+<div class="recipe-cards-div-container">
   <div class="recipe-cards row"> 
     {% for recipe in saved_recipes %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
@@ -58,5 +35,8 @@
 {% endif %}
 
 <script src="/static/js/app_events.js"></script>
+
+</div> 
+</div>
 
 {% endblock %}

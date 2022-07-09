@@ -1,5 +1,50 @@
+body{
+    /* background: linear-gradient(to bottom,rgb(255,255,255) 30%,rgb(252, 252, 248)100%); */
+    /* background: linear-gradient(to bottom,#fff 10%,rgb(244, 244, 235) 30%, rgb(246, 245, 234) 60%,rgb(249, 248, 231) 80%); */
+    /* background: linear-gradient(to bottom,#fff 10%,rgb(246, 245, 234) 30%,rgb(249, 248, 231) 60%); */
+    /* background: linear-gradient(to bottom,#FFFFF8 50%,#FFFFF5 100%); */
+    /* background: linear-gradient(to bottom,#fff 10%,rgb(249, 248, 231) 20%);  */
+    /* background: #fee7a5; */
+    /* background:#fef9e8; */
+    background:#fefbf1;
+    /* background:#fefdf8; */
+
+}
+.homepage-container{
+    /* width: 100%; */
+    /* margin-top: 32px; */
+
+    margin-bottom: 50px;
+    margin-left:5px;
+    margin-right:5px;
+    /* padding-top:10px;
+    padding-bottom:10px;
+    padding-left:10px;
+    padding-right:10px; */
+    padding: 10px 15px;
+    /* for unknown reason, the padding has to be >=15 in order to remove a bar under the container. */
+    /* background-color: #fff; */
+    /* box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%); */
+    display:flex;
+    flex-direction: column;
+    /* justify-content: center; */
+}
+
+.saved-recipe-page-container{
+    margin-top: 40px;
+    margin-bottom: 60px;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+
 .container{
     margin-top:60px;
+    /* width:100%; */
+    /* background: linear-gradient(to bottom,#fff 12%,#f5f9f9 25%,#f3f9f9 45%,#f1f9f9 60%,#f0f9f9 80%); */
+}
+.footer-container{
+    padding:25px;
 }
 
 .logo-img{
@@ -15,15 +60,24 @@
     height:62px;
 
 }
-
+.nav-bar{
+    background-color:#fec31f;
+}
 .nav-link {
+    font-family: var(--bs-font-sans-serif);
+    /* font: 700 18px/26px "Copper Pot",serif; */
     font-weight: 500;
+    font-size: 16.5px;
     color: black;
     padding-top:4px;
 }
 .search-form-div{
     margin-top:12px;
-
+    margin-right:15px;
+    margin-left:5px;
+}
+.navbar-brand{
+    margin-left:20px;
 }
 
 .container{
@@ -37,7 +91,7 @@
 .title-above-carousel-slide {
     padding-left:10px;
     padding-right:10px;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 
@@ -65,12 +119,25 @@
 .recipe-card-div{
     height:285px;
     width:280px;
-    padding-left:10px;
-    padding-right:10px;
+    /* padding:20px; */
+    /* padding-left:10px;
+    padding-right:10px; */
     margin-bottom: 0.25rem;
     background-color: rgb(254, 254, 254);
 }
 
+.recipe-cards-div-container{
+    margin-top:20px;
+    margin-bottom: 20px;
+    margin-left:0px;
+    margin-right:0px;
+    padding-left:0px;
+    padding-right:0px;
+    padding-bottom:20px;
+    padding-top:10px;
+    background-color: rgb(254, 254, 254);
+
+}
 .recipe-card-content-div{
     /* height:330px;
     width:300px; */
@@ -167,11 +234,19 @@
 .h5, h5 {
     font-size: 1rem;
 }
+h3{
+    font-size: 1.5rem;
+    margin-top: 15px;
+}
 h4{
-    font-size: 1.25rem;
+    font-size: 20px;
+    /* font-size: 1.5rem; */
     /* margin-bottom: 15px; */
     margin-top: 15px;
     /* margin-bottom: 15px; */
+}
+.browse-by-title-name{
+    font-size: 20px;
 }
 
 .h4-title-above-p{
@@ -251,7 +326,7 @@ h4{
     background-color: #f9f9f9;
     height:100vh; */
     padding: 5px;
-    margin: 15px 5px 30px 5px;
+    margin: 5px;
     /* width:98vw; */
     position:relative;
     } 
@@ -293,8 +368,8 @@ h4{
 } 
 
 .cuisine-circle img,.specialdiet-circle img, .course-circle img {
-    width: 111px;
-    height: 111px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid #fff;
     margin-bottom:10px;
@@ -305,6 +380,7 @@ h4{
     font-size:14px;
     font-weight: 500;
     color: rgb(8, 8, 188);
+    /* color:#0059FF; */
 
 }
 
@@ -410,8 +486,8 @@ h4{
 }
 
 .cuisine-icon{
-    width:77px;
-    height:77px;
+    width:86px;
+    height:86px;
     /* margin-bottom: 10px; */
 }
 
@@ -419,7 +495,22 @@ h4{
     margin-top:12px;
 }
 .ingredients-container{
-    margin: 15px 2px;
+    margin: 5px;
+    position:relative;
+    padding-top:5px;
+    padding-bottom: 20px;
+    background-color: #fff;
+    border-top: 1px solid rgb(230, 230, 230);
+    border-bottom: 1px solid rgb(230, 230, 230);
+    /* border-radius:5px; */
+
+    /* padding: 35px 50px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 30%); */
+    display:flex;
+    justify-content: center;
+
+
     /* margin:2px; */
 }
 .ingredient-name-span{
@@ -452,18 +543,18 @@ h4{
 .featured-recipe-right-card-div{
     height:270px;
     width:280px;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left:0px;
+    padding-right:0px;
     margin-bottom: 0.25rem;
     background-color: rgb(254, 254, 254);
 }
 .featured-recipes-right{
-    margin-left: 15px;
+    margin-left: 18px;
     margin-right:0;
 }
 .featured-recipes-div{
     padding: 5px;
-    margin: 5px 5px 30px 5px;
+    /* margin: 5px 5px 10px 5px; */
     position:relative;
 } 
 

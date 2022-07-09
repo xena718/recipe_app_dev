@@ -1,0 +1,15 @@
+<div  class="title-above-carousel-slide">
+    <h4>Browse By Popular Ingredients</h4>
+  </div>
+  <div class="row ingredients-container">
+    {% for ingredient in popular_ingredients %}
+    <div class="col-6 col-md-3 ingredient-icon-container">
+      <a href="/ingredients/{{ingredient}}" class="no-underline">
+        <svg class="icon ingredient-icon">
+          <use xlink:href="static/img/ingredients_icons/myicons.svg#{{ingredient|lower}}"/>
+        </svg> 
+        <span class="ingredient-name-span">{{ingredient}}</span>
+      </a>
+    </div>
+    {% endfor %}
+  </div>

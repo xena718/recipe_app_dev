@@ -3,9 +3,9 @@
 
 {% block body %}
 
-
+<div class="homepage-container">
 <div class="title-above-carousel-slide">
-  <h4>Featured Recipes</h4>
+  <h3>Featured Recipes</h3>
 </div>
 
 <div class="featured-recipes-div">
@@ -80,7 +80,7 @@
 </div>
 
 <div  class="title-above-carousel-slide">
-  <h4>Most-Saved Recipes</h4>
+  <h3>Most-Saved Recipes</h3>
 </div>
 
 <div class="recipe-card-container-for-scroll">
@@ -122,8 +122,15 @@
 <script src="/static/js/app_events.js"></script>
 
 
-<div  class="title-above-carousel-slide">
-  <h4>Browse By Cuisines</h4>
+<div  id = "browse-anchor-name" class="title-above-carousel-slide">
+  <h3>Discover Recipes</h3>
+</div>
+<div class="browse-by-cuisines-container-for-scroll">
+  <h5> Discover recipes by cuisines, by courses, by special diets, and by ingredients! We commit to make it simple to search for recipes that speak to you!</h5>
+</div>
+
+<div class="title-above-carousel-slide">
+  <h4 class="browse-by-title-name">Browse By Cuisines</h4>
 </div>
 
 <div class="browse-by-cuisines-container-for-scroll">
@@ -155,7 +162,7 @@
 
 
 <div  class="title-above-carousel-slide">
-  <h4>Browse By Special Diets</h4>
+  <h4 class="browse-by-title-name">Browse By Special Diets</h4>
 </div>
 
 <div class="browse-by-specialdiets-container-for-scroll">
@@ -177,7 +184,7 @@
 
 
 <div  class="title-above-carousel-slide">
-  <h4>Browse By Courses</h4>
+  <h4 class="browse-by-title-name">Browse By Courses</h4>
 </div>
 
 <div class="browse-by-courses-container-for-scroll">
@@ -204,7 +211,7 @@
 <script src="/static/js/browse_by_courses.js"></script>
 
 <div  class="title-above-carousel-slide">
-  <h4>Browse By Popular Ingredients</h4>
+  <h4 class="browse-by-title-name">Browse By Popular Ingredients</h4>
 </div>
 <div class="row ingredients-container">
   {% for ingredient in popular_ingredients %}
@@ -217,6 +224,8 @@
     </a>
   </div>
   {% endfor %}
+</div>
+
 </div>
 
 
