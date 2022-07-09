@@ -373,7 +373,7 @@ def add_ingredients_to_shoppinglist():
     # recipe = crud.get_recipe_by_recipe_id(recipe_id)
     shopping_recipe_instance = crud.get_shopping_recipe_by_userID_RecipeID(user.user_id, recipe_id)
     if shopping_recipe_instance:
-        shopping_recipe_instance.servings = servings
+        shopping_recipe_instance.shopping_servings = servings
         db.session.commit()
     else:
         shopping_recipe = crud.create_shopping_recipe(user.user_id, recipe_id,servings)
@@ -400,7 +400,7 @@ def show_shoppinglist():
 
         for shopping_recipe_entry in shopping_recipe_entries:
             recipe_instance = crud.get_recipe_by_recipe_id(shopping_recipe_entry.recipe_id) # one recipe instance returned.
-            current_servings = shopping_recipe_entry.recipe_servings
+            current_servings = shopping_recipe_entry.shopping_servings
             original_servings = recipe_instance.servings
             recipe_instance_servings_dict[recipe_instance] = [current_servings,original_servings]
 
@@ -416,7 +416,7 @@ def show_shoppinglist():
         
         for shopping_recipe_entry in shopping_recipe_entries:
             recipe = crud.get_recipe_by_recipe_id(shopping_recipe_entry.recipe_id) 
-            recipe_servings = shopping_recipe_entry.recipe_servings
+            recipe_servings = shopping_recipe_entry.shopping_servings
             for ingredient in recipe.recipe_ingredients:
                 if ingredient.category not in ingredients_for_all_shopping_recipes:
                     ingredients_for_all_shopping_recipes[ingredient.category]={}

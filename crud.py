@@ -221,12 +221,12 @@ def groupby_recipeid_orderby_count_for_saved_recipes():
     
 #     return shopping_recipe
 
-def create_shopping_recipe(user_id, recipe_id, recipe_servings):
+def create_shopping_recipe(user_id, recipe_id, shopping_servings):
     """
     create a entry of shopping recipe by the logged in user
     """
 
-    shopping_recipe = Shopping_Recipe(user_id=user_id, recipe_id=recipe_id, recipe_servings=recipe_servings)
+    shopping_recipe = Shopping_Recipe(user_id=user_id, recipe_id=recipe_id, shopping_servings=shopping_servings)
     
     return shopping_recipe
 

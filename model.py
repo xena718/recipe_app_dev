@@ -99,7 +99,7 @@ class Shopping_Recipe (db.Model):
     shopping_recipe_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     recipe_id = db.Column(db.Integer, db.ForeignKey("recipes.recipe_id"))
     user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"))
-    recipe_servings = db.Column(db.Integer, nullable=False)
+    shopping_servings = db.Column(db.Integer, nullable=False)
 
     recipe_for_shopping = db.relationship('Recipe', backref='shopping_recipes')
     by_user = db.relationship("User", backref="shopping_recipes")
