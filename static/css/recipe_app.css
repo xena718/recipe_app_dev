@@ -119,6 +119,7 @@ body{
     margin-left:5px;
     margin-top:20px;
     margin-bottom:10px;
+    padding-left:20px;
 }
 /* overflow:auto solved the problem of .navbar div white space on the right end of page */
 .recipe-cards{
@@ -899,4 +900,8 @@ h4{
     /* font-family: "Source Sans Pro",Arial; */
     font: 400 16px/24px "Source Sans Pro",sans-serif;
 
+}
+
+.ingredient-quantities-span{
+    
 }

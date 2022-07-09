@@ -11,3 +11,15 @@
 //         ingredientRecipesDiv.querySelector("a").remove();
 //     }
 // };
+
+
+// to remove comma at the end of the ingredient quantity span
+const allIngredientQuantitySpans = document.querySelectorAll(".ingredient-quantities-span");
+for ( const ingredientQuantitySpan of allIngredientQuantitySpans){
+    const currentText = ingredientQuantitySpan.innerText;
+    ingredientQuantitySpan.innerText = currentText.slice(0,-1);
+    console.log(ingredientQuantitySpan.innerText.length);
+    // what learned here: .innerHTML is a much longer string than .innerText. innerHTML doesn't work for cases here.
+
+
+}

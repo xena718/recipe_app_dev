@@ -91,9 +91,11 @@
                         <i class="bi bi-circle"></i>
                         <a class="ingredient-info" style="text-decoration:none" class="no-underline" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> 
                             {{ingredient_name}}: 
+                            <span class="ingredient-quantities-span">
                             {% for key, value in ingredients_for_all_shopping_recipes[category_name][ingredient_name].items() %}
-                            {{value}} {{key}}
+                            {{value}} {{key}}, 
                             {% endfor %}
+                            </span>
                         </a>
 
                     <div class="collapse" id="collapseExample">

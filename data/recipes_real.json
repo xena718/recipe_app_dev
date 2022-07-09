@@ -184,7 +184,7 @@
             {
                 "quantity": "1",
                 "unit_name": "tbsp",
-                "name": "oil",
+                "name": "oil salt (as required)",
                 "category": "Basic Cooking Ingredients"
             },
             {
@@ -1111,8 +1111,8 @@
         "recipe_ingredients": [
             {
                 "quantity": "2",
-                "unit_name": "",
-                "name": "nos safeda mangoes, diced",
+                "unit_name": "nos",
+                "name": "safeda mangoes, diced",
                 "category": "Vegetables and Fruits"
             },
             {
@@ -1123,8 +1123,8 @@
             },
             {
                 "quantity": "10",
-                "unit_name": "",
-                "name": "nos mint leaves, shredded",
+                "unit_name": "nos",
+                "name": "mint leaves, shredded",
                 "category": "Herbs and Spices"
             },
             {
@@ -1147,8 +1147,8 @@
             },
             {
                 "quantity": "1/2",
-                "unit_name": "",
-                "name": "nos lemon juice",
+                "unit_name": "nos",
+                "name": "lemon juice",
                 "category": "Vegetables and Fruits"
             },
             {
@@ -1427,14 +1427,14 @@
             },
             {
                 "quantity": "3",
-                "unit_name": "",
-                "name": "nos orange zest",
+                "unit_name": "nos",
+                "name": "orange zest",
                 "category": "Vegetables and Fruits"
             },
             {
                 "quantity": "1",
-                "unit_name": "",
-                "name": "nos vanilla beans",
+                "unit_name": "nos",
+                "name": "vanilla beans",
                 "category": "Herbs and Spices"
             },
             {
@@ -2055,8 +2055,8 @@
             },
             {
                 "quantity": "1",
-                "unit_name": "",
-                "name": "clove  garlic",
+                "unit_name": "clove",
+                "name": " garlic",
                 "category": "Herbs and Spices"
             },
             {
@@ -2718,14 +2718,14 @@
             },
             {
                 "quantity": "1",
-                "unit_name": "",
-                "name": "to 2 tsp finely chopped celery (optional)",
+                "unit_name": "tsp",
+                "name": "finely chopped celery (optional)",
                 "category": "Vegetables and Fruits"
             },
             {
                 "quantity": "2",
-                "unit_name": "",
-                "name": "to 2.5 tbsp oil",
+                "unit_name": "tbsp",
+                "name": "oil",
                 "category": "Basic Cooking Ingredients"
             },
             {
@@ -3690,8 +3690,8 @@
             },
             {
                 "quantity": "1",
-                "unit_name": "",
-                "name": "clove garlic peeled (chopped)",
+                "unit_name": "clove",
+                "name": "garlic peeled (chopped)",
                 "category": "Herbs and Spices"
             }
         ],
@@ -4187,8 +4187,8 @@
             },
             {
                 "quantity": "1",
-                "unit_name": "",
-                "name": "clove garlic, crushed",
+                "unit_name": "clove",
+                "name": "garlic, crushed",
                 "category": "Herbs and Spices"
             },
             {
