@@ -3,6 +3,9 @@
 
 {% block body %}
 
+<div class="saved-recipe-page-container">
+
+
 <div class="container-1-shoppinglist-page">
 <div class="text-above-carousel-slide">
     <h5>You have <span id="shopping-recipe-quantity">{{recipe_instance_servings_dict | length}}</span> recipes in your shopping cart!</h5>
@@ -46,6 +49,7 @@
   <script src="/static/js/app_events.js"></script>
 </div>
 
+<div class="recipe-cards-div-container">
 
 <div class="container-2-shoppinglist-page">
 <h4 class="h4-title-above-p">Shopping List</h4>
@@ -113,7 +117,8 @@
 </div>
 </div>
 {% endif %}
-
+</div>
+</div>
 
 <script src="/static/js/shopping_list_events.js"></script>
 

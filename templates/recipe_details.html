@@ -7,65 +7,61 @@
 
 <div class="recipe-detail-container">
   <div class="recipe-detail-inner-container">
-    <div class="row summary-img">
-      <div class="col-5">
-        <h2>{{ recipe.title }}</h2>
-        <p>by {{recipe.author}}</p>
-        <p>
-          {{ recipe.cuisine.name }}
-          {% for specialdiet in recipe.specialdiets %}
-          | {{specialdiet.name}}
-          {% endfor %}
-        </p>
-        <div> 
-          <svg class="icon cuisine-icon">
-            <use xlink:href="static/img/cuisines-img/cuisines-icons-copy.svg#American"/>
-          </svg> 
-        </div>
-        <div class="recipe-summary-card">
-          <div> Prep: {{recipe.prep_time}}</div>
-          <div> Cook: {{recipe.cook_time}}</div>
-          {% set prep_time_list = recipe.prep_time.split(' ')  %}
-          {% set cook_time_list = recipe.cook_time.split(' ')  %}
-  
-          {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
-            <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}} days</div>
-          {% elif prep_time_list[1] =="days" %}  
-            <div> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
-          {% elif cook_time_list[1] =="days" %}  
-            <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
-          {% elif prep_time_list[1] != cook_time_list[1] %}
-            {% if prep_time_list[1] == "hours" %}
-            <div> Total: {{recipe.prep_time}} {{recipe.cook_time}}  </div>
-            {% elif cook_time_list[1] == "hours" %}
-            <div> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
-            {% endif %}
-  
-          {% else %}
-          <div> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
+  <div class="row summary-img">
+    <div class="col-5 recipe-key-info">
+      <h2>{{ recipe.title }}</h2>
+      <p>by {{recipe.author}}</p>
+      <p>
+        {{ recipe.cuisine.name }}
+        {% for specialdiet in recipe.specialdiets %}
+        | {{specialdiet.name}}
+        {% endfor %}
+      </p>
+
+      <div class="recipe-summary-card">
+        <div class="recipe-summary-card-inner-div"> Prep: {{recipe.prep_time}}</div>
+        <div class="recipe-summary-card-inner-div"> Cook: {{recipe.cook_time}}</div>
+        {% set prep_time_list = recipe.prep_time.split(' ')  %}
+        {% set cook_time_list = recipe.cook_time.split(' ')  %}
+
+        {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
+          <div class="recipe-summary-card-inner-div"> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}} days</div>
+        {% elif prep_time_list[1] =="days" %}  
+          <div class="recipe-summary-card-inner-div"> Total: {{recipe.prep_time}} {{recipe.cook_time}} </div>
+        {% elif cook_time_list[1] =="days" %}  
+          <div class="recipe-summary-card-inner-div"> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
+        {% elif prep_time_list[1] != cook_time_list[1] %}
+          {% if prep_time_list[1] == "hours" %}
+          <div class="recipe-summary-card-inner-div"> Total: {{recipe.prep_time}} {{recipe.cook_time}}  </div>
+          {% elif cook_time_list[1] == "hours" %}
+          <div class="recipe-summary-card-inner-div"> Total: {{recipe.cook_time}} {{recipe.prep_time}} </div>
           {% endif %}
-          <div> Servings: {{recipe.servings}}</div>
-        </div>
-      </div>
 
-      <div class="col-7">
-        <div class="recipe-summary-img-save-btn">
-          <div class="recipe-img-save-btn-text-under-img">
-            <img src="{{ recipe.photo_url }}">
-            {% if (session.get("logged_in_user_email")) and (recipe in current_user.saved_recipes) %}
-            <div class="card-btn-div">
-              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
-            </div>
-            {% else %}
-            <div class="card-btn-div">
-              <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
-            </div>
-            {% endif %}
-          </div>
-        </div>
-
+        {% else %}
+        <div class="recipe-summary-card-inner-div"> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
+        {% endif %}
+        <div class="recipe-summary-card-inner-div"> Servings: {{recipe.servings}}</div>
       </div>
     </div>
+
+    <div class="col-7">
+      <div class="recipe-summary-img-save-btn">
+        <div class="recipe-img-save-btn-text-under-img">
+          <img src="{{ recipe.photo_url }}">
+          {% if (session.get("logged_in_user_email")) and (recipe in current_user.saved_recipes) %}
+          <div class="card-btn-div">
+            <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart-fill"></i></button>
+          </div>
+          {% else %}
+          <div class="card-btn-div">
+            <button class="save-remove-btn" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-heart"></i></button>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </div>
   <div class="row description-container">
     <h4>Description</h4>
     <div>

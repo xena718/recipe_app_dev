@@ -4,6 +4,7 @@
 {% block body %}
 
 
+<div class="saved-recipe-page-container">
 
 <div  class="title-above-carousel-slide">
   <h5>
@@ -38,6 +39,7 @@
         </div>
     {% endfor %}
   </div> -->
+<div class="recipe-cards-div-container">
   <div class="recipe-cards row"> 
     {% for recipe in search_returned_recipes %}
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
@@ -70,5 +72,7 @@
     {% endfor %}
   </div>
   {% endif %}
+</div>
 
+</div>
 {% endblock %}

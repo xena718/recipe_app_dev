@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% block title %} {{cuisine_type}} {% endblock %}
 
-
 {% block body %}
 
+<div class="recipes-per-category">
+
+
 <div  class="title-above-carousel-slide">
-  <h5>Browse By Cuisines</h5>
+  <h4>Browse By Cuisines</h4>
 </div>
 
 <div class="browse-by-cuisines-container-for-scroll">
@@ -39,6 +41,7 @@
   <h4>{{cuisine_type}} Cuisine Recipes</h4>
 </div>
 
+<div class="recipe-cards-div-container">
 <div class="recipe-cards row"> 
   {% for recipe in recipes_of_the_cuisine_type %}
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
@@ -70,9 +73,11 @@
     </div>
   {% endfor %}
 </div>
+</div>
 
 
 <script src="/static/js/app_events.js"></script>
 
+</div>
 
 {% endblock %}
