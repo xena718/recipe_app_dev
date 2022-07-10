@@ -33,6 +33,7 @@ class User(db.Model):
     email = db.Column(db.String, unique=True, nullable=False)
     name = db.Column(db.String, unique=True, nullable=False)
     password = db.Column(db.String, nullable=False)
+    phone = db.Column(db.String, nullable=False)
 
     saved_recipes = db.relationship("Recipe", secondary = "saved_recipes", backref="saved_by_users")
     #commented out on 0627 for data model update.

@@ -16,52 +16,47 @@ app = Flask(__name__)
 app.secret_key = "dev" #It’ll need a secret key (otherwise, flash and session won’t work)
 app.jinja_env.undefined = StrictUndefined
 
-# #homepage before 0620version
-# @app.route('/')
-# def homepage():
-#     """view homepage. Return one random recipe per cuisine"""
-#     #one thing is improve is that heart of the recipe on homepage should be unfilled or filled if user logged in and the recipe has been saved by user
+# Download the helper library from https://www.twilio.com/docs/python/install
+import os
+from twilio.rest import Client
 
-#     user_email = session.get("logged_in_user_email")
+
+# Find your Account SID and Auth Token at twilio.com/console
+# and set the environment variables. See http://twil.io/secure
+account_sid = os.environ['TWILIO_ACCOUNT_SID']
+auth_token = os.environ['TWILIO_AUTH_TOKEN']
+client = Client(account_sid, auth_token)
+
+# Download the helper library from https://www.twilio.com/docs/python/install
+import os
+from twilio.rest import Client
+
+
+# Find your Account SID and Auth Token at twilio.com/console
+# and set the environment variables. See http://twil.io/secure
+
+
+@app.route('/text-shoppinglist-to-user', methods=['POST'])
+def test_shoppinglist_to_user():
+    user_email = session.get("logged_in_user_email")
+    user = crud.get_user_by_email(user_email)
+    shopping_ingredients = request.json.get("ingredients")
+    text = "; ".join(shopping_ingredients)
+    print(text)
+
+    account_sid = os.environ['TWILIO_ACCOUNT_SID']
+    auth_token = os.environ['TWILIO_AUTH_TOKEN']
+    client = Client(account_sid, auth_token)
+
+    message = client.messages.create(
+                                from_='+17853776555',
+                                body=text,
+                                to='+19854652307'
+                            )
     
-#     one_recipe_per_cuisine = []
+    print(message.status)
 
-#     # cuisines = ["American", "British", "Caribbean", "Chinese", "French", "Greek", "Indian", "Italian", "Japanese", "Mediterranean", "Mexican", "Moroccan", "Spanish", "Thai", "Turkish", "Vietnamese", "Food Fusion", "Others"]
-
-#     ####### this following chunck works ###########
-#     # for cuisine_name in cuisines:
-#     #     cuisine_instance = crud.get_cuisine_by_name(cuisine_name)
-#     #     recipes_by_cuisine_id = crud.get_recipes_by_cuisine_id(cuisine_instance.cuisine_id)
-#     #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_id}")
-#     #     one_recipe_per_cuisine_id = random.choice(recipes_by_cuisine_id)
-#     #     one_recipe_per_cuisine.append(one_recipe_per_cuisine_id)    
-    
-#     ########this following chunck doesn't work################
-#     # crud.recipes_dbjoinedload_cuisine() 
-#     # for cuisine_name in cuisines:
-#     #     recipes_by_cuisine_name = crud.get_recipe_by_cuisine_name(cuisine_name)
-#     #     print("********************"+f"{cuisine_name} has the following recipes{recipes_by_cuisine_name}")
-#     #     one_recipe_each_cuisine = random.choice(recipes_by_cuisine_name)
-#     #     one_recipe_per_cuisine.append(one_recipe_each_cuisine)    
-#    ###################################################################
-#     recipes = crud.recipes_dbjoinedload_cuisines() 
-#     # print("********************"+f"{recipes[1]}, {recipes[1].cuisine.name}")
-#     recipe_cuisine_names =[]
-
-#     for recipe in recipes:
-#         recipe_cuisine_name = recipe.cuisine.name
-#         if recipe_cuisine_name in recipe_cuisine_names:
-#             continue
-#         else:
-#             recipe_cuisine_names.append(recipe_cuisine_name)
-#             one_recipe_per_cuisine.append(recipe)
-#     if user_email:
-#         current_user = crud.get_user_by_email(user_email)
-
-#         return render_template("homepage.html", current_user=current_user, recipes_cuisines=one_recipe_per_cuisine)
-#     else:
-#         return render_template("homepage.html", recipes_cuisines=one_recipe_per_cuisine)
-
+    return "text_sent"
 
 ######homepage 0620version#########
 @app.route('/')
@@ -152,6 +147,8 @@ def register_user():
     email = request.form.get('email')
     name =request.form.get('name')
     password = request.form.get('password')
+    phone = request.form.get('phone')
+
 
     user_by_email = crud.get_user_by_email(email)
     user_by_name = crud.get_user_by_name(name)
@@ -161,7 +158,7 @@ def register_user():
     if user_by_name:
         flash("This name has been registered. Please try a different one")
 
-    new_user = crud.create_user(email, name, password)
+    new_user = crud.create_user(email, name, password,phone)
     db.session.add(new_user)
     db.session.commit()
     flash("Account successfully created. Please log in")

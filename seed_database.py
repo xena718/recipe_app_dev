@@ -17,8 +17,8 @@ model.db.create_all()
 
 
 #create two users
-user_cr = crud.create_user("cr@test.com","cr","cr")
-user_dm = crud.create_user("dm6@test.com","dm6","dm6")
+user_cr = crud.create_user("cr@test.com","cr","cr","4136950967")
+user_dm = crud.create_user("dm6@test.com","dm6","dm6","4136950966")
 
 model.db.session.add_all([user_cr, user_dm])
 model.db.session.commit()

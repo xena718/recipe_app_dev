@@ -7,10 +7,10 @@ import random
 from sqlalchemy import desc
 
 
-def create_user(email, name, password):
+def create_user(email, name, password, phone):
     """Create and return a new user."""
 
-    user = User(email=email, name=name, password=password)
+    user = User(email=email, name=name, password=password, phone=phone)
 
     return user
 
