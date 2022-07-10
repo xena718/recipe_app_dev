@@ -8,18 +8,18 @@
 <div class="recipe-detail-container">
   <div class="recipe-detail-inner-container">
   <div class="row summary-img">
-    <div class="col-5 recipe-key-info">
+    <div class="col-md-5 recipe-key-info">
       <h2>{{ recipe.title }}</h2>
-      <p>by {{recipe.author}}</p>
-      <p>
+      <p class="recipe-author-below-title">by {{recipe.author}}</p>
+      <h5>
         {{ recipe.cuisine.name }}
         {% for specialdiet in recipe.specialdiets %}
         | {{specialdiet.name}}
         {% endfor %}
-      </p>
+      </h5>
 
       <div class="recipe-summary-card">
-        <div class="recipe-summary-card-inner-div"> Prep: {{recipe.prep_time}}</div>
+        <!-- <div class="recipe-summary-card-inner-div"> Prep: {{recipe.prep_time}}</div>
         <div class="recipe-summary-card-inner-div"> Cook: {{recipe.cook_time}}</div>
         {% set prep_time_list = recipe.prep_time.split(' ')  %}
         {% set cook_time_list = recipe.cook_time.split(' ')  %}
@@ -41,10 +41,63 @@
         <div class="recipe-summary-card-inner-div"> Total: {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
         {% endif %}
         <div class="recipe-summary-card-inner-div"> Servings: {{recipe.servings}}</div>
+         -->
+        <div class="row recipe-summary-grid-div">
+          <div class="col-sm summary-card-cell-title-content">
+            <div class="row summary-card-cell-title">
+              Prep
+            </div>
+            <div class="row summary-card-cell-content">
+              {{recipe.prep_time}}
+            </div>
+          </div>
+          <div class="col-sm summary-card-cell-title-content">
+            <div class="row summary-card-cell-title">
+              Cook
+            </div>
+            <div class="row summary-card-cell-content">
+              {{recipe.cook_time}}
+            </div>
+          </div>
+          <div class="col-sm summary-card-cell-title-content">
+            <div class="row summary-card-cell-title">
+              Total
+            </div>
+          {% set prep_time_list = recipe.prep_time.split(' ')  %}
+          {% set cook_time_list = recipe.cook_time.split(' ')  %}
+  
+          {% if (prep_time_list[1] =="days") and (cook_time_list[1]=="days") %}
+            <div class="row summary-card-cell-content"> {{prep_time_list[0] | int +cook_time_list[0] | int}} days</div>
+          {% elif prep_time_list[1] =="days" %}  
+            <div class="row summary-card-cell-content"> {{recipe.prep_time}} {{recipe.cook_time}} </div>
+          {% elif cook_time_list[1] =="days" %}  
+            <div class="row summary-card-cell-content"> {{recipe.cook_time}} {{recipe.prep_time}} </div>
+          {% elif prep_time_list[1] != cook_time_list[1] %}
+            {% if prep_time_list[1] == "hours" %}
+            <div class="row summary-card-cell-content"> {{recipe.prep_time}} {{recipe.cook_time}}  </div>
+            {% elif cook_time_list[1] == "hours" %}
+            <div class="row summary-card-cell-content"> {{recipe.cook_time}} {{recipe.prep_time}} </div>
+            {% endif %}
+  
+          {% else %}
+            <div class="row summary-card-cell-content"> {{prep_time_list[0] | int +cook_time_list[0] | int}}  {{prep_time_list[1]}} </div>
+          {% endif %}
+          </div>
+          <div class="col-sm summary-card-cell-title-content summary-servings-title-content">
+            <div class="row summary-card-cell-title">
+              Servings
+            </div>
+            <div class="row summary-card-cell-content">
+              {{recipe.servings}}
+            </div>
+          </div>
+        </div>
+
       </div>
+
     </div>
 
-    <div class="col-7">
+    <div class="col-md-7">
       <div class="recipe-summary-img-save-btn">
         <div class="recipe-img-save-btn-text-under-img">
           <img src="{{ recipe.photo_url }}">
@@ -64,24 +117,25 @@
   </div>
   <div class="row description-container">
     <h4>Description</h4>
-    <div>
+    <div class="description-text-div">
       {{ recipe.description }}
     </div>
   </div>
     
   <div class="row">
-    <div class="col-6">
+    <div class="col-md-6">
         <div class="ingredients-title-div">
           <h4>Ingredients</h4>
-          <p>Original recipe yields {{recipe.servings}} servings</p>
         </div>
         <div class="servings-size-adjust-div">
           <form id= "servings-size-form" action="/servings-size-form">
             <label for="servings-size-input"></label>
             <input type="number" min="1" id="servings-size-input" name="servings-size-input" value="{{recipe.servings}}" >
-            <input type="submit" class = "adjust-btn" value="Adjust">
+            <input type="submit" class = "adjust-btn" value="Servings Adjust">
           </form>
         </div>
+        <p class="note-under-title">Original recipe yields {{recipe.servings}} servings</p>
+
       <div class="form-check recipe-ingredients-div">
         {% for ingredient in recipe.recipe_ingredients %}
         <li class="recipe-ingredient-li">
@@ -101,14 +155,25 @@
       </div>
   
     </div>
-    <div class="col-6">
+    <div class="col-md-6">
       <h4>Directions</h4>
-      <div>
+      <div class="directions-div">
         {% for direction in recipe.recipe_directions %}
-          <div class="step-num"> Step {{direction.step_number}}</div>
-          <div class="guidance-per-step"> {{direction.step_guidance}}</div>
+          <!-- <div class="step-num"> Step {{direction.step_number}}</div> -->
+          <div class="guidance-per-step"> <span class="step-num">{{direction.step_number}}.</span>{{direction.step_guidance}}</div>
         {% endfor %}
       </div>
+
+      <!-- {% for direction in recipe.recipe_directions %}
+      <div class="row">
+        <div class="col-md-2 step-num">
+          Step {{direction.step_number}}
+        </div>
+        <div class="col-md-10 guidance-per-step">
+          {{direction.step_guidance}}
+        </div>
+      </div>
+      {% endfor %} -->
     </div>
   </div>
 

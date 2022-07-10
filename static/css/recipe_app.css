@@ -446,9 +446,38 @@ h4{
 .recipe-summary-card{
     display: flex;
     flex-direction: column;
-    padding-top: 25px;
-    padding-left: 100px;
+    padding-top: 20px;
+    padding-left: 5px;
+    padding-right:10px;
+    margin-bottom:40px;
+    margin-top:40px
 
+
+}
+
+.recipe-author-below-title{
+    margin-top:15px;
+
+}
+.summary-card-cell-title{
+    font-size:18px;
+    display: flext;
+    align-items:center;
+    justify-content:center;
+}
+.summary-card-cell-content{
+    font-size:18px;
+    font-weight:500;
+    display: flext;
+    align-items:center;
+    justify-content:center;
+}
+.summary-card-cell-title-content{
+
+    border-right: 1px solid rgba(0,0,0,.2);
+}
+.summary-servings-title-content{
+    border-right: white;
 
 }
 
@@ -472,12 +501,17 @@ h4{
     color:rgba(0,0,0,.95);
     border:1.7px solid rgb(214, 44, 44);
     border-radius: 4px;
-    padding: 3px 15px;
+    padding: 3.5px 15px;
     font-weight: 500;
 }
 .adjust-btn:hover, .add-ingredients-to-shoppinglist-btn:hover, .text-shoppinglist-btn:hover{
     background-color: rgb(192, 42, 42);
     color:rgb(255, 255, 255);
+}
+
+.servings-size-adjust-div{
+    margin-top:20px;
+    margin-bottom:5px;
 }
 
 .text-shoppinglist-btn{
@@ -503,8 +537,24 @@ h4{
 }
 
 .recipe-ingredient-li{
-    padding: 1px;
+    padding: 0px;
     list-style: none;
+}
+.recipe-ingredients-div{
+    margin-top:15px;
+    margin-bottom:25px;
+}
+.description-text-div{
+    margin-top:5px;
+}
+.note-under-title{
+    font-size:14px;
+    color:rgba(0,0,0,.65);
+    padding-left:5px;
+    margin-top:5px;
+}
+#servings-size-form{
+    margin-bottom: 8px;
 }
 
 .add-ingredients-to-shoppinglist-btn, .add-to-shoppinglist-btn{
@@ -527,8 +577,18 @@ h4{
 .step-num{
     padding-top:10px;
     padding-bottom: 10px;
-    font-weight: 500;
+    padding-right:10px;
+    font-weight: 450;
+    font-size: 17px;
 
+}
+.guidance-per-step{
+    margin-top:0px;
+    margin-bottom:10px;
+}
+.directions-div{
+    margin-top:20px;
+    margin-bottom:20px;
 }
 .ingredient-icon{
     width:30px;
@@ -560,9 +620,9 @@ h4{
     display:flex;
     justify-content: center;
 
-
     /* margin:2px; */
 }
+
 .ingredient-name-span{
     margin-left:8px;
     color:black;
@@ -624,16 +684,19 @@ h4{
 
 /* below for add-recipe page */
 .add-recipe-container{
+    /* background: url('/static/img/herb1.jpg'), #fef9ea; */
+    /* background-image: url('/static/img/herb1.jpg'), linear-gradient(to bottom, #6DB3F2, #fef9ea); */
     background-image:url(/static/img/herb1.jpg);
     background-repeat: no-repeat center center;
     background-size:cover;
     /* margin: 0 0 48px; */
     padding-top: 24px;
 }
+
 .recipe-detail-container{
     padding-top: 24px;
-
 }
+
 .add-recipe-inner-container{
     width: 800px;
     margin-top: 32px;
@@ -872,6 +935,14 @@ h4{
     /* writing-mode: horizontal-tb !important; */
 
 }
+/* .guidance-per-step{
+    padding: 16px;
+    margin-bottom: 5px;
+    margin-top: 10px;
+    resize: vertical;
+    border: 1px solid rgba(0,0,0,.2);
+    border-radius:4px;
+} */
 
 .ingredient-category{
     margin-top: 20px;
