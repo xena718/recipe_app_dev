@@ -76,41 +76,6 @@ for (const removeBtn of removeBtns){
 
 }
 
-// below is for removing recipe and update shopping list on shopping list page 
-const removeRecipeSLBtns = document.querySelectorAll(".recipe-remove-btn-in-shoppinglist")
-for (const removeRecipeSLBtn of removeRecipeSLBtns){
-    removeRecipeSLBtn.addEventListener('click', evt =>{
-    const infoToServer ={recipeId: removeRecipeSLBtn.dataset.recipeId};
-    const allCurrentShoppingRecipes = document.querySelectorAll(".recipe-card-div");
-    document.querySelector("#shopping-recipe-quantity").innerHTML=allCurrentShoppingRecipes.length-1;
-
-    fetch('/remove-shopping-recipe',{
-        method: 'POST',
-        body: JSON.stringify(infoToServer),
-        headers: {
-            'Content-Type': 'application/json',
-            },
-    })
-    
-    .then(response => response.text())
-    .then(serverData => {
-        const shoppingRecipeCardDiv = removeRecipeSLBtn.closest(".recipe-card-div");
-        // console.log(recipeCardDiv)
-        if (serverData === "removed_from_shoppinglist"){
-            shoppingRecipeCardDiv.remove();
-            // shoppingRecipeCardDiv.style.display= "none";
-            window.location.reload();
-
-            console.log("just removed");
-            // const allCurrentRecipeCardDivs = document.querySelectorAll(".saved-recipe-quantity");
-            // document.querySelector("#saved-recipe-quantity").innerHTML=allCurrentRecipeCardDivs.length;
-        }
-
-    });
-
-    });
-
-}
 
 
 // Carousel slide for recipe cards 

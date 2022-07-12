@@ -67,7 +67,7 @@ body{
     display:flex;
     flex-direction:row;
     justify-content:center;
-    height:62px;
+    height:64px;
 
 }
 .nav-bar{
@@ -77,17 +77,32 @@ body{
     font-family: var(--bs-font-sans-serif);
     /* font: 700 18px/26px "Copper Pot",serif; */
     font-weight: 500;
-    font-size: 16.5px;
-    color: black;
+    font-size: 18px;
+    color: rgb(80, 80, 80);
+   
     padding-top:4px;
 }
+.nav-link:hover{
+    color: black;
+
+}
+.form-control{
+    font-size:18.2px;
+}
+
+.dropdown-item{
+    font-weight: 500;
+    font-size: 16.5px;
+    color:rgba(80,80,80);
+}
 .search-form-div{
-    margin-top:12px;
+    margin-top:13px;
     margin-right:15px;
     margin-left:5px;
 }
 .navbar-brand{
     margin-left:20px;
+    padding-bottom: 8px;
 }
 .navbar-right{
     margin-right:20px;
@@ -126,7 +141,8 @@ body{
     margin-left:auto;
     margin-right:auto;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
+    padding-top:10px;
 }
 
 /* Maybe I should set this div to fix contents */
@@ -136,7 +152,23 @@ body{
     /* padding:20px; */
     /* padding-left:10px;
     padding-right:10px; */
-    margin-bottom: 0.25rem;
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-right:10px;
+    margin-left:10px;
+    background-color: rgb(254, 254, 254);
+}
+
+.shopping-recipe-card-div{
+    height: 305px;
+    width:280px;
+    /* padding:20px; */
+    /* padding-left:10px;
+    padding-right:10px; */
+    margin-top:10px;
+    margin-bottom: 10px;
+    margin-right:15px;
+    margin-left:10px;
     background-color: rgb(254, 254, 254);
 }
 
@@ -213,7 +245,7 @@ body{
     padding-left:6px;
     padding-right:6px;
     margin-bottom: 4px;
-    font-size:14px;
+    font-size:16px;
     font-weight: bold;
     font:Helvetica,sans-serif;
     /* height:45px; */
@@ -223,6 +255,26 @@ body{
     align-items: center;
     /* text-align: center; */
 }
+.shopping-card-title{
+    margin-top: 5px;
+    padding-left:6px;
+    padding-right:6px;
+    margin-bottom: 3px;
+    font-size:16px;
+    font-weight: bold;
+    font:Helvetica,sans-serif;
+    /* height:45px; */
+    height:42%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.p-reminder{
+    font-size:16.5px;
+}
+
 .card-title-href{
     color:black;
     display: -webkit-box;
@@ -241,23 +293,35 @@ body{
 
 }
 .card-text{
-    font-size:0.8rem;
+    font-size:14px;
     padding-top:4px;
     padding-bottom: 2px;
 }
+
+.shopping-card-text{
+    font-size:14px;
+    padding-top:4px;
+    padding-bottom: 2px;
+}
+
 .h5, h5 {
-    font-size: 1rem;
+    font-size: 19px;
+
 }
 h3{
     font-size: 1.5rem;
     margin-top: 15px;
 }
 h4{
-    font-size: 20px;
+    font-size: 22px;
     /* font-size: 1.5rem; */
     /* margin-bottom: 15px; */
     margin-top: 15px;
     /* margin-bottom: 15px; */
+}
+
+h2{
+    font-size:34px;
 }
 /* .browse-by-title-name{
     font-size: 20px;
@@ -289,7 +353,10 @@ h4{
 .recipe-card-horizontal-scroll {
     /* width:900px; */
     /* width:96vw; */
-    height: 320px;
+    height: 350px;
+    /* padding:10px; */
+    padding-top:10px;
+    padding-bottom:10px;
     background-color: #fff;
     border: 1px solid rgb(230, 230, 230);
     border-radius:5px;
@@ -299,8 +366,25 @@ h4{
     align-items: center;
     position: relative;
     overflow: hidden;
-
 }
+.shopping-recipe-card-horizontal-scroll {
+    /* width:900px; */
+    /* width:96vw; */
+    height: 380px;
+    /* padding:10px; */
+    padding-top:10px;
+    padding-bottom:10px;
+    background-color: #fff;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius:5px;
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
 
 .recipes-cards-slide-container {
     display: flex;
@@ -310,17 +394,18 @@ h4{
     position: absolute;
     left:0;
 
+
 }
 
 .recipe-card-div-in-carousel {
-    margin:10px 10px;
+    margin:22px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
 } 
 
 
-.recipe-card-horizontal-scroll .btn-scroll {
+.recipe-card-horizontal-scroll .btn-scroll, .shopping-recipe-card-horizontal-scroll .btn-scroll {
     background: #fff;
     color: #999;
     box-shadow: 0 0 10px #999;
@@ -331,6 +416,8 @@ h4{
     z-index: 1;
     cursor: pointer;
 }
+
+
 
 /* Below Chunk for carousel slide for browse by cuisines */
 .browse-by-cuisines-container-for-scroll, .browse-by-specialdiets-container-for-scroll, .browse-by-courses-container-for-scroll{
@@ -347,7 +434,7 @@ h4{
 .browse-by-cuisines-horizontal-scroll,.browse-by-specialdiets-horizontal-scroll, .browse-by-courses-horizontal-scroll {
     /* width:900px; */
     /* width:96vw; */
-    height: 170px;
+    height: 200px;
     background-color: #fff;
     border: 1px solid rgb(230, 230, 230);
     border-radius:5px;
@@ -374,16 +461,24 @@ h4{
     /* background: linear-gradient(rgb(231, 195, 184), rgba(255,115,0));
     width: 60px;
     height:60px; */
-    margin:10px 12px;
+    margin:10px 14px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
 } 
 
-.cuisine-circle img,.specialdiet-circle img, .course-circle img {
-    width: 100px;
-    height: 100px;
+.cuisine-circle img{
+    width: 95px;
+    height: 95px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    margin-bottom:10px;
+}
+
+.specialdiet-circle img, .course-circle img {
+    width: 105px;
+    height: 105px;
     border-radius: 50%;
     border: 2px solid #fff;
     margin-bottom:10px;
@@ -391,7 +486,7 @@ h4{
 
 .cuisine-circle a, .specialdiet-circle a, .course-circle a {
     text-align:center;
-    font-size:14px;
+    font-size:17px;
     font-weight: 500;
     color: rgb(8, 8, 188);
     /* color:#0059FF; */
@@ -460,13 +555,13 @@ h4{
 
 }
 .summary-card-cell-title{
-    font-size:18px;
+    font-size:20px;
     display: flext;
     align-items:center;
     justify-content:center;
 }
 .summary-card-cell-content{
-    font-size:18px;
+    font-size:20px;
     font-weight:500;
     display: flext;
     align-items:center;
@@ -503,6 +598,7 @@ h4{
     border-radius: 4px;
     padding: 3.5px 15px;
     font-weight: 500;
+    font-size:18px;
 }
 .adjust-btn:hover, .add-ingredients-to-shoppinglist-btn:hover, .text-shoppinglist-btn:hover{
     background-color: rgb(192, 42, 42);
@@ -510,8 +606,8 @@ h4{
 }
 
 .servings-size-adjust-div{
-    margin-top:20px;
-    margin-bottom:5px;
+    margin-top:25px;
+    margin-bottom:10px;
 }
 
 .text-shoppinglist-btn{
@@ -530,10 +626,12 @@ h4{
 
 #servings-size-input{
     text-align: center;
-    width: 70px;
+    width: 75px;
     border-radius: 4px;
     border:1.5px solid rgba(47, 46, 46, 0.95);
     padding: 3px 15px;
+    font-size:18px;
+    margin-right:8px;
 }
 
 .recipe-ingredient-li{
@@ -546,9 +644,19 @@ h4{
 }
 .description-text-div{
     margin-top:5px;
+    font-size: 18.5px;
+    /* font: 400 18px/28px "Source Sans Pro",sans-serif; */
+}
+.form-check-label{
+    font-size:18.5px;
+    /* font: 400 18px/28px "Source Sans Pro",sans-serif; */
+}
+.recipe-author-below-title{
+    font-size:18px;
+
 }
 .note-under-title{
-    font-size:14px;
+    font-size:16.5px;
     color:rgba(0,0,0,.65);
     padding-left:5px;
     margin-top:5px;
@@ -566,7 +674,7 @@ h4{
     width: fit-content;
     padding: 0px 20px;
     font-weight: 500;
-    /* font-size: 14px; */
+    font-size: 18px;
 }
 
 #add-to-shoppinglist-cart-icon{
@@ -578,13 +686,14 @@ h4{
     padding-top:10px;
     padding-bottom: 10px;
     padding-right:10px;
-    font-weight: 450;
-    font-size: 17px;
+    font-weight: 500;
+    font-size: 19.5px;
 
 }
 .guidance-per-step{
     margin-top:0px;
     margin-bottom:10px;
+    font-size:18.5px;
 }
 .directions-div{
     margin-top:20px;
@@ -596,9 +705,9 @@ h4{
 }
 
 .cuisine-icon{
-    width:86px;
-    height:86px;
-    /* margin-bottom: 10px; */
+    width:100px;
+    height:100px;
+    margin-bottom: 10px;
 }
 
 .ingredient-icon-container{
@@ -626,8 +735,10 @@ h4{
 .ingredient-name-span{
     margin-left:8px;
     color:black;
+    font-size:18px;
   
 }
+
 
 .featured-recipe-left-card img{
     height:460px;
@@ -656,6 +767,7 @@ h4{
     padding-left:0px;
     padding-right:0px;
     margin-bottom: 0.25rem;
+
     background-color: rgb(254, 254, 254);
 }
 .featured-recipes-right{
@@ -729,6 +841,22 @@ h4{
     margin-bottom: 30px;
     border-top: 1px solid rgba(0,0,0,.2);
 
+}
+
+.test-1-2{
+    border: 1px solid red;
+    /* min-height: 100px;
+    overflow: hidden; */
+    height:600px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+.test-1{
+    border: 1px dashed blue;
+    box-sizing: border-box;
+    width: 50%;
 }
 
 .add-recipe-form-heading{
@@ -949,7 +1077,7 @@ h4{
     margin-bottom: 10px;
     padding-top:10px;
     border-top: 1px solid rgba(0,0,0,.10);
-    font-size: 1rem;
+    font-size: 16.5px;
     color: #2d2d2d;
     font-weight: bold;
     font-family: "Source Sans Pro",Arial;
@@ -974,16 +1102,21 @@ h4{
 .ingredient-associated-recipes-div{
     margin-top:8px;
     margin-left:30px;
+    font: 400 12px/20px "Source Sans Pro",sans-serif;
+
 }
 .ingredient-associated-recipe-title-btn{
     margin-right:10px;
+    font: 400 15px/23px "Source Sans Pro",sans-serif;
+    color:rgb(8, 8, 188);
+
 }
 .ingredient-info{
     padding-left:10px;
     color: #2d2d2d;
     /* font-weight: 500; */
     /* font-family: "Source Sans Pro",Arial; */
-    font: 400 16px/24px "Source Sans Pro",sans-serif;
+    font: 400 17px/25px "Source Sans Pro",sans-serif;
 
 }
 

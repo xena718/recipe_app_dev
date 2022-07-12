@@ -13,6 +13,42 @@
 // };
 
 
+// below is for removing recipe and update shopping list on shopping list page 
+const removeRecipeSLBtns = document.querySelectorAll(".recipe-remove-btn-in-shoppinglist")
+for (const removeRecipeSLBtn of removeRecipeSLBtns){
+    removeRecipeSLBtn.addEventListener('click', evt =>{
+    const infoToServer ={recipeId: removeRecipeSLBtn.dataset.recipeId};
+    const allCurrentShoppingRecipes = document.querySelectorAll(".shopping-recipe-card-div");
+    document.querySelector("#shopping-recipe-quantity").innerHTML=allCurrentShoppingRecipes.length-1;
+
+    fetch('/remove-shopping-recipe',{
+        method: 'POST',
+        body: JSON.stringify(infoToServer),
+        headers: {
+            'Content-Type': 'application/json',
+            },
+    })
+    
+    .then(response => response.text())
+    .then(serverData => {
+        const shoppingRecipeCardDiv = removeRecipeSLBtn.closest(".shopping-recipe-card-div");
+        // console.log(recipeCardDiv)
+        if (serverData === "removed_from_shoppinglist"){
+            shoppingRecipeCardDiv.remove();
+            // shoppingRecipeCardDiv.style.display= "none";
+            window.location.reload();
+
+            console.log("just removed");
+            // const allCurrentRecipeCardDivs = document.querySelectorAll(".saved-recipe-quantity");
+            // document.querySelector("#saved-recipe-quantity").innerHTML=allCurrentRecipeCardDivs.length;
+        }
+
+    });
+
+    });
+
+}
+
 // to remove comma at the end of the ingredient quantity span
 const allIngredientQuantitySpans = document.querySelectorAll(".ingredient-quantities-span");
 for ( const ingredientQuantitySpan of allIngredientQuantitySpans){
@@ -63,3 +99,27 @@ textShoppingListBts.addEventListener('click',evt =>{
     });
 
 })
+
+
+// Carousel slide for shopping recipe cards 
+
+// let currentScrollPosition = 0;
+// let scrollAmount = 800;
+
+// const sCont = document.querySelector(".recipes-cards-slide-container");
+// // const sCont = document.querySelector(".recipe-card-div-in-carousel");
+
+// const hScroll = document.querySelector(".shopping-recipe-card-horizontal-scroll");
+// let maxScroll = -sCont.offsetWidth+ hScroll.offsetWidth; 
+
+// function scrollHonrizontally(val){
+//     currentScrollPosition += (val*scrollAmount);
+//     if (currentScrollPosition >0){
+//         currentScrollPosition = 0;
+//     }
+//     if (currentScrollPosition<maxScroll){
+//         currentScrollPosition = maxScroll;
+//     }
+//     sCont.style.left = currentScrollPosition + 'px';
+// }
+

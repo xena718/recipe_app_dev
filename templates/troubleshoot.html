@@ -1,55 +1,130 @@
-<div class="navbar navbar-inverse">
-  <div class="container-fluid">
-      <div class="row">
-          <div class="col-lg-12">
+{% extends 'base.html' %}
+{% block title %}Shopping List{% endblock %}
 
-              <div class="navbar-header">
-                  <button class="navbar-toggle" data-target="#mobile_menu" data-toggle="collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-                  <a href="#" class="navbar-brand">GROUP.COM</a>
-              </div>
+{% block body %}
 
-              <div class="navbar-collapse collapse" id="mobile_menu">
-                  <ul class="nav navbar-nav">
-                      <li class="active"><a href="#">Home</a></li>
-                      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="#">About One</a></li>
-                              <li><a href="#">About Two</a></li>
-                              <li><a href="#">About Three</a></li>
-                              <li><a href="#">About Four</a></li>
-                              <li><a href="#">About Five</a></li>
-                              <li><a href="#">About Six</a></li>
-                          </ul>
-                      </li>
-                      <li><a href="#">Welcome</a></li>
-                      <li><a href="#">Services</a></li>
-                      <li><a href="#">Gallery</a></li>
-                      <li><a href="#">Contact Us</a></li>
-                  </ul>
-                  <ul class="nav navbar-nav">
-                      <li>
-                          <form action="" class="navbar-form">
-                              <div class="form-group">
-                                  <div class="input-group">
-                                      <input type="search" name="search" id="" placeholder="Search Anything Here..." class="form-control">
-                                      <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
-                                  </div>
-                              </div>
-                          </form>
-                      </li>
-                  </ul>
+<div class="saved-recipe-page-container">
 
-                  <ul class="nav navbar-nav navbar-right">
-                      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Profile</a></li>
-                      <li><a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Login / Sign Up <span class="caret"></span></a>
-                          <ul class="dropdown-menu">
-                              <li><a href="#">Login</a></li>
-                              <li><a href="#">Sign Up</a></li>
-                          </ul>
-                      </li>
-                  </ul>
-              </div>
-          </div>
-      </div>
-  </div>
+
+<div class="container-1-shoppinglist-page">
+<div class="text-above-carousel-slide">
+    <h5>You have <span id="shopping-recipe-quantity">{{recipe_instance_servings_dict | length}}</span> recipes in your shopping cart!</h5>
 </div>
+
+{% if recipe_instance_servings_dict %}
+
+<div class="recipe-card-container-for-scroll">
+    <div class="recipe-card-horizontal-scroll">
+        <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHonrizontally(1)">
+           <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="recipes-cards-slide-container recipe-cards">
+            {% for recipe, servings in recipe_instance_servings_dict.items() %}
+            <div class="recipe-card-div-in-carousel col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+              <div class="card text-center recipe-card-content-div">
+                <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
+                  <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
+                </a>
+                <div class="card-btn-div">
+                    <button class="recipe-remove-btn-in-shoppinglist" data-recipe-id="{{ recipe.recipe_id }}" method="POST"><i id="save-remove-icon" class="bi bi-dash-circle"></i></button>
+                </div>
+                <div class="card-body">
+                    <!-- <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div> -->
+                    <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
+                    <div class="card-text">
+                        shopping servings : {{servings[0]}} |
+                        original servings: {{servings[1]}}
+                    </div>
+                </div>              
+            
+              </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="btn-scroll" id="btn-scroll-right" onclick="scrollHonrizontally(-1)">
+            <i class="fas fa-chevron-right"></i>
+        </button> 
+    </div>
+  </div>
+  <script src="/static/js/app_events.js"></script>
+</div>
+
+<div class="recipe-cards-div-container">
+
+<div class="container-2-shoppinglist-page">
+<h4 class="h4-title-above-p">Shopping List<span><button class="text-shoppinglist-btn"> Text Shopping List to Your Cell Phone!</button>
+</span> </h4>
+<p><i class="bi bi-info-circle ingredient-icon"></i> Click the ingredient to show/hide its associated recipes!</p>
+
+
+<div>
+    {% for category_name in ingredients_for_all_shopping_recipes %}
+
+        <div class="ingredient-category">
+            <svg class="icon ingredient-icon">
+                <use xlink:href="static/img/ingredient_categories.svg#{{category_name}}"/>
+              </svg> 
+            <span class="ingredient-category-name-span"> {{category_name}}</span>    
+        </div>
+        <div class="ingredient-items">
+            {% for ingredient_name in ingredients_for_all_shopping_recipes[category_name] %}
+                {% if ingredients_for_all_shopping_recipes[category_name].get(ingredient_name) == {} %}
+                    <div class="ingredient-item">
+                        <i class="bi bi-circle"></i>
+                        <!-- <span class="ingredient-info-span"> {{ingredient_name}}</span> -->
+                        <a class="ingredient-info" style="text-decoration:none" class="no-underline" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> 
+                            {{ingredient_name}}
+                        </a>
+                    </div>
+                    <div class="collapse" id="collapseExample">
+                        <div class="ingredient-associated-recipes-div">
+                        {% for recipe in recipe_instance_servings_dict %}
+                            {% for ingredient in recipe.recipe_ingredients %} 
+                                {% if ingredient.name == ingredient_name %}
+                                <a class="btn btn-light ingredient-associated-recipe-title-btn" role="button" href="/recipe/{{recipe.recipe_id}}" class="no-underline">
+                                    {{ recipe.title }}
+                                </a>  
+                                {% endif %} 
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% else %}    
+                    <div class="ingredient-item">
+                        <i class="bi bi-circle"></i>
+                        <a class="ingredient-info" style="text-decoration:none" class="no-underline" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> 
+                            {{ingredient_name}}: 
+                            <span class="ingredient-quantities-span">
+                            {% for key, value in ingredients_for_all_shopping_recipes[category_name][ingredient_name].items() %}
+                            {{value}} {{key}}, 
+                            {% endfor %}
+                            </span>
+                        </a>
+
+                    <div class="collapse" id="collapseExample">
+                        <div class="ingredient-associated-recipes-div">
+                        {% for recipe in recipe_instance_servings_dict %}
+                            {% for ingredient in recipe.recipe_ingredients %} 
+                                {% if ingredient.name == ingredient_name %}
+                                <a class="btn btn-light ingredient-associated-recipe-title-btn" role="button" href="/recipe/{{recipe.recipe_id}}" class="no-underline">{{ recipe.title }}</a>  
+                                {% endif %} 
+                            {% endfor %}
+                        {% endfor %}
+                        </div>
+                    </div>    
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+
+    {% endfor %}
+</div>
+</div>
+{% endif %}
+</div>
+</div>
+
+<script src="/static/js/shopping_list_events.js"></script>
+
+{% endblock %}

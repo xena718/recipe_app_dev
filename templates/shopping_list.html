@@ -14,13 +14,13 @@
 {% if recipe_instance_servings_dict %}
 
 <div class="recipe-card-container-for-scroll">
-    <div class="recipe-card-horizontal-scroll">
+    <div class="shopping-recipe-card-horizontal-scroll">
         <button class="btn-scroll" id="btn-scroll-left" onclick="scrollHonrizontally(1)">
            <i class="fas fa-chevron-left"></i>
         </button>
         <div class="recipes-cards-slide-container recipe-cards">
             {% for recipe, servings in recipe_instance_servings_dict.items() %}
-            <div class="recipe-card-div-in-carousel col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 recipe-card-div">
+            <div class="recipe-card-div-in-carousel col-xs-12 col-sm-6 col-md-6 col-lg-4 mt-3 shopping-recipe-card-div">
               <div class="card text-center recipe-card-content-div">
                 <a href="/recipe/{{recipe.recipe_id}}" class="no-underline">
                   <img class="card-img-top img-circle recipe-img" src="{{ recipe.photo_url }}">
@@ -30,10 +30,10 @@
                 </div>
                 <div class="card-body">
                     <!-- <div class="card-text">prep {{recipe.prep_time}} | cook {{recipe.cook_time}}</div> -->
-                    <h5 class="card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
-                    <div class="card-text">
-                        shopping servings : {{servings[0]}} |
-                        original servings: {{servings[1]}}
+                    <h5 class="shopping-card-title"><a href="/recipe/{{recipe.recipe_id}}" class="no-underline card-title-href">{{ recipe.title }}</a></h5>
+                    <div class="shopping-card-text">
+                        <div class="shopping-servings-text">shopping servings : {{servings[0]}}</div>
+                        <div class="shopping-servings-text">(original servings: {{servings[1]}}) </div>
                     </div>
                 </div>              
             
@@ -52,9 +52,12 @@
 <div class="recipe-cards-div-container">
 
 <div class="container-2-shoppinglist-page">
-<h4 class="h4-title-above-p">Shopping List<span><button class="text-shoppinglist-btn"> Text Shopping List to Your Cell Phone!</button>
-</span> </h4>
-<p><i class="bi bi-info-circle ingredient-icon"></i> Click the ingredient to show/hide its associated recipes!</p>
+<h4 class="h4-title-above-p">Shopping List
+    <span>
+        <button class="text-shoppinglist-btn"> Text Shopping List to Your Cell Phone!</button>
+    </span> 
+</h4>
+<p class="p-reminder"><i class="bi bi-info-circle ingredient-icon"></i> Click the ingredient to show/hide its associated recipes!</p>
 
 
 <div>
