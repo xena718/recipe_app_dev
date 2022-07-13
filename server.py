@@ -432,26 +432,13 @@ def show_shoppinglist():
                     if value3 == int(value3):
                         ingredients_for_all_shopping_recipes[key1][key2][key3] = int(value3)
 
-
-                    # if ingredient.quantity!="" and ingredient.quantity !=" ":
-                    #     ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
-                    # else:
-                    #     ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
-                        
-                # else:
-                #     ingredients_for_all_shopping_recipes[ingredient.category]={}
-                #     if ingredient.quantity!="" and ingredient.quantity !=" ":
-                #         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)+float(Fraction(ingredient.quantity)*(recipe_servings/(recipe.servings)))
-                #     else:
-                #         ingredients_for_all_shopping_recipes[ingredient.category][ingredient.name] = ingredients_for_all_shopping_recipes[ingredient.category].get(ingredient.name,0)
-                        
-        print("*"*20)
-        print(ingredients_for_all_shopping_recipes)
+                
+        # print("*"*20)
+        # print(ingredients_for_all_shopping_recipes)
 
         return render_template("shopping_list.html", logged_in_user =user, recipe_instance_servings_dict=recipe_instance_servings_dict,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
 
 
-####### I think i may not need this route if I have the logic in Jinga???####
 @app.route("/add-recipe")
 def add_recipe():
     """add a recipe to database"""
@@ -524,13 +511,6 @@ def handle_add_recipe_form():
         ingredient_category = ingredient_category_list[i]
         recipe_ingredient_entry = crud.create_recipe_ingredient(new_recipe, ingredient_name, ingredient_category, ingredient_quantity, unit)
         i +=1
-    
-    # ingredient_name = request.form.get('ingredient-name')
-    # ingredient_quantity = request.form.get('ingredient-quantity')
-    # unit_name = request.form.get('quantity-unit-select')
-    # unit = crud.get_quantity_unit_by_name(unit_name)
-    # ingredient_category = request.form.get('ingredient-catogory-select')
-    # recipe_ingredient_entry = crud.create_recipe_ingredient(new_recipe, ingredient_name, ingredient_category, ingredient_quantity, unit)
 
     step_number = 1
     step_guidance = request.form.get('step-guidance')
@@ -547,20 +527,6 @@ def handle_add_recipe_form():
 
     return render_template("thank_you.html")
 
-@app.route("/browse")
-def browse_recipes():
-    # randomly select 3 cuisines. randomly select 3 recipes per cuisine.
-    # {cuisine_type1:[recipe1, recipe2, recipe3], cuisine_type2:[xx,xx,xx], cuisine_type3:[xx,xx,xx]}
-    # randomly select 3 courses. randomly select 3 recipes per course.
-    # randomly select 3 recipes for Vegetarian and Gluten-free diet.
-    # {Vegetarian:[recipe1, recipe2, recipe3], Gluten-free:[xx,xx,xx]}
-
-    some_recipes_3_cuisines = crud.get_some_recipes_3_cuisines()
-    some_recipes_3_courses = crud.get_some_recipes_3_courses()
-    some_recipes_2_specialdiets = crud.get_some_recipes_2_specialdiets()
-
-    return render_template('browse_homepage.html', some_recipes_3_cuisines=some_recipes_3_cuisines, some_recipes_3_courses=some_recipes_3_courses, some_recipes_2_specialdiets=some_recipes_2_specialdiets)
-
 
 @app.route("/search", methods=["POST"])
 def search():
@@ -571,19 +537,11 @@ def search():
     user_email = session["logged_in_user_email"]
     current_user = crud.get_user_by_email(user_email)
     # # how to do partial search () e.g. title contains one or multipl words of the input
-
     # split input (if phrase) to words and then search each word against title, author, ingredient
-    # input_list = input.split() # split at space
-
     # present the results in what order?order by title
 
     return render_template("search_output.html", current_user=current_user, search_returned_recipes=matched_recipes)
 
-# @app.route("/cuisines")
-# def display_cuisines_homepage():
-#     allrecipes_allcuisines = crud.get_allrecipes_allcuisines()
-    
-#     return render_template("cuisines.html", allrecipes_allcuisines = allrecipes_allcuisines)
 
 @app.route('/cuisines/<cuisine_type>')
 def show_recipes_of_any_cuisine(cuisine_type):
