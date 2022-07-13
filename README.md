@@ -17,13 +17,6 @@ I used to use gsheet for managing recipe collections. Not any more! I have enjoy
 * Database & Industry Tools: PostgreSQL, Git, Github, Command Line
 * Tools/Software: Docker, Visual Studio Code, Microsoft Office
 
-Backend: Python, Flask, SQL, PostgreSQL, SQLAlchemy
-* Frontend UI Framework: HTML, Jinja2, CSS, Bootstrap 
-* JS cornerstone: Javascript(AJAX and JSON)
-* Deploy: ## under deployment. to be updated ##
-* Database & Industry Tools | PostgreSQL, Git, Github, Command Line
-* Other: Beautiful Soup(used for data-scraping). See my [Giveme_Recipes](https://github.com/xena718/giveme_recipes) project for more information. 
-
 ## <a name="features"></a>Features :beers:
 🎥 [Yummy APP Demo Youtube Link](https://www.youtube.com/watch?v=hWVR_YX7PN8)
 
