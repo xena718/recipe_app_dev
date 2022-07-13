@@ -12,14 +12,20 @@ I used to use gsheet for managing recipe collections. Not any more! I have enjoy
 * [About Me](#aboutme)
 
 ## <a name="techstack"></a>Tech Stack :card_file_box:
-* Backend: Python, Flask, SQL, PostgreSQL, SQLAlchemy
+* Languages: Python, Javascript(AJAX, JSON), HTML, CSS, SQL
+* Frameworks/Libraries: Flask, Bootstrap, Jinja, BeautifulSoup
+* Database & Industry Tools: PostgreSQL, Git, Github, Command Line
+* Tools/Software: Docker, Visual Studio Code, Microsoft Office
+
+Backend: Python, Flask, SQL, PostgreSQL, SQLAlchemy
 * Frontend UI Framework: HTML, Jinja2, CSS, Bootstrap 
-* JS cornerstone: Javascript, AJAX method, and JSON data format
-* Deploy: to be added ...
+* JS cornerstone: Javascript(AJAX and JSON)
+* Deploy: ## under deployment. to be updated ##
+* Database & Industry Tools | PostgreSQL, Git, Github, Command Line
 * Other: Beautiful Soup(used for data-scraping). See my [Giveme_Recipes](https://github.com/xena718/giveme_recipes) project for more information. 
 
 ## <a name="features"></a>Features :beers:
-🎥 youtube link to be added... 
+🎥 [Yummy APP Demo Youtube Link](https://www.youtube.com/watch?v=hWVR_YX7PN8)
 
 
 #### Homepage
@@ -41,6 +47,7 @@ I used to use gsheet for managing recipe collections. Not any more! I have enjoy
 * logged-in users can see recipes that they have added to shopping cart. Each recipe card displays the shopping servings of the recipe. 
 * A shopping list is generated for all recipes in cart. Shopping servring size of each recipe is used to generate shopping list. The quantity of the same ingredient from all recipes in card will be summed together if same unit is used or bundled together to the same line in shoppling list. 
 * Users can click the ingredient to show/hide its associated recipes! 
+* Users can text shopping list to cell phone!
 
 #### Add a Recipe and User Profile
 * Logged in users can add recipes by navigating to Add Recipe page.
@@ -48,7 +55,7 @@ I used to use gsheet for managing recipe collections. Not any more! I have enjoy
 
 
 ## <a name="setup"></a>Set Up 🛠
-To Be Added...
+* This is a placeholder for setup of deployed app. ##to updated##.
 
 ## <a name="futureimprovements"></a>Future Improvements :raised_hands:
 * Implement natural language processing (NLP) to categorize ingredients in shopping list.
@@ -63,10 +70,10 @@ To Be Added...
 
 
 ## <a name="credits"></a>Credits :lollipop:
-* All images and recipes in the demo are for demonstrative purposes only. They were scraped from the following sources. 
+* All images and recipes in the demo were scraped from the following sources for demonstrative purposes only. 
  * [NDTV Food](https://food.ndtv.com/)
  * [NYT Cooking](https://cooking.nytimes.com/)
- * [Allrecipes](https://www.allrecipes.com/)
+* Thanks to HackBright Academy, instructors, TAs, alumni, outcomes team, and mentor for their support!
 
 ## <a name="aboutme"></a>About Me :eyes: 
-Hello! I'm Chengfeng, a software engineer and scientific researcher in Biotech. I created YummyApp in eight weeks(4-8 hrs per week) during my part-time full-stack engineer study at Hackbright. Check out my other projects on my [Github](https://github.com/xena718?tab=repositories)! I'd love to connect with you on [Linkedin](https://www.linkedin.com/in/chengfengren/)!
+Hello! I'm Chengfeng, a software engineer and scientific researcher in Biotech. I created YummyApp in eight weeks(4-8 hrs per week) during my part-time software engineering study (focused on full-stack web development) at Hackbright Academy. Check out my other projects on my [Github](https://github.com/xena718?tab=repositories)! I'd love to connect with you on [Linkedin](https://www.linkedin.com/in/chengfengren/)!
