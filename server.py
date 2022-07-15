@@ -539,7 +539,7 @@ def search():
     # # how to do partial search () e.g. title contains one or multipl words of the input
     # split input (if phrase) to words and then search each word against title, author, ingredient
     # present the results in what order?order by title
-
+    # add features in search output page that allow users to include or exclude some ingredients, select categories, etc
     return render_template("search_output.html", current_user=current_user, search_returned_recipes=matched_recipes)
 
 
