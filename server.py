@@ -436,7 +436,12 @@ def show_shoppinglist():
         # print("*"*20)
         # print(ingredients_for_all_shopping_recipes)
 
-        return render_template("shopping_list.html", logged_in_user =user, recipe_instance_servings_dict=recipe_instance_servings_dict,ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes)
+        return render_template(
+            "shopping_list.html", 
+            logged_in_user =user, 
+            recipe_instance_servings_dict=recipe_instance_servings_dict,
+            ingredients_for_all_shopping_recipes=ingredients_for_all_shopping_recipes
+        )
 
 
 @app.route("/add-recipe")
@@ -465,7 +470,13 @@ def add_recipe():
     "grams","gram","g",
     "","no unit","other unit"]
 
-    return render_template('add_recipe.html', cuisines=cuisines, courses=courses, quantity_units=quantity_units, ingredient_categories=ingredient_categories)
+    return render_template(
+        'add_recipe.html', 
+        cuisines=cuisines, 
+        courses=courses, 
+        quantity_units=quantity_units, 
+        ingredient_categories=ingredient_categories
+    )
         
 
 
@@ -540,7 +551,11 @@ def search():
     # split input (if phrase) to words and then search each word against title, author, ingredient
     # present the results in what order?order by title
     # add features in search output page that allow users to include or exclude some ingredients, select categories, etc
-    return render_template("search_output.html", current_user=current_user, search_returned_recipes=matched_recipes)
+    return render_template(
+        "search_output.html", 
+        current_user=current_user, 
+        search_returned_recipes=matched_recipes
+    )
 
 
 @app.route('/cuisines/<cuisine_type>')
@@ -552,9 +567,19 @@ def show_recipes_of_any_cuisine(cuisine_type):
 
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("recipes_per_cuisine.html", current_user=current_user,cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, allrecipes_allcuisines=allrecipes_allcuisines)
+        return render_template(
+            "recipes_per_cuisine.html", 
+            current_user=current_user,
+            cuisine_type=cuisine_type, 
+            recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, 
+            allrecipes_allcuisines=allrecipes_allcuisines
+        )
     else:
-        return render_template("recipes_per_cuisine.html", cuisine_type=cuisine_type, recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, allrecipes_allcuisines=allrecipes_allcuisines)
+        return render_template("recipes_per_cuisine.html", 
+        cuisine_type=cuisine_type, 
+        recipes_of_the_cuisine_type=recipes_of_the_cuisine_type, 
+        allrecipes_allcuisines=allrecipes_allcuisines
+        )
 
 
 @app.route('/specialdiets/<specialdiet_type>')
@@ -566,9 +591,19 @@ def show_recipes_of_any_specialdiet(specialdiet_type):
 
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("recipes_per_specialdiet.html", current_user=current_user,specialdiet_type=specialdiet_type, recipes_of_the_specialdiet_type=recipes_of_the_specialdiet_type, allrecipes_allspecialdiets=allrecipes_allspecialdiets)
+        return render_template(
+            "recipes_per_specialdiet.html", 
+            current_user=current_user,
+            specialdiet_type=specialdiet_type, 
+            recipes_of_the_specialdiet_type=recipes_of_the_specialdiet_type, 
+            allrecipes_allspecialdiets=allrecipes_allspecialdiets
+        )
     else:
-        return render_template("recipes_per_specialdiet.html", specialdiet_type=specialdiet_type, recipes_of_the_specialdiet_type=recipes_of_the_specialdiet_type, allrecipes_allspecialdiets=allrecipes_allspecialdiets)
+        return render_template("recipes_per_specialdiet.html", 
+        specialdiet_type=specialdiet_type, 
+        recipes_of_the_specialdiet_type=recipes_of_the_specialdiet_type, 
+        allrecipes_allspecialdiets=allrecipes_allspecialdiets
+        )
 
 
 @app.route('/courses/<course_type>')
@@ -580,9 +615,20 @@ def show_recipes_of_any_course(course_type):
 
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("recipes_per_course.html", current_user=current_user, course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
+        return render_template(
+            "recipes_per_course.html", 
+            current_user=current_user, 
+            course_type=course_type, 
+            recipes_of_the_course_type=recipes_of_the_course_type, 
+            allrecipes_allcourses=allrecipes_allcourses
+        )
     else:
-        return render_template("recipes_per_course.html", course_type=course_type, recipes_of_the_course_type=recipes_of_the_course_type, allrecipes_allcourses=allrecipes_allcourses)
+        return render_template(
+            "recipes_per_course.html", 
+            course_type=course_type, 
+            recipes_of_the_course_type=recipes_of_the_course_type, 
+            allrecipes_allcourses=allrecipes_allcourses
+        )
 
 @app.route('/ingredients/<ingredient_name>')
 def show_recipes_of_the_ingredient(ingredient_name):
@@ -599,9 +645,20 @@ def show_recipes_of_the_ingredient(ingredient_name):
 
     if user_email:
         current_user = crud.get_user_by_email(user_email)
-        return render_template("recipes_per_ingredient.html", current_user=current_user, ingredient_name = ingredient_name, recipes_of_the_ingredient=recipes_of_the_ingredient, popular_ingredients=popular_ingredients)
+        return render_template(
+            "recipes_per_ingredient.html", 
+            current_user=current_user, 
+            ingredient_name = ingredient_name, 
+            recipes_of_the_ingredient=recipes_of_the_ingredient, 
+            popular_ingredients=popular_ingredients
+        )
     else:
-        return render_template("recipes_per_ingredient.html", ingredient_name = ingredient_name, recipes_of_the_ingredient=recipes_of_the_ingredient, popular_ingredients=popular_ingredients)
+        return render_template(
+            "recipes_per_ingredient.html", 
+            ingredient_name = ingredient_name, 
+            recipes_of_the_ingredient=recipes_of_the_ingredient, 
+            popular_ingredients=popular_ingredients
+        )
 
 
 if __name__ == "__main__":
